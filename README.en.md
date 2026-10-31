@@ -4,27 +4,31 @@
 
 ![WOPPS cover — a terminal AI companion with its neon bunny mascot](docs/uf0rs-cover.svg)
 
-**WOPPS** is the terminal and desktop AI companion from UF0RS STUDIO. It opens a selected project and provides an interactive TUI for chatting with a model, reviewing its actions, inspecting file changes, and reading command output. The interface has a dark forest theme, an original ASCII bunny, a slash-command palette, and keyboard and mouse controls. Choose Russian, English, or French on first launch.
+**WOPPS** is the terminal and desktop AI companion from UF0RS STUDIO. It opens a selected project and provides an interactive TUI for chatting with a model, reviewing its actions, inspecting file changes, and reading command output. Dark forest theme, an ASCII bunny, a slash-command palette, and keyboard and mouse controls.
+
+Current version: **0.3.32**.
 
 ## Installation
 
-### Windows
+### Windows — one file
 
-From PowerShell or CMD, open the source directory and run:
+1. Download [uf0rs-install.cmd](https://github.com/uf0rs/wopps-ai/releases/latest/download/uf0rs-install.cmd).
+2. Run it with a double click.
+3. Open a **new** terminal window and type `uf0rs`.
+
+The script needs neither Node.js nor administrator rights: it downloads `uf0rs.exe` from the latest release, copies it to `%LOCALAPPDATA%\Programs\UF0RS AI`, adds that directory to the user `PATH`, and verifies the result with `uf0rs doctor`. Afterwards `uf0rs` works in any new CMD, PowerShell, Windows Terminal, and Git Bash window. WSL needs the Linux package.
+
+If `uf0rs.exe` already sits next to the script, the download is skipped and that file is installed.
+
+### Windows — from source
+
+Node.js 22+ is required. From the source directory:
 
 ```text
 install.cmd
 ```
 
-The installer builds a standalone `uf0rs.exe`, installs it under `%LOCALAPPDATA%\Programs\UF0RS AI`, and adds that directory to the user `PATH`. Open a new terminal after installation. Launching the native executable is not blocked by PowerShell's execution policy.
-
-Without Node.js: download `uf0rs.exe` and `uf0rs-install.cmd` from [Releases](https://github.com/uf0rs/wopps-ai/releases/latest), put both in one folder, and run `uf0rs-install.cmd`. The script copies the executable to `%LOCALAPPDATA%\Programs\UF0RS AI`, adds that directory to the user `PATH`, and verifies the result with `uf0rs doctor`. If `uf0rs.exe` is not next to the script, it downloads the latest release with `curl.exe`. Afterwards `uf0rs` works in any new CMD, PowerShell, Windows Terminal, and Git Bash window; WSL needs the Linux package.
-
-To install an already-built executable:
-
-```powershell
-.\dist\uf0rs.exe install --source-dir .
-```
+The script builds a standalone `uf0rs.exe`, installs it into the same directory, and updates `PATH`.
 
 ### Linux and macOS
 
@@ -35,18 +39,18 @@ chmod +x ./install.sh
 ./install.sh
 ```
 
-The installer places WOPPS in `~/.local/bin` and adds that directory to supported shell startup files. Open a new terminal to pick up the updated `PATH`.
+WOPPS is installed into `~/.local/bin` and the installer appends that directory to supported shell startup files. A new terminal window picks up `PATH`.
 
 ### Build from source
 
-Building requires Node.js 22+, npm, and network access. The build script obtains Bun 1.4.4 through npm and uses the frozen workspace lockfile.
+Building requires Node.js 22+, npm, and network access: the build script obtains Bun 1.4.4 through npm and uses the frozen lockfile.
 
 ```sh
-npm install
+npm ci
 npm run build:cli
 ```
 
-The standalone binary is written to `dist/uf0rs.exe` on Windows or `dist/uf0rs` on Linux/macOS. The integrated TUI is checked with `bun run typecheck` from `uf0rs-engine/packages/tui` and `uf0rs-engine/packages/cli`.
+The standalone binary is written to `dist/uf0rs.exe` on Windows or `dist/uf0rs` on Linux/macOS. Build every platform with `npm run build:cli:all`; run the installer tests with `npm test`.
 
 ## Commands
 
@@ -59,13 +63,14 @@ uf0rs models              Configure a provider and model
 uf0rs mcp                 Manage local MCP servers
 uf0rs --help              Show help
 uf0rs --version           Print the version
-uf0rs doctor              Diagnose the installation and PATH
-In the TUI: /language     Choose the interface language
+uf0rs install             Install the CLI for this user and update PATH
+uf0rs doctor              Diagnose the installation, PATH, and settings
 uf0rs update              Update UF0RS
 uf0rs uninstall           Uninstall UF0RS
+In the TUI: /language     Choose the interface language
 ```
 
-Type `/` in the TUI to open the slash-command palette. Search and select commands with the keyboard or mouse. `/auto_mod` toggles permission prompts for the current run; `/auto_mod on` and `/auto_mod off` set the mode explicitly. `/auto_mode` remains an alias. Automatic approval skips permission prompts for model actions, so enable it only when you trust the requests and selected model.
+Type `/` in the TUI to open the slash-command palette. `/auto_mod` toggles permission prompts for the current run; `/auto_mod on` and `/auto_mod off` set the mode explicitly. `/auto_mode` remains an alias. Automatic approval skips permission prompts for model actions, so enable it only when you trust the requests and selected model.
 
 ## Projects and computer tools
 
@@ -75,7 +80,11 @@ The model core supports providers including Ollama and OpenAI-compatible APIs. F
 
 After you connect OpenRouter, WOPPS refreshes the model list from OpenRouter's catalog. The picker keeps text models that support tool calls, which are required for project work and computer control. If OpenRouter was configured in an earlier WOPPS version, its settings and selected model are imported from `~/.uf0rs/config.json` on first launch.
 
-Settings, state, and conversation history are stored locally under `~/.uf0rs` (Windows: `%USERPROFILE%\\.uf0rs`). Prompts, file contents, and command results are sent to the selected model when needed to answer.
+## Updating and removing
+
+`uf0rs update` downloads the latest GitHub release (or rebuilds from the saved source directory) and replaces the executable. Updating works while WOPPS is running: the live `uf0rs.exe` is renamed to `uf0rs.old.exe`, the new file takes its place, and the next start uses it. `uf0rs uninstall` removes the program and its `PATH` entry while keeping settings and history.
+
+Settings, state, and conversation history are stored locally under `~/.uf0rs` (Windows: `%USERPROFILE%\.uf0rs`). Prompts, file contents, and command results are sent to the selected model when needed to answer.
 
 The integrated TUI currently has English labels; Russian and French localization from the previous interface has not yet been ported.
 
