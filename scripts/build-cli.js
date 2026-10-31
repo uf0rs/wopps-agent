@@ -45,7 +45,9 @@ const buildArgs = ["script/build.ts", "--outdir=../../../dist/engine"];
 const env = { ...process.env };
 delete env.OPENCODE_TARGET;
 if (requestedTarget) {
-  env.OPENCODE_TARGET = targets[requestedTarget];
+  // build.ts prefixes the binary name itself (targetName => `uf0rs-<os>-<arch>`), so only the
+  // platform part is expected here; passing the full id fails with "Unknown build target".
+  env.OPENCODE_TARGET = targets[requestedTarget].replace(/^uf0rs-/, "");
 } else if (!args.includes("--all")) {
   buildArgs.push("--single", "--skip-install");
 }
