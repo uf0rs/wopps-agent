@@ -1,0 +1,20 @@
+{
+  "name": "wopps-ai",
+  "version": "0.3.27",
+  "description": "WOPPS, the terminal AI companion by UF0RS STUDIO",
+  "author": "Влад (uf0rs), UF0RS STUDIO",
+  "homepage": "https://github.com/uf0rs/wopps-ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uf0rs/wopps-ai.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build:cli": "node scripts/build-cli.js",
+    "build:cli:all": "node scripts/build-cli.js --all",
+    "prepare:release": "node scripts/prepare-release-assets.js"
+  }
+}

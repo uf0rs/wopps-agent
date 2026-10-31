@@ -1,0 +1,177 @@
+name: Build and publish WOPPS AI
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            target: node22-win-x64
+            platform: win
+            architecture: x64
+            binary: uf0rs.exe
+          - runner: ubuntu-22.04
+            target: node22-linux-x64
+            platform: linux
+            architecture: x64
+            binary: uf0rs
+          - runner: ubuntu-22.04-arm
+            target: node22-linux-arm64
+            platform: linux
+            architecture: arm64
+            binary: uf0rs
+          - runner: windows-11-arm
+            target: node22-win-arm64
+            platform: win
+            architecture: arm64
+            binary: uf0rs.exe
+          - runner: macos-15-intel
+            target: node22-macos-x64
+            platform: macos
+            architecture: x64
+            binary: uf0rs
+          - runner: macos-latest
+            target: node22-macos-arm64
+            platform: macos
+            architecture: arm64
+            binary: uf0rs
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build native release binary
+        run: node scripts/build-cli.js --target ${{ matrix.target }}
+
+      - name: Arrange release artifact
+        shell: bash
+        run: |
+          mkdir -p "dist/releases/${{ matrix.platform }}-${{ matrix.architecture }}"
+          mv "dist/${{ matrix.binary }}" "dist/releases/${{ matrix.platform }}-${{ matrix.architecture }}/${{ matrix.binary }}"
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.platform }}-${{ matrix.architecture }}
+          path: dist/releases/
+          if-no-files-found: error
+
+  release:
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download platform binaries
+        uses: actions/download-artifact@v4
+        with:
+          pattern: binary-*
+          path: dist/releases
+          merge-multiple: true
+
+      - name: Prepare release downloads and package manifests
+        run: |
+          node -e "if (process.env.GITHUB_REF_NAME !== 'v' + require('./package.json').version) process.exit(1)"
+          npm run prepare:release
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            dist/release-assets/uf0rs.exe \
+            dist/release-assets/wopps-ai-win-arm64.exe \
+            dist/release-assets/wopps-ai-linux-x64 \
+            dist/release-assets/wopps-ai-linux-arm64 \
+            dist/release-assets/wopps-ai-macos-x64.tar.gz \
+            dist/release-assets/wopps-ai-macos-arm64.tar.gz \
+            dist/release-assets/install.sh \
+            dist/release-assets/wopps-ai.rb \
+            dist/release-assets/checksums.txt \
+            dist/release-assets/winget/*.yaml \
+            --title "WOPPS AI от uf0rs / WOPPS AI by uf0rs ${GITHUB_REF_NAME#v}" \
+            --generate-notes
+
+  winget:
+    needs: release
+    if: ${{ vars.WINGET_ENABLED == 'true' }}
+    runs-on: windows-latest
+    steps:
+      - name: Install WinGetCreate
+        run: winget install --id Microsoft.WingetCreate --exact --source winget --accept-source-agreements --accept-package-agreements
+
+      - name: Download WinGet manifests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path "$env:RUNNER_TEMP\winget" | Out-Null
+          gh release download "$env:GITHUB_REF_NAME" --repo "$env:GITHUB_REPOSITORY" --pattern "UF0RS.WOPPSAI*.yaml" --dir "$env:RUNNER_TEMP\winget"
+          $manifestDirectory = "$env:RUNNER_TEMP\winget"
+          $schemaTypes = @{
+            "UF0RS.WOPPSAI.yaml" = "version"
+            "UF0RS.WOPPSAI.installer.yaml" = "installer"
+            "UF0RS.WOPPSAI.locale.en-US.yaml" = "defaultLocale"
+          }
+          foreach ($fileName in $schemaTypes.Keys) {
+            $manifestPath = Join-Path $manifestDirectory $fileName
+            $content = Get-Content -LiteralPath $manifestPath -Raw
+            if ($fileName -like "*.locale.*.yaml") {
+              $content = $content -replace '(?m)^ManifestType: locale$', 'ManifestType: defaultLocale'
+            }
+            $schemaUrl = "https://aka.ms/winget-manifest.$($schemaTypes[$fileName]).1.10.0.schema.json"
+            Set-Content -LiteralPath $manifestPath -Value "# yaml-language-server: `$schema=$schemaUrl`n$content" -NoNewline
+          }
+
+      - name: Submit WinGet package update
+        env:
+          WINGET_CREATE_GITHUB_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        shell: pwsh
+        run: |
+          wingetcreate submit --no-open --prtitle "WOPPS AI $env:GITHUB_REF_NAME" "$env:RUNNER_TEMP\winget"

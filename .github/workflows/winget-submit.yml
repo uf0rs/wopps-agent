@@ -1,0 +1,75 @@
+name: Submit WOPPS AI to WinGet
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Published release tag to submit
+        required: true
+        default: v0.3.23
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: windows-latest
+    steps:
+      - name: Validate release tag and token
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        run: |
+          if ($env:RELEASE_TAG -notmatch '^v\d+\.\d+\.\d+$') {
+            throw "Invalid release tag: $env:RELEASE_TAG"
+          }
+          if ([string]::IsNullOrWhiteSpace($env:WINGET_TOKEN)) {
+            throw "The WINGET_TOKEN Actions secret is not configured."
+          }
+
+      - name: Install WinGetCreate
+        run: winget install --id Microsoft.WingetCreate --exact --source winget --accept-source-agreements --accept-package-agreements
+
+      - name: Download release manifests
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          $manifestDirectory = Join-Path $env:RUNNER_TEMP "winget"
+          New-Item -ItemType Directory -Force -Path $manifestDirectory | Out-Null
+          gh release download $env:RELEASE_TAG --repo $env:GITHUB_REPOSITORY --pattern "UF0RS.WOPPSAI*.yaml" --dir $manifestDirectory
+          if ($LASTEXITCODE -ne 0) {
+            throw "Could not download WinGet manifests for $env:RELEASE_TAG."
+          }
+          $manifests = @(Get-ChildItem -LiteralPath $manifestDirectory -Filter "UF0RS.WOPPSAI*.yaml")
+          if ($manifests.Count -ne 3) {
+            throw "Expected 3 WinGet manifest files, found $($manifests.Count)."
+          }
+          $schemaTypes = @{
+            "UF0RS.WOPPSAI.yaml" = "version"
+            "UF0RS.WOPPSAI.installer.yaml" = "installer"
+            "UF0RS.WOPPSAI.locale.en-US.yaml" = "defaultLocale"
+          }
+          foreach ($fileName in $schemaTypes.Keys) {
+            $manifestPath = Join-Path $manifestDirectory $fileName
+            $content = Get-Content -LiteralPath $manifestPath -Raw
+            if ($fileName -like "*.locale.*.yaml") {
+              $content = $content -replace '(?m)^ManifestType: locale$', 'ManifestType: defaultLocale'
+            }
+            $schemaUrl = "https://aka.ms/winget-manifest.$($schemaTypes[$fileName]).1.10.0.schema.json"
+            Set-Content -LiteralPath $manifestPath -Value "# yaml-language-server: `$schema=$schemaUrl`n$content" -NoNewline
+          }
+
+      - name: Submit WinGet package update
+        shell: pwsh
+        env:
+          WINGET_CREATE_GITHUB_TOKEN: ${{ secrets.WINGET_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          wingetcreate submit --no-open --prtitle "WOPPS AI $env:RELEASE_TAG" "$env:RUNNER_TEMP\winget"
+          if ($LASTEXITCODE -ne 0) {
+            throw "WinGetCreate failed to submit the manifests."
+          }

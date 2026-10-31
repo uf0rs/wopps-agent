@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.uf0rs/
+*.log
+.env*
+!.env.example
+
+# uf0rs-engine build and runtime artifacts
+uf0rs-engine/.cache/
+uf0rs-engine/packages/*/.cache/
+uf0rs-engine/packages/*/dist/
+uf0rs-engine/.turbo/
+uf0rs-engine/packages/*/.turbo/
+uf0rs-engine/*.tsbuildinfo
+
+# local service caches
+.wrangler/
+uf0rs-engine/**/.wrangler/
