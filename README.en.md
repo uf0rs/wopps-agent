@@ -6,7 +6,7 @@
 
 **WOPPS** is the terminal and desktop AI companion from UF0RS STUDIO. It opens a selected project and provides an interactive TUI for chatting with a model, reviewing its actions, inspecting file changes, and reading command output. Dark forest theme, an ASCII bunny, a slash-command palette, and keyboard and mouse controls.
 
-Current version: **0.3.32**.
+Current version: **0.3.33**.
 
 ## Installation
 
