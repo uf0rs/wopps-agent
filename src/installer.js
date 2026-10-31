@@ -162,7 +162,22 @@ async function replaceExecutable(source, destination, platform) {
   if (platform !== "win32") await fs.chmod(temporary, 0o755);
   try {
     await fs.rename(temporary, destination);
+    return;
   } catch (error) {
+    if (platform === "win32" && ["EPERM", "EACCES", "EBUSY"].includes(error.code)) {
+      // Windows keeps the image of a running executable locked, but renaming that image is
+      // allowed. Move the running copy aside so the next start uses the fresh binary.
+      const previous = `${destination}.old`;
+      await fs.rm(previous, { force: true });
+      await fs.rename(destination, previous);
+      try {
+        await fs.rename(temporary, destination);
+        return;
+      } catch (swapError) {
+        await fs.rename(previous, destination).catch(() => {});
+        error = swapError;
+      }
+    }
     await fs.rm(temporary, { force: true });
     const replacementError = new Error(`Could not replace ${destination}: ${error.message}. Close UF0RS and retry.`);
     replacementError.code = error.code;
