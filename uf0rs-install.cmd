@@ -34,10 +34,21 @@ if errorlevel 1 (
 )
 
 :install
+tasklist /fi "imagename eq uf0rs.exe" 2>nul | find /i "uf0rs.exe" >nul
+if not errorlevel 1 (
+    echo.
+    echo WOPPS AI is running right now, so the executable cannot be replaced.
+    echo Close every open WOPPS window and run this installer again.
+    goto :fail
+)
+
 echo Installing WOPPS AI into "%BIN_DIR%"...
 "%SOURCE%" install
 if errorlevel 1 goto :fail
-if defined DOWNLOADED del /f /q "%SOURCE%" >nul 2>nul
+if defined DOWNLOADED (
+    timeout /t 5 /nobreak >nul
+    del /f /q "%SOURCE%" >nul 2>nul
+)
 
 if not exist "%BIN_DIR%\uf0rs.exe" (
     echo.

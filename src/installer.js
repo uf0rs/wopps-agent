@@ -196,7 +196,12 @@ export async function installApp({ binaryPath, sourceDir = sourceRoot, paths = g
   } catch (error) {
     const existingExecutable = platform === "win32" && await fs.stat(paths.executable).catch(() => null);
     if (!existingExecutable || !["EPERM", "EACCES", "EBUSY"].includes(error.code)) throw error;
-    await scheduleWindowsUpdate(actualSource, paths.executable);
+    // A running WOPPS instance keeps the destination locked. The caller may delete its own
+    // source as soon as install returns, so the background replacement gets a private copy.
+    const stagingDir = await fs.mkdtemp(path.join(os.tmpdir(), "uf0rs-install-"));
+    const staged = path.join(stagingDir, "uf0rs.exe");
+    await fs.copyFile(actualSource, staged);
+    await scheduleWindowsUpdate(staged, paths.executable, true);
     deferredWindowsUpdate = true;
   }
   if (platform === "win32" && paths.launcher) {
@@ -321,7 +326,7 @@ async function scheduleWindowsUpdate(source, destination, removeSource = false) 
     `$source = ${quotePowerShell(source)}`,
     `$destination = ${quotePowerShell(destination)}`,
     "$updated = $false",
-    "for ($i = 0; $i -lt 30; $i++) {",
+    "for ($i = 0; $i -lt 120; $i++) {",
     "  try { Copy-Item -LiteralPath $source -Destination $destination -Force; $updated = $true; break } catch { Start-Sleep -Seconds 1 }",
     "}",
     `if (-not $updated) { Write-Error 'Could not replace the executable. Close UF0RS and run the update again.'; ${removeSource ? "Remove-Item -LiteralPath $source -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath (Split-Path -Parent $source) -Force -ErrorAction SilentlyContinue;" : ""} Remove-Item -LiteralPath $PSCommandPath -Force; exit 1 }`,
