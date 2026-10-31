@@ -18,6 +18,8 @@ install.cmd
 
 Скрипт собирает автономный `uf0rs.exe`, устанавливает его в `%LOCALAPPDATA%\Programs\UF0RS AI` и добавляет каталог в пользовательский `PATH`. Откройте новое окно терминала после установки. Запуск нативного `.exe` не зависит от PowerShell Execution Policy.
 
+Если Node.js нет: скачайте `uf0rs.exe` и `uf0rs-install.cmd` из [Releases](https://github.com/uf0rs/wopps-ai/releases/latest), положите в одну папку и запустите `uf0rs-install.cmd`. Батник скопирует исполняемый файл в `%LOCALAPPDATA%\Programs\UF0RS AI`, добавит этот каталог в пользовательский `PATH` и проверит установку командой `uf0rs doctor`. Если `uf0rs.exe` рядом с батником нет, он сам скачает последний релиз через `curl.exe`. После этого `uf0rs` работает в любом новом окне CMD, PowerShell, Windows Terminal и Git Bash; в WSL нужен Linux-пакет.
+
 Для установки уже собранного бинарного файла:
 
 ```powershell

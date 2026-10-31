@@ -36,6 +36,7 @@ for (const target of platforms) {
 }
 
 await fs.copyFile(path.join(root, "install.sh"), path.join(assetRoot, "install.sh"));
+await fs.copyFile(path.join(root, "uf0rs-install.cmd"), path.join(assetRoot, "uf0rs-install.cmd"));
 const formula = `class WoppsAi < Formula
   desc "Friendly bilingual terminal AI assistant by uf0rs / дружелюбный ИИ-помощник для терминала"
   homepage "https://github.com/uf0rs/wopps-ai"

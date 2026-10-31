@@ -18,6 +18,8 @@ install.cmd
 
 The installer builds a standalone `uf0rs.exe`, installs it under `%LOCALAPPDATA%\Programs\UF0RS AI`, and adds that directory to the user `PATH`. Open a new terminal after installation. Launching the native executable is not blocked by PowerShell's execution policy.
 
+Without Node.js: download `uf0rs.exe` and `uf0rs-install.cmd` from [Releases](https://github.com/uf0rs/wopps-ai/releases/latest), put both in one folder, and run `uf0rs-install.cmd`. The script copies the executable to `%LOCALAPPDATA%\Programs\UF0RS AI`, adds that directory to the user `PATH`, and verifies the result with `uf0rs doctor`. If `uf0rs.exe` is not next to the script, it downloads the latest release with `curl.exe`. Afterwards `uf0rs` works in any new CMD, PowerShell, Windows Terminal, and Git Bash window; WSL needs the Linux package.
+
 To install an already-built executable:
 
 ```powershell

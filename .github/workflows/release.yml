@@ -132,6 +132,7 @@ jobs:
             dist/release-assets/wopps-ai-macos-x64.tar.gz \
             dist/release-assets/wopps-ai-macos-arm64.tar.gz \
             dist/release-assets/install.sh \
+            dist/release-assets/uf0rs-install.cmd \
             dist/release-assets/wopps-ai.rb \
             dist/release-assets/checksums.txt \
             dist/release-assets/winget/*.yaml \
