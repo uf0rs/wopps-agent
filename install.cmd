@@ -31,6 +31,6 @@ if not exist "%UF0RS_BINARY%" (
   if errorlevel 1 exit /b 1
 )
 
-"%UF0RS_BINARY%" install --binary "%UF0RS_BINARY%" --source-dir "%~dp0."
+"%UF0RS_BINARY%" install --source-dir "%~dp0."
 if errorlevel 1 exit /b %errorlevel%
 endlocal

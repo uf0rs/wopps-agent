@@ -74,7 +74,7 @@ if [ ! -f "$EXECUTABLE" ]; then
 fi
 if [ -n "$DOWNLOADED_DIR" ]; then
   trap 'rm -rf "$DOWNLOADED_DIR"' EXIT HUP INT TERM
-  "$EXECUTABLE" install --binary "$EXECUTABLE"
+  "$EXECUTABLE" install
 else
-  "$EXECUTABLE" install --binary "$EXECUTABLE" --source-dir "$PROJECT_ROOT"
+  "$EXECUTABLE" install --source-dir "$PROJECT_ROOT"
 fi

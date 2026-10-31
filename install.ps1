@@ -37,7 +37,7 @@ try {
     if (-not (Test-Path $executable)) {
         throw "The UF0RS executable was not created: $executable"
     }
-    & $executable install --binary $executable --source-dir $projectRoot
+    & $executable install --source-dir $projectRoot
     if ($LASTEXITCODE -ne 0) { throw "UF0RS installation failed (exit code $LASTEXITCODE)." }
 }
 catch {
