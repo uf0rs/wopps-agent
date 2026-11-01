@@ -1,10 +1,10 @@
 import type { WebSocketRoute } from "@playwright/test"
-import type { OpenCodeEvent } from "@opencode/client/promise"
-import type { PersistentPty } from "@opencode/schema/persistent-pty"
+import type { WOPPSEvent } from "@uf0rs/client/promise"
+import type { PersistentPty } from "@uf0rs/schema/persistent-pty"
 import { Predicate } from "effect"
 
 // Serves the session-scoped persistent PTY routes (`/api/experimental/.../terminal`, `/api/experimental/persistent-pty`)
-// and their connect WebSockets, like a server backed by the opencode-pty daemon.
+// and their connect WebSockets, like a server backed by the uf0rs-pty daemon.
 export type MockPersistentPtyConfig = {
   // `server.info().capabilities.persistentPty`; omitted by default, like a server that predates the field. `false`
   // also makes the routes answer 503 like a server without the daemon.
@@ -57,7 +57,7 @@ export type MockPersistentPtyUpdate = {
   title?: string | null
 }
 
-// Published on rename; not yet part of `OpenCodeEvent`.
+// Published on rename; not yet part of `WOPPSEvent`.
 export type MockPersistentPtyUpdated = {
   id: string
   created: number
@@ -65,7 +65,7 @@ export type MockPersistentPtyUpdated = {
   data: { sessionID: string; terminal: MockPersistentPtyInfo }
 }
 
-export type MockServerEvent = OpenCodeEvent | MockPersistentPtyUpdated
+export type MockServerEvent = WOPPSEvent | MockPersistentPtyUpdated
 
 // The JSON text frames the server sends; output travels as binary frames.
 export type MockPersistentPtyMessage =

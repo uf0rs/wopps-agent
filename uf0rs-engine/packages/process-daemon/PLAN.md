@@ -2,7 +2,7 @@
 
 ## Completed
 
-- [x] Rename the project and process to `opencode-pty`.
+- [x] Rename the project and process to `uf0rs-pty`.
 - [x] Remove the descriptor-handoff POC implementation.
 - [x] Add portable-pty terminal creation and process ownership.
 - [x] Add isolated reader, actor/parser, writer, and child-wait threads.
@@ -18,7 +18,7 @@
 - [x] Add raw replay-to-live subscriptions and bounded slow-subscriber handling.
 - [x] Add exclusive controller and observer roles with explicit takeover.
 - [x] Transport authoritative snapshots and VT checkpoints over IPC.
-- [x] Add a lazy OpenCode backend proxy with independent per-server runtime identities.
+- [x] Add a lazy WOPPS backend proxy with independent per-server runtime identities.
 
 ## Next
 

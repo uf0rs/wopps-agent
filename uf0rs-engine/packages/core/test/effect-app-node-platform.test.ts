@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { WebSocketTransport } from "@opencode/ai/route"
-import { WebSocketConstructor } from "@opencode/core/effect/websocket-constructor"
+import { WebSocketTransport } from "@uf0rs/ai/route"
+import { WebSocketConstructor } from "@uf0rs/core/effect/websocket-constructor"
 import { Effect } from "effect"
 import { Headers } from "effect/http"
 import { Socket } from "effect/socket"

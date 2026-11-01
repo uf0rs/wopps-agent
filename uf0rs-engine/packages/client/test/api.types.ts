@@ -1,10 +1,10 @@
 import { Effect } from "effect"
-import { OpenCode as EffectOpenCode, type AppApi as EffectApi } from "../src/effect"
-import type { Session } from "@opencode/schema/session"
+import { WOPPS as EffectWOPPS, type AppApi as EffectApi } from "../src/effect"
+import type { Session } from "@uf0rs/schema/session"
 import type { DiscoverOptions } from "../src/service"
 
-type EffectClient = Effect.Success<ReturnType<typeof EffectOpenCode.make>>
-type PromiseClient = ReturnType<typeof import("../src/promise").OpenCode.make>
+type EffectClient = Effect.Success<ReturnType<typeof EffectWOPPS.make>>
+type PromiseClient = ReturnType<typeof import("../src/promise").WOPPS.make>
 
 declare const effectClient: EffectClient
 declare const promiseClient: PromiseClient

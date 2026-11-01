@@ -1,9 +1,9 @@
 import { batch, createMemo, createSignal, Index, onCleanup, onMount, Show, type JSX } from "solid-js"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
 import { createStore } from "solid-js/store"
-import { createKeyed } from "@opencode/plugin/gui"
-import { PreviewControls } from "@opencode/ui/preview-controls"
-import { DocumentSurface } from "@opencode/ui/document-surface"
+import { createKeyed } from "@uf0rs/plugin/gui"
+import { PreviewControls } from "@uf0rs/ui/preview-controls"
+import { DocumentSurface } from "@uf0rs/ui/document-surface"
 import { paper } from "./paper"
 
 /** Paints one page into `canvas` at `scale`; `signal` aborts once a newer paint replaces this one or the page leaves. */

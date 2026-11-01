@@ -1,9 +1,9 @@
 import { confirm, intro, log, outro } from "@clack/prompts"
 import { Effect, Option } from "effect"
-import { OpenCode, type IntegrationInfo, type IntegrationOAuthMethod, type McpServer } from "@opencode/client"
+import { WOPPS, type IntegrationInfo, type IntegrationOAuthMethod, type McpServer } from "@uf0rs/client"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
-import { Service } from "@opencode/client/effect/service"
+import { Service } from "@uf0rs/client/effect/service"
 import { ServerConnection } from "../../../services/server-connection"
 import { selectIntegration, type IntegrationChoice } from "../../../ui/integration-picker"
 import { handlePromptErrors, prompt, requireInteractive } from "../../../ui/prompt"
@@ -22,7 +22,7 @@ const authenticate = Effect.fn("cli.mcp.auth.run")(function* (name?: string) {
   if (!name) yield* requireInteractive("Pass an MCP server name when running without an interactive terminal")
   intro("Authenticate an MCP server")
   const { endpoint } = yield* ServerConnection.resolve()
-  const client = OpenCode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+  const client = WOPPS.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
   const integrations = yield* loadIntegrations(client)
   const servers = yield* request((signal) => client.mcp.list({ location }, { signal }))
   const choices = mcpAuthChoices(servers.data, integrations)

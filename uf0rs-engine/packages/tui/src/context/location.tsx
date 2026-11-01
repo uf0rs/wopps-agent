@@ -1,5 +1,5 @@
-import { isLocationNotFoundError, type LocationGetOutput, type LocationRef } from "@opencode/client"
-import { retry } from "@opencode/util/retry"
+import { isLocationNotFoundError, type LocationGetOutput, type LocationRef } from "@uf0rs/client"
+import { retry } from "@uf0rs/util/retry"
 import { createContext, createMemo, createSignal, onCleanup, useContext, type ParentProps } from "solid-js"
 import { useClient } from "./client"
 import { useData } from "./data"

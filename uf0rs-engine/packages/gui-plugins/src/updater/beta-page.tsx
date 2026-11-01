@@ -1,8 +1,8 @@
 import { createSignal, For, onCleanup, onMount, Show } from "solid-js"
 import { createMediaQuery } from "@solid-primitives/media"
 import { Option } from "effect"
-import { Button } from "@opencode/ui/button"
-import { usePlugin } from "@opencode/plugin/gui"
+import { Button } from "@uf0rs/ui/button"
+import { usePlugin } from "@uf0rs/plugin/gui"
 import { Meta, Visual } from "./beta-dialog"
 import { allBetaNotes, betaHistory, decodeEmbeddedNotes, type BetaNote, type EmbeddedNotes } from "./beta-notes"
 import type definition from "./index"
@@ -13,7 +13,7 @@ export default function BetaNotesPage() {
 
   return (
     <BetaNotesView
-      embedded={Option.getOrUndefined(decodeEmbeddedNotes(import.meta.env.OPENCODE_BETA_NOTES))}
+      embedded={Option.getOrUndefined(decodeEmbeddedNotes(import.meta.env.UF0RS_BETA_NOTES))}
       open={(href) => ctx.system.openExternal(href)}
     />
   )

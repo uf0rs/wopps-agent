@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { SessionMessageInfo } from "@opencode/client"
+import type { SessionMessageInfo } from "@uf0rs/client"
 import { createAppFixture } from "./fixture/app"
 import { directory, json } from "./fixture/tui-client"
 

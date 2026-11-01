@@ -1,7 +1,7 @@
 import type { FileNode } from "@/runtime/server/types"
-import type { OpenCodeEvent } from "@opencode/client/promise"
+import type { WOPPSEvent } from "@uf0rs/client/promise"
 
-type WatcherEvent = Extract<OpenCodeEvent, { type: "filesystem.changed" }>
+type WatcherEvent = Extract<WOPPSEvent, { type: "filesystem.changed" }>
 
 type WatcherOps = {
   normalize: (input: string) => string

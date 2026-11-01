@@ -1,8 +1,8 @@
 import { Effect, Layer } from "effect"
-import { Config } from "@opencode/core/config"
-import { Location } from "@opencode/core/location"
-import { Mcp } from "@opencode/core/mcp/index"
-import { AbsolutePath } from "@opencode/core/schema"
+import { Config } from "@uf0rs/core/config"
+import { Location } from "@uf0rs/core/location"
+import { Mcp } from "@uf0rs/core/mcp/index"
+import { AbsolutePath } from "@uf0rs/core/schema"
 import { location } from "./location"
 
 // Plugins may register MCP transforms at startup; with no servers there is nothing to rebuild.

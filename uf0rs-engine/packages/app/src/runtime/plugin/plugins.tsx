@@ -1,7 +1,7 @@
 import { createEffect, createMemo, createResource, createSignal, onCleanup } from "solid-js"
-import type { PluginOptions } from "@opencode/plugin/gui"
-import type { Bridge, BridgePluginGui, BridgePluginGuis, Entry } from "@opencode/plugin/gui/host"
-import type { OpenCodeClient } from "@opencode/client/promise"
+import type { PluginOptions } from "@uf0rs/plugin/gui"
+import type { Bridge, BridgePluginGui, BridgePluginGuis, Entry } from "@uf0rs/plugin/gui/host"
+import type { WOPPSClient } from "@uf0rs/client/promise"
 import { useGlobal } from "@/runtime/server/runtime"
 import { ServerConnection } from "@/runtime/server/registry"
 import { pluginDefinition } from "./module"
@@ -18,7 +18,7 @@ type Loaded = {
 export type PluginGui = {
   readonly definition: Entry
   readonly options: PluginOptions
-  readonly client: () => OpenCodeClient | undefined
+  readonly client: () => WOPPSClient | undefined
 }
 
 /**

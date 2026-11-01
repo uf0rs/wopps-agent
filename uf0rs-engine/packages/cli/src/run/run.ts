@@ -1,13 +1,13 @@
-import { Service, type Endpoint } from "@opencode/client/effect/service"
-import { OpenCode, type SessionMessageAssistantTool } from "@opencode/client/promise"
-import { FSUtil } from "@opencode/util/fs-util"
-import { noTimeoutFetch } from "@opencode/util/no-timeout-fetch"
+import { Service, type Endpoint } from "@uf0rs/client/effect/service"
+import { WOPPS, type SessionMessageAssistantTool } from "@uf0rs/client/promise"
+import { FSUtil } from "@uf0rs/util/fs-util"
+import { noTimeoutFetch } from "@uf0rs/util/no-timeout-fetch"
 import { open } from "node:fs/promises"
 import path from "node:path"
 import { readStdin } from "../util/io"
 import { ServerConnection } from "../services/server-connection"
 import { parseSessionTargetModel, resolveSessionTarget } from "../session-target"
-import { toolInlineInfo } from "@opencode/tui/mini/tool"
+import { toolInlineInfo } from "@uf0rs/tui/mini/tool"
 import { runNonInteractivePrompt } from "./noninteractive"
 import { UI } from "./ui"
 import { Env } from "../env"
@@ -82,7 +82,7 @@ async function run(input: RunCommandInput, options: ExecutionOptions) {
 }
 
 async function execute(input: RunCommandInput, prepared: Prepared, endpoint: Endpoint, options: ExecutionOptions) {
-  const client = OpenCode.make({
+  const client = WOPPS.make({
     baseUrl: endpoint.url,
     headers: Service.headers(endpoint),
     // Bun's default five-minute deadline terminates the event stream used by long-running sessions.

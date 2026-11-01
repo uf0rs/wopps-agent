@@ -1,7 +1,7 @@
 import { Clock, Duration, Effect, Equal, FiberHandle, Option, Schema, Scope, Semaphore, Stream } from "effect"
-import type { IntegrationOAuthMethodRegistration } from "@opencode/plugin/effect/integration"
-import { define } from "@opencode/plugin/effect/plugin"
-import type { SessionHttpResponse } from "@opencode/plugin/effect/session"
+import type { IntegrationOAuthMethodRegistration } from "@uf0rs/plugin/effect/integration"
+import { define } from "@uf0rs/plugin/effect/plugin"
+import type { SessionHttpResponse } from "@uf0rs/plugin/effect/session"
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { App } from "../../app.js"
 import { Bus } from "../../bus.js"
@@ -15,7 +15,7 @@ import { IntegrationConnection } from "../../integration/connection.js"
 import { Provider } from "../../provider.js"
 import { WebSearch } from "../../websearch.js"
 
-const clientID = "opencode-cli"
+const clientID = "uf0rs-cli"
 const methodID = Integration.MethodID.make("device")
 const Device = Schema.Struct({
   device_code: Schema.String,
@@ -43,11 +43,11 @@ const SsoRequired = Schema.Struct({
 const InvalidGrant = Schema.Struct({ error: Schema.Literal("invalid_grant") })
 // Console's 401 when the session behind the access token was revoked or expired.
 const Unauthorized = Schema.Struct({ _tag: Schema.Literal("Unauthorized") })
-const signedOutMessage = "Reconnect OpenCode Console to continue"
+const signedOutMessage = "Reconnect WOPPS Console to continue"
 const ssoMessage = (organization: string | undefined) =>
-  `Sign in with SSO again to use ${organization ?? "your OpenCode Console organization"}`
+  `Sign in with SSO again to use ${organization ?? "your WOPPS Console organization"}`
 
-class SsoRequiredError extends Schema.TaggedError<SsoRequiredError>()("OpencodeConsole.SsoRequired", {
+class SsoRequiredError extends Schema.TaggedError<SsoRequiredError>()("WoppsConsole.SsoRequired", {
   organization: Schema.optional(Schema.String),
   url: Schema.String,
 }) {
@@ -57,7 +57,7 @@ class SsoRequiredError extends Schema.TaggedError<SsoRequiredError>()("OpencodeC
 }
 
 // The Console session or refresh token was revoked or expired; only a new device login recovers.
-class SignedOutError extends Schema.TaggedError<SignedOutError>()("OpencodeConsole.SignedOut", {}) {
+class SignedOutError extends Schema.TaggedError<SignedOutError>()("WoppsConsole.SignedOut", {}) {
   override get message() {
     return `${signedOutMessage}.`
   }
@@ -65,11 +65,11 @@ class SignedOutError extends Schema.TaggedError<SignedOutError>()("OpencodeConso
 
 function oauth(http: HttpClient.HttpClient) {
   return {
-    integrationID: Integration.ID.make("opencode"),
+    integrationID: Integration.ID.make("uf0rs"),
     method: {
       id: methodID,
       type: "oauth",
-      label: "OpenCode Console account",
+      label: "WOPPS Console account",
       form: [
         {
           key: "server",
@@ -142,13 +142,13 @@ function oauth(http: HttpClient.HttpClient) {
   } satisfies IntegrationOAuthMethodRegistration
 }
 
-export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Config.Service | Scope.Scope>({
-  id: "opencode.provider.opencode",
+export const WoppsPlugin = define<HttpClient.HttpClient | Bus.Service | Config.Service | Scope.Scope>({
+  id: "uf0rs.provider.uf0rs",
   effect: Effect.fn(function* (ctx) {
-    const disableFree = ["1", "true"].includes(process.env.OPENCODE_DISABLE_FREE_MODELS?.toLowerCase() ?? "")
+    const disableFree = ["1", "true"].includes(process.env.UF0RS_DISABLE_FREE_MODELS?.toLowerCase() ?? "")
     const bus = yield* Bus.Service
     const client = yield* HttpClient.HttpClient
-    // Every request here goes to the Console, which reads the User-Agent to tell which OpenCode a member runs
+    // Every request here goes to the Console, which reads the User-Agent to tell which WOPPS a member runs
     // and whether it evaluates the policies it is being sent.
     const http = HttpClient.mapRequest(client, HttpClientRequest.setHeader("User-Agent", App.useragent(ctx.app)))
     const config = yield* Config.Service
@@ -156,7 +156,7 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
     const loading = Semaphore.makeUnsafe(1)
     type ActiveConnection = Effect.Success<ReturnType<typeof ctx.integration.connection.active>>
     let snapshot: {
-      // The Console's regular OpenCode config, merged as an integration config layer.
+      // The Console's regular WOPPS config, merged as an integration config layer.
       remote: ConfigIntegration.Remote | undefined
       connection: ActiveConnection
       organization: string | undefined
@@ -167,16 +167,16 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
     // When the last Console config load started, so rejected inference can reuse a recent status.
     let checked = Number.NEGATIVE_INFINITY
 
-    const load = Effect.fn("OpencodePlugin.load")(function* () {
+    const load = Effect.fn("WoppsPlugin.load")(function* () {
       checked = yield* Clock.currentTimeMillis
-      const connection = yield* ctx.integration.connection.active("opencode")
+      const connection = yield* ctx.integration.connection.active("uf0rs")
       if (!connection) {
         reported = undefined
         return { remote: undefined, connection, organization: undefined }
       }
       const status = (status: IntegrationConnection.Status | undefined) => {
         reported = status
-        return ctx.integration.connection.status({ integrationID: "opencode", connection, status })
+        return ctx.integration.connection.status({ integrationID: "uf0rs", connection, status })
       }
       return yield* ctx.integration.connection.resolve(connection).pipe(
         Effect.flatMap((credential) => {
@@ -196,7 +196,7 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
             // Only well-formed Console errors change the connection status; anything else may be transient.
             const next = connectionStatus(cause)
             if (next) yield* status(next)
-            yield* Effect.logWarning("failed to load OpenCode provider config", { cause })
+            yield* Effect.logWarning("failed to load WOPPS provider config", { cause })
             // A load that fails for the connection already in place keeps its last config: dropping it
             // would lift organization policy while personal credentials keep working.
             return IntegrationConnection.key(connection) === IntegrationConnection.key(snapshot.connection)
@@ -210,10 +210,10 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
     // while the rest of the document merges through config.
     let integrated: ConfigIntegration.Document | undefined
     const integrate = Effect.fnUntraced(function* (document: ConfigIntegration.Document | undefined) {
-      yield* config.integration?.(Integration.ID.make("opencode"), document) ?? Effect.void
+      yield* config.integration?.(Integration.ID.make("uf0rs"), document) ?? Effect.void
       integrated = (yield* config.entries()).find(
         (entry): entry is ConfigIntegration.Document =>
-          entry instanceof ConfigIntegration.Document && entry.integrationID === Integration.ID.make("opencode"),
+          entry instanceof ConfigIntegration.Document && entry.integrationID === Integration.ID.make("uf0rs"),
       )
     })
     // Policies and providers ride on the snapshot, so a credential switch, disconnect, or 404 replaces them too.
@@ -223,7 +223,7 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
         next.remote &&
           next.connection &&
           ConfigIntegration.make({
-            integrationID: Integration.ID.make("opencode"),
+            integrationID: Integration.ID.make("uf0rs"),
             connection:
               next.connection.type === "credential"
                 ? { ...next.connection, id: Credential.ID.make(next.connection.id) }
@@ -235,21 +235,21 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
     })
     const search = (providerID: WebSearch.ID, connection: NonNullable<ActiveConnection>) => ({
       id: providerID,
-      name: "OpenCode Web Search",
+      name: "WOPPS Web Search",
       execute: (input: WebSearch.ProviderInput) =>
         Effect.gen(function* () {
-          const active = yield* ctx.integration.connection.active("opencode")
+          const active = yield* ctx.integration.connection.active("uf0rs")
           if (
             !active ||
             (connection.type === "credential"
               ? active.type !== "credential" || active.id !== connection.id
               : active.type !== "env" || active.name !== connection.name)
           ) {
-            return yield* Effect.fail(new Error("OpenCode Console connection changed"))
+            return yield* Effect.fail(new Error("WOPPS Console connection changed"))
           }
           const credential = yield* ctx.integration.connection.resolve(active)
           if (!credential || credential.type === "external")
-            return yield* Effect.fail(new Error("OpenCode Console is not connected"))
+            return yield* Effect.fail(new Error("WOPPS Console is not connected"))
           const metadata = credential.metadata
           const orgID = typeof metadata?.orgID === "string" ? metadata.orgID : undefined
           const token = credential.type === "oauth" ? credential.access : credential.key
@@ -271,12 +271,12 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
               Effect.scoped,
               Effect.timeoutOrElse({
                 duration: Duration.seconds(25),
-                orElse: () => Effect.fail(new Error("OpenCode web search request timed out")),
+                orElse: () => Effect.fail(new Error("WOPPS web search request timed out")),
               }),
             )
           if (response.providerID !== providerID) {
             return yield* Effect.fail(
-              new Error(`OpenCode web search returned provider ${response.providerID} instead of ${providerID}`),
+              new Error(`WOPPS web search returned provider ${response.providerID} instead of ${providerID}`),
             )
           }
           return response.results
@@ -284,11 +284,11 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
     })
 
     yield* ctx.integration.transform((editor) => {
-      editor.update("opencode", (integration) => {
-        integration.name = "OpenCode Console"
+      editor.update("uf0rs", (integration) => {
+        integration.name = "WOPPS Console"
       })
       editor.method.update(oauth(http))
-      editor.method.update({ integrationID: "opencode", method: { type: "key", label: "API key (service account)" } })
+      editor.method.update({ integrationID: "uf0rs", method: { type: "key", label: "API key (service account)" } })
     })
 
     snapshot = yield* load()
@@ -297,9 +297,9 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
       if (integrated) ConfigProviderPlugin.integrate(providers, integrated)
     })
     yield* ctx.provider.transform((providers) => {
-      const item = providers.get(Provider.ID.opencode)
+      const item = providers.get(Provider.ID.uf0rs)
       if (!item) return
-      const hasKey = Boolean(process.env.OPENCODE_API_KEY || snapshot.connection || item.provider.settings?.apiKey)
+      const hasKey = Boolean(process.env.UF0RS_API_KEY || snapshot.connection || item.provider.settings?.apiKey)
       providers.update(item.provider.id, (provider) => {
         if (!hasKey && !disableFree) {
           provider.activation = "enabled"
@@ -308,10 +308,10 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
       })
     })
     yield* ctx.model.transform((models) => {
-      const item = models.provider.get(Provider.ID.opencode)
+      const item = models.provider.get(Provider.ID.uf0rs)
       if (!item) return
       const hasKey = Boolean(
-        process.env.OPENCODE_API_KEY ||
+        process.env.UF0RS_API_KEY ||
           snapshot.connection ||
           (item.provider.settings?.apiKey && item.provider.settings.apiKey !== "public"),
       )
@@ -327,12 +327,12 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
     // allows it; otherwise its searches fail, so the provider is offered only then. The selection still merges as
     // config, where the user's own choice wins.
     yield* ctx.websearch.transform((editor) => {
-      const provider = WebSearch.ID.make("opencode")
+      const provider = WebSearch.ID.make("uf0rs")
       if (snapshot.remote?.websearch && snapshot.remote.websearch.provider === provider && snapshot.connection)
         editor.add(search(provider, snapshot.connection))
     })
 
-    const apply = Effect.fn("OpencodePlugin.apply")(function* (next: typeof snapshot) {
+    const apply = Effect.fn("WoppsPlugin.apply")(function* (next: typeof snapshot) {
       snapshot = next
       yield* publish(next)
       yield* guard(next)
@@ -375,12 +375,12 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
         )
       })
     // Hooks are scoped per provider so requests to unrelated providers skip the HTTP hook path.
-    const guard = Effect.fn("OpencodePlugin.guard")(function* (next: typeof snapshot) {
+    const guard = Effect.fn("WoppsPlugin.guard")(function* (next: typeof snapshot) {
       yield* Effect.forEach(explainers, (registration) => registration.dispose, { discard: true })
       explainers = yield* Effect.forEach(
         next.connection
           ? new Set([
-              Provider.ID.opencode,
+              Provider.ID.uf0rs,
               ...Object.keys(next.remote?.providers ?? {}),
             ])
           : [],
@@ -400,7 +400,7 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
       })
     })
     yield* bus.subscribe(Credential.Event.Switched).pipe(
-      Stream.filter((event) => event.data.integrationID === Integration.ID.make("opencode")),
+      Stream.filter((event) => event.data.integrationID === Integration.ID.make("uf0rs")),
       Stream.runForEach(() => refresh().pipe(Effect.andThen(poll()))),
       Effect.forkScoped({ startImmediately: true }),
     )
@@ -479,7 +479,7 @@ function normalizeServer(input: unknown) {
       return `${url.origin}${url.pathname.replace(/\/+$/, "")}`
     },
     catch: (cause) =>
-      new Error(`Invalid OpenCode server URL: ${cause instanceof Error ? cause.message : String(cause)}`),
+      new Error(`Invalid WOPPS server URL: ${cause instanceof Error ? cause.message : String(cause)}`),
   })
 }
 
@@ -522,7 +522,7 @@ function credential(http: HttpClient.HttpClient, server: string, token: typeof T
         ? orgs.toSorted((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id))[0]
         : orgs.find((org) => org.id === token.org_id)
     if (token.org_id != null && !org) {
-      return yield* Effect.fail(new Error(`OpenCode organization not found: ${token.org_id}`))
+      return yield* Effect.fail(new Error(`WOPPS organization not found: ${token.org_id}`))
     }
     return Credential.OAuth.make({
       type: "oauth" as const,

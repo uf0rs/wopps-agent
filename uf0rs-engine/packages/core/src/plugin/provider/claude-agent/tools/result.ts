@@ -7,7 +7,7 @@ import type {
   LanguageModelV3ToolResultPart,
 } from "@ai-sdk/provider"
 import type { CallToolResult } from "@modelcontextprotocol/server"
-import { Provider } from "@opencode/schema/provider"
+import { Provider } from "@uf0rs/schema/provider"
 import { ConvertToClaudeMessage } from "../language-model/convert-to-claude-message.js"
 import { Fingerprint } from "../sync/fingerprint.js"
 
@@ -96,7 +96,7 @@ export function collect(prompt: LanguageModelV3Prompt, start: number) {
         }
       }
     }
-    // OpenCode puts the group's media in a following user message; attach it to the group's last result.
+    // WOPPS puts the group's media in a following user message; attach it to the group's last result.
     for (let i = 0; i < tools.length; i++) {
       const tool = tools[i]!
       const flags = tool.providerOptions?.[Provider.ID.claudeAgent]

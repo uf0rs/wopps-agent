@@ -1,10 +1,10 @@
-import type { MiniFrontendInput } from "@opencode/tui/mini"
-import { createModelPreferenceRepository } from "@opencode/tui/model-preference"
+import type { MiniFrontendInput } from "@uf0rs/tui/mini"
+import { createModelPreferenceRepository } from "@uf0rs/tui/model-preference"
 import fs from "node:fs"
 import { readFile } from "node:fs/promises"
 import path from "node:path"
 import { ReadStream } from "node:tty"
-import { OPENCODE_VERSION } from "./version"
+import { UF0RS_VERSION } from "./version"
 
 export const INTERACTIVE_INPUT_ERROR = "uf0rs mini requires a controlling terminal for input"
 
@@ -47,7 +47,7 @@ function createTrace(
   logPath: string,
   diagnostics: { pid: number; cwd: string; argv: string[] },
 ): MiniHost["diagnostics"]["trace"] {
-  if (!process.env.OPENCODE_DIRECT_TRACE) return
+  if (!process.env.UF0RS_DIRECT_TRACE) return
   const stamp = new Date()
     .toISOString()
     .replace(/[-:]/g, "")
@@ -138,7 +138,7 @@ export function createMiniHost(input: {
     argv: process.argv.slice(2),
   }
   return {
-    version: OPENCODE_VERSION,
+    version: UF0RS_VERSION,
     terminal: { stdin: input.terminal.stdin },
     platform: process.platform,
     stdout: {
@@ -151,7 +151,7 @@ export function createMiniHost(input: {
     },
     editor: {
       async open(options) {
-        const { openEditor } = await import("@opencode/tui/editor")
+        const { openEditor } = await import("@uf0rs/tui/editor")
         return openEditor(options)
       },
     },
@@ -161,7 +161,7 @@ export function createMiniHost(input: {
       sigusr2: signal("SIGUSR2"),
     },
     startup: {
-      showTiming: ["1", "true"].includes(process.env.OPENCODE_SHOW_TTFD?.toLowerCase() ?? ""),
+      showTiming: ["1", "true"].includes(process.env.UF0RS_SHOW_TTFD?.toLowerCase() ?? ""),
       now: () => performance.now(),
     },
     diagnostics: {

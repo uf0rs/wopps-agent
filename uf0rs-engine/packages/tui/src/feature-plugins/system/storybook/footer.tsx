@@ -1,4 +1,4 @@
-import type { Plugin } from "@opencode/plugin/tui"
+import type { Plugin } from "@uf0rs/plugin/tui"
 import { For, Show } from "solid-js"
 
 export type StoryFooterControl = {

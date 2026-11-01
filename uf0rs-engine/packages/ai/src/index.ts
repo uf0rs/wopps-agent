@@ -99,7 +99,7 @@ export const make = <R = never>(options: Options<R> = {}) => {
     ),
   )
 
-  /** Run any package Effect (for example `ai.compact(...)` from `@opencode/ai/effect`) inside this runtime. */
+  /** Run any package Effect (for example `ai.compact(...)` from `@uf0rs/ai/effect`) inside this runtime. */
   const run = <A, E>(effect: Effect.Effect<A, E, Services | R>, options?: RunOptions) =>
     runtime.runPromise(Effect.raceFirst(effect, abortEffect(options?.signal)))
 
@@ -289,7 +289,7 @@ export type Client<R = never> = ReturnType<typeof make<R>>
 const fileError = (message: string, cause: unknown) =>
   new AIError({ reason: new InvalidRequestError({ message, cause }) })
 
-/** `tool` from `@opencode/ai/effect`, with an `execute` that returns a value or a Promise and throws to fail. */
+/** `tool` from `@uf0rs/ai/effect`, with an `execute` that returns a value or a Promise and throws to fail. */
 export const tool = <
   Parameters extends ToolSchema<any> = typeof Schema.Unknown,
   Success extends ToolSchema<any> = typeof Schema.Unknown,

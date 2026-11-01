@@ -3,8 +3,8 @@ import type { ProviderPackage } from "../provider-package.js"
 import { AuthOptions, type ProviderAuthOption } from "../route/auth-options.js"
 import { SystemOne } from "../protocols/system-one.js"
 
-export const id = ProviderID.make("opencode")
-const baseURL = "https://opencode.ai/inference/systemone/v1"
+export const id = ProviderID.make("uf0rs")
+const baseURL = "https://wopps.ai/inference/systemone/v1"
 
 export type Config = ProviderAuthOption<"optional"> & {
   readonly baseURL?: string
@@ -17,9 +17,9 @@ export type Settings = ProviderPackage.Settings & { readonly apiKey?: string }
 export const configure = (input: Config = {}) => {
   const route = SystemOne.route.with({
     provider: id,
-    providerMetadataKey: "opencode",
+    providerMetadataKey: "uf0rs",
     endpoint: { baseURL: input.baseURL ?? baseURL },
-    auth: AuthOptions.bearer(input, "OPENCODE_API_KEY"),
+    auth: AuthOptions.bearer(input, "UF0RS_API_KEY"),
     // Zen forwards TypeSafe's image opt-in header; text-only requests are unchanged with it.
     headers: { "TypeSafe-Danger-Zone-Images": "true", ...input.headers },
     http: input.http,
@@ -38,4 +38,4 @@ export const decisionModel = (modelID: string, { apiKey, baseURL, body, headers,
     providerOptions,
   )
 
-export * as OpenCode from "./opencode.js"
+export * as WOPPS from "./uf0rs.js"

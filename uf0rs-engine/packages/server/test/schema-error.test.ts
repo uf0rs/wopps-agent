@@ -1,6 +1,6 @@
 import { expect } from "bun:test"
-import { Generate } from "@opencode/core/generate"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { Generate } from "@uf0rs/core/generate"
+import { makeLocationNode } from "@uf0rs/util/effect/app-node"
 import { Effect, Layer } from "effect"
 import { it } from "../../core/test/lib/effect"
 import { ServerFetch } from "../src/fetch"
@@ -47,7 +47,7 @@ it.live("reports response encoding failures as server errors and request decodin
 function request(handler: (request: Request) => Promise<Response>, body: unknown) {
   return Effect.promise(async () => {
     const response = await handler(
-      new Request("http://opencode.local/api/experimental/generate", {
+      new Request("http://uf0rs.local/api/experimental/generate", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(body),

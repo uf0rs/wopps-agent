@@ -12,10 +12,10 @@ import type { DesktopTheme } from "./types"
 export type ColorScheme = "light" | "dark" | "system"
 
 const STORAGE_KEYS = {
-  THEME_ID: "opencode-theme-id",
-  COLOR_SCHEME: "opencode-color-scheme",
-  THEME_CSS_LIGHT: "opencode-theme-css-light",
-  THEME_CSS_DARK: "opencode-theme-css-dark",
+  THEME_ID: "uf0rs-theme-id",
+  COLOR_SCHEME: "uf0rs-color-scheme",
+  THEME_CSS_LIGHT: "uf0rs-theme-css-light",
+  THEME_CSS_DARK: "uf0rs-theme-css-dark",
 } as const
 
 const THEME_STYLE_ID = "oc-theme"
@@ -50,7 +50,7 @@ function knownThemes() {
 }
 
 const names: Record<string, string> = {
-  "oc-2": "OpenCode",
+  "oc-2": "WOPPS",
   amoled: "AMOLED",
   aura: "Aura",
   ayu: "Ayu",

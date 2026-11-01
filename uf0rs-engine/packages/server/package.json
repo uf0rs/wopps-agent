@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/server",
+  "name": "@uf0rs/server",
   "version": "2.2.5",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/uf0rs/wopps-ai.git",
     "directory": "packages/server"
   },
   "publishConfig": {
@@ -29,17 +29,17 @@
   "dependencies": {
     "@effect/platform-node": "catalog:",
     "@effect/platform-node-shared": "catalog:",
-    "@opencode/core": "workspace:*",
-    "@opencode/protocol": "workspace:*",
-    "@opencode/schema": "workspace:*",
-    "@opencode/simulation": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@uf0rs/core": "workspace:*",
+    "@uf0rs/protocol": "workspace:*",
+    "@uf0rs/schema": "workspace:*",
+    "@uf0rs/simulation": "workspace:*",
+    "@uf0rs/util": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {
-    "@opencode/pty": "0.4.0",
-    "@opencode/client": "workspace:*",
-    "@opencode/plugin": "workspace:*",
+    "@uf0rs/pty": "0.4.0",
+    "@uf0rs/client": "workspace:*",
+    "@uf0rs/plugin": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",

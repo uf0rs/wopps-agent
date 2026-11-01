@@ -6,7 +6,7 @@ import {
   Baseten,
   CloudflareWorkersAI,
   OpenAI,
-  OpenCode,
+  WOPPS,
   OpenRouter,
   TypeSafeAI,
   VercelAIGateway,
@@ -142,7 +142,7 @@ describe("Decision", () => {
   it.effect("sends a lone input object as the System One state and maps boolean choices back", () =>
     ai.decision
       .generate({
-        model: OpenCode.configure({ apiKey: "opencode-key", baseURL: "https://opencode.test/v1" }).decision("jev-1.13"),
+        model: WOPPS.configure({ apiKey: "uf0rs-key", baseURL: "https://uf0rs.test/v1" }).decision("jev-1.13"),
         input: { ticket: "hello" },
         questions: [
           {
@@ -167,14 +167,14 @@ describe("Decision", () => {
               new DecisionUsage({ inputTokens: 10, outputTokens: 2, totalTokens: 12, cost: 0.0004 }),
             )
             expect(response.providerMetadata).toEqual({
-              opencode: { model: "jev-1.13.0", usage: { input_tokens: 10, output_tokens: 2, cost: 0.0004 } },
+              uf0rs: { model: "jev-1.13.0", usage: { input_tokens: 10, output_tokens: 2, cost: 0.0004 } },
             })
           }),
         ),
         Effect.provide(
           client((input) => {
-            expect(input.request.url).toBe("https://opencode.test/v1/systemone")
-            expect(input.request.headers.authorization).toBe("Bearer opencode-key")
+            expect(input.request.url).toBe("https://uf0rs.test/v1/systemone")
+            expect(input.request.headers.authorization).toBe("Bearer uf0rs-key")
             expect(input.request.headers["typesafe-danger-zone-images"]).toBe("true")
             expect(JSON.parse(input.text)).toEqual({
               model: "jev-1.13",

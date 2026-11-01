@@ -8,7 +8,7 @@ export const pong = { type: "pong", instance_id: "test", pid: process.pid, proto
 
 export function temporaryDirectory() {
   return Effect.acquireRelease(
-    Effect.promise(() => mkdtemp(path.join(os.tmpdir(), "opencode-pty-test-"))),
+    Effect.promise(() => mkdtemp(path.join(os.tmpdir(), "uf0rs-pty-test-"))),
     (directory) => Effect.promise(() => rm(directory, { recursive: true, force: true })),
   )
 }
@@ -102,7 +102,7 @@ export function writeRegistration(
   )
 }
 
-// An in-process opencode-pty that a server adopts through a handoff, so no daemon is spawned. Without
+// An in-process uf0rs-pty that a server adopts through a handoff, so no daemon is spawned. Without
 // features it answers like a daemon that predates the features list.
 export const fakeDaemon = Effect.fn(function* (features?: string[]) {
   const base = yield* temporaryDirectory()

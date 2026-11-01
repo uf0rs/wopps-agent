@@ -1,7 +1,7 @@
-export function OpenCodeLogo(props: { class?: string }) {
+export function WOPPSLogo(props: { class?: string }) {
   return (
     <svg
-      data-component="opencode-logo"
+      data-component="uf0rs-logo"
       aria-hidden="true"
       class={props.class}
       viewBox="0 0 16 16"

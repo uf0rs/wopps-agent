@@ -1,47 +1,47 @@
 import { describe, expect } from "bun:test"
-import { FileSystem } from "@opencode/core/filesystem"
+import { FileSystem } from "@uf0rs/core/filesystem"
 import { Clock, DateTime, Effect, Fiber, Latch, Layer, LayerMap, Queue, Schema, Sink, Stream } from "effect"
 import { ChildProcessSpawner } from "effect/process"
 import { ExitCode, makeHandle, ProcessId } from "effect/process/ChildProcessSpawner"
 import { TestClock } from "effect/testing"
 import { eq } from "drizzle-orm"
-import { Agent } from "@opencode/core/agent"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Environment } from "@opencode/core/environment/index"
-import { FileAccess } from "@opencode/core/file-access"
-import { Image } from "@opencode/core/image"
-import { Instance } from "@opencode/core/instance/service"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { Bus } from "@opencode/core/bus"
-import { Location } from "@opencode/core/location"
-import { Permission } from "@opencode/core/permission"
-import { PermissionSaved } from "@opencode/core/permission/saved"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Schedule } from "@opencode/core/schedule"
-import { ScheduleTable } from "@opencode/core/schedule/sql"
-import { Session } from "@opencode/core/session"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionExecution } from "@opencode/core/session/execution"
-import { SessionInbox } from "@opencode/core/session/inbox"
-import { SessionInboxTable, SessionTable } from "@opencode/core/session/sql"
-import { SessionStore } from "@opencode/core/session/store"
-import { ShellSelect } from "@opencode/core/shell/select"
-import { Tool } from "@opencode/core/tool"
-import { McpTool } from "@opencode/core/tool/mcp"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import type { LocationServices } from "@opencode/core/location-services"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { Snapshot } from "@opencode/core/snapshot"
-import { Skill } from "@opencode/core/skill"
-import { Config } from "@opencode/core/config"
-import { Document, Info } from "@opencode/schema/config"
-import { ConfigExperimental } from "@opencode/schema/config/experimental"
+import { Agent } from "@uf0rs/core/agent"
+import { Database } from "@uf0rs/core/database/database"
+import { AppNodeBuilder } from "@uf0rs/core/effect/app-node-builder"
+import { Environment } from "@uf0rs/core/environment/index"
+import { FileAccess } from "@uf0rs/core/file-access"
+import { Image } from "@uf0rs/core/image"
+import { Instance } from "@uf0rs/core/instance/service"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
+import { makeGlobalNode } from "@uf0rs/util/effect/app-node"
+import { Bus } from "@uf0rs/core/bus"
+import { Location } from "@uf0rs/core/location"
+import { Permission } from "@uf0rs/core/permission"
+import { PermissionSaved } from "@uf0rs/core/permission/saved"
+import { Project } from "@uf0rs/core/project"
+import { ProjectTable } from "@uf0rs/core/project/sql"
+import { AbsolutePath } from "@uf0rs/core/schema"
+import { Schedule } from "@uf0rs/core/schedule"
+import { ScheduleTable } from "@uf0rs/core/schedule/sql"
+import { Session } from "@uf0rs/core/session"
+import { SessionMessage } from "@uf0rs/core/session/message"
+import { SessionProjector } from "@uf0rs/core/session/projector"
+import { SessionExecution } from "@uf0rs/core/session/execution"
+import { SessionInbox } from "@uf0rs/core/session/inbox"
+import { SessionInboxTable, SessionTable } from "@uf0rs/core/session/sql"
+import { SessionStore } from "@uf0rs/core/session/store"
+import { ShellSelect } from "@uf0rs/core/shell/select"
+import { Tool } from "@uf0rs/core/tool"
+import { McpTool } from "@uf0rs/core/tool/mcp"
+import { LocationServiceMap } from "@uf0rs/core/location-service-map"
+import type { LocationServices } from "@uf0rs/core/location-services"
+import { Plugin } from "@uf0rs/core/plugin"
+import { PluginHooks } from "@uf0rs/core/plugin/hooks"
+import { Snapshot } from "@uf0rs/core/snapshot"
+import { Skill } from "@uf0rs/core/skill"
+import { Config } from "@uf0rs/core/config"
+import { Document, Info } from "@uf0rs/schema/config"
+import { ConfigExperimental } from "@uf0rs/schema/config/experimental"
 import { location } from "./fixture/location"
 import { testEffect } from "./lib/effect"
 import { imagePassthrough } from "./lib/image"
@@ -1426,8 +1426,8 @@ describe("Schedule", () => {
         expect(yield* bad("return await tools.slack.dangerous_edit({})")).toMatchObject({
           reason: "Tool slack.dangerous_edit cannot be used inside a schedule check",
         })
-        expect(yield* bad("return await tools.opencode.schedule_create({})")).toMatchObject({
-          reason: "Tool opencode.schedule_create cannot be used inside a schedule check",
+        expect(yield* bad("return await tools.uf0rs.schedule_create({})")).toMatchObject({
+          reason: "Tool uf0rs.schedule_create cannot be used inside a schedule check",
         })
 
         agentRules = [{ action: "execute", resource: "*", effect: "deny" }]
@@ -1484,7 +1484,7 @@ describe("Schedule", () => {
         yield* Effect.repeat(Effect.yieldNow, { times: 5 })
 
         // Insert directly into SQLite (bypassing primary.create so primary's in-memory doorbell is never opened)
-        // to simulate a short-lived `opencode serve` / `--standalone` writing a schedule and exiting.
+        // to simulate a short-lived `uf0rs serve` / `--standalone` writing a schedule and exiting.
         const now = yield* Clock.currentTimeMillis
         const externalID = Schedule.ID.create()
         yield* db

@@ -178,12 +178,12 @@ it.live("rejects incompatible daemons without replacing or killing them", () =>
         JSON.stringify({ instance_id: "old", pid: existing.pid, protocol: 6, socket: "/unused", token: "old" }),
       ),
     )
-    const daemon = yield* makeDaemonTransport(root, "daemon", () => Promise.resolve("/missing/opencode-pty"))
+    const daemon = yield* makeDaemonTransport(root, "daemon", () => Promise.resolve("/missing/uf0rs-pty"))
 
     const optional = yield* Effect.flip(daemon.requestIfRunning({ op: "list" }))
     expect(optional).toMatchObject({
       kind: "protocol",
-      message: "opencode-pty protocol mismatch: daemon=6, client=7",
+      message: "uf0rs-pty protocol mismatch: daemon=6, client=7",
       pid: existing.pid,
     })
 

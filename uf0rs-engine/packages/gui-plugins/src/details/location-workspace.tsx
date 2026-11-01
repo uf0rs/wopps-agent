@@ -1,7 +1,7 @@
-import { Icon } from "@opencode/ui/icon"
-import { Menu } from "@opencode/ui/menu"
+import { Icon } from "@uf0rs/ui/icon"
+import { Menu } from "@uf0rs/ui/menu"
 import { Show } from "solid-js"
-import type { BuiltinSlotMap } from "@opencode/plugin/gui/builtin"
+import type { BuiltinSlotMap } from "@uf0rs/plugin/gui/builtin"
 import { SessionWorkspaceMenu } from "./workspace-menu"
 
 export default function SessionLocationWorkspace(props: BuiltinSlotMap["session.location.workspace"]) {

@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/cli",
+  "name": "@uf0rs/cli",
   "version": "2.2.5",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "opencode": "./bin/opencode.cjs",
-    "opencode2": "./bin/opencode2.cjs"
+    "uf0rs": "./bin/uf0rs.cjs",
+    "uf0rs2": "./bin/uf0rs2.cjs"
   },
   "files": [
     "bin"
@@ -20,7 +20,7 @@
     "build": "bun run script/build.ts",
     "build:node": "bun run script/build-node.ts",
     "pack": "bun run script/pack.ts",
-    "pack:docker": "chmod +x dist/cli-linux-*-musl/bin/opencode && mkdir -p ../../dist/docker && docker buildx build --platform linux/amd64,linux/arm64 --output type=oci,dest=../../dist/docker/opencode-image.tar .",
+    "pack:docker": "chmod +x dist/cli-linux-*-musl/bin/uf0rs && mkdir -p ../../dist/docker && docker buildx build --platform linux/amd64,linux/arm64 --output type=oci,dest=../../dist/docker/uf0rs-image.tar .",
     "dev": "bun run src/index.ts",
     "test": "bun test --timeout 30000 --only-failures",
     "typecheck": "bun check --no-script -b",
@@ -31,13 +31,13 @@
     "@clack/core": "1.0.0-alpha.1",
     "@clack/prompts": "1.0.0-alpha.1",
     "@effect/platform-node": "catalog:",
-    "@opencode/client": "workspace:*",
-    "@opencode/plugin": "workspace:*",
-    "@opencode/pty": "0.4.0",
-    "@opencode/schema": "workspace:*",
-    "@opencode/server": "workspace:*",
-    "@opencode/tui": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@uf0rs/client": "workspace:*",
+    "@uf0rs/plugin": "workspace:*",
+    "@uf0rs/pty": "0.4.0",
+    "@uf0rs/schema": "workspace:*",
+    "@uf0rs/server": "workspace:*",
+    "@uf0rs/tui": "workspace:*",
+    "@uf0rs/util": "workspace:*",
     "@opentui/core": "catalog:",
     "@opentui/solid": "catalog:",
     "@modelcontextprotocol/sdk": "1.32.2",
@@ -54,8 +54,8 @@
     "ws": "8.21.0"
   },
   "devDependencies": {
-    "@opencode/script": "workspace:*",
-    "@opencode/protocol": "workspace:*",
+    "@uf0rs/script": "workspace:*",
+    "@uf0rs/protocol": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",
@@ -86,7 +86,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/uf0rs/wopps-ai.git",
     "directory": "packages/cli"
   }
 }

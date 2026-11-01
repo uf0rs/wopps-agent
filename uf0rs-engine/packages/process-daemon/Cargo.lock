@@ -183,7 +183,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-pty"
+name = "uf0rs-pty"
 version = "0.4.0"
 dependencies = [
  "anyhow",

@@ -1,28 +1,28 @@
 import { expect, test } from "bun:test"
 import { Cause, Deferred, Effect, Exit, Fiber, Schema } from "effect"
 import { eq } from "drizzle-orm"
-import { LLMEvent } from "@opencode/ai/effect"
-import { Money } from "@opencode/schema/money"
-import { Bus } from "@opencode/core/bus"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { EventTable } from "@opencode/core/event/sql"
-import { Event } from "@opencode/schema/event"
-import { Agent } from "@opencode/core/agent"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionMessage } from "@opencode/core/session/message"
-import { Session } from "@opencode/core/session"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionMessageTable, SessionTable } from "@opencode/core/session/sql"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath, RelativePath } from "@opencode/core/schema"
-import { Snapshot } from "@opencode/core/snapshot"
-import { createLLMEventPublisher } from "@opencode/core/session/runner/publish-llm-event"
-import { SessionUsage } from "@opencode/core/session/usage"
-import { LayerNode } from "@opencode/util/effect/layer-node"
+import { LLMEvent } from "@uf0rs/ai/effect"
+import { Money } from "@uf0rs/schema/money"
+import { Bus } from "@uf0rs/core/bus"
+import { Database } from "@uf0rs/core/database/database"
+import { AppNodeBuilder } from "@uf0rs/core/effect/app-node-builder"
+import { EventTable } from "@uf0rs/core/event/sql"
+import { Event } from "@uf0rs/schema/event"
+import { Agent } from "@uf0rs/core/agent"
+import { SessionEvent } from "@uf0rs/core/session/event"
+import { SessionMessage } from "@uf0rs/core/session/message"
+import { Session } from "@uf0rs/core/session"
+import { SessionProjector } from "@uf0rs/core/session/projector"
+import { SessionMessageTable, SessionTable } from "@uf0rs/core/session/sql"
+import { Project } from "@uf0rs/core/project"
+import { ProjectTable } from "@uf0rs/core/project/sql"
+import { Model } from "@uf0rs/core/model"
+import { Provider } from "@uf0rs/core/provider"
+import { AbsolutePath, RelativePath } from "@uf0rs/core/schema"
+import { Snapshot } from "@uf0rs/core/snapshot"
+import { createLLMEventPublisher } from "@uf0rs/core/session/runner/publish-llm-event"
+import { SessionUsage } from "@uf0rs/core/session/usage"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
 import { it, testEffect } from "./lib/effect"
 import { TestClock } from "effect/testing"
 
@@ -62,7 +62,7 @@ const capture = (
       agent: Agent.ID.make("build"),
       model: {
         id: Model.ID.make("model"),
-        providerID: Provider.ID.opencode,
+        providerID: Provider.ID.uf0rs,
       },
       providerMetadataKey,
       pendingSnapshot: options?.pendingSnapshot,
@@ -168,7 +168,7 @@ testEffect(
         sessionID,
         assistantMessageID,
         agent: Agent.defaultID,
-        model: { id: Model.ID.make("test-model"), providerID: Provider.ID.opencode },
+        model: { id: Model.ID.make("test-model"), providerID: Provider.ID.uf0rs },
         providerMetadataKey: "openai",
         started: 0,
       },

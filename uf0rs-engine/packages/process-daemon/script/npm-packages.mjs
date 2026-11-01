@@ -26,14 +26,14 @@ await mkdir(output, { recursive: true })
 
 for (const target of targets) {
   const suffix = [target.platform, target.arch, target.suffix].filter(Boolean).join("-")
-  const name = `@opencode/pty-${suffix}`
-  const directory = path.join(output, `opencode-pty-${suffix}`)
-  const archive = path.join(dist, `opencode-pty-${manifest.version}-${target.target}.tar.gz`)
-  const binary = target.platform === "win32" ? "opencode-pty.exe" : "opencode-pty"
-  const temporary = await mkdtemp(path.join(os.tmpdir(), "opencode-pty-npm-"))
+  const name = `@uf0rs/pty-${suffix}`
+  const directory = path.join(output, `uf0rs-pty-${suffix}`)
+  const archive = path.join(dist, `uf0rs-pty-${manifest.version}-${target.target}.tar.gz`)
+  const binary = target.platform === "win32" ? "uf0rs-pty.exe" : "uf0rs-pty"
+  const temporary = await mkdtemp(path.join(os.tmpdir(), "uf0rs-pty-npm-"))
   try {
     execFileSync("tar", ["-xzf", archive, "-C", temporary])
-    const executable = path.join(temporary, `opencode-pty-${manifest.version}-${target.target}`, binary)
+    const executable = path.join(temporary, `uf0rs-pty-${manifest.version}-${target.target}`, binary)
     await mkdir(path.join(directory, "bin"), { recursive: true })
     await copyFile(executable, path.join(directory, "bin", binary))
     await copyFile(path.join(root, "LICENSE"), path.join(directory, "LICENSE"))
@@ -43,7 +43,7 @@ for (const target of targets) {
         {
           name,
           version: manifest.version,
-          description: `OpenCode persistent PTY service for ${suffix}`,
+          description: `WOPPS persistent PTY service for ${suffix}`,
           license: "MIT",
           repository: { ...manifest.repository, directory: "packages/process-daemon" },
           os: [target.platform],
@@ -63,7 +63,7 @@ for (const target of targets) {
   console.log(name)
 }
 
-const dispatcher = path.join(output, "opencode-pty")
+const dispatcher = path.join(output, "uf0rs-pty")
 await cp(path.join(root, "npm"), dispatcher, { recursive: true })
 await copyFile(path.join(root, "LICENSE"), path.join(dispatcher, "LICENSE"))
 console.log(manifest.name)

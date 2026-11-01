@@ -3,10 +3,10 @@
 // version-mismatched background service before the TUI attaches.
 import { createCliRenderer, RGBA, TextAttributes, type CliRenderer } from "@opentui/core"
 import { render, useTerminalDimensions } from "@opentui/solid"
-import { OPENCODE_VERSION } from "../version"
-import "@opencode/tui/component/spinner-renderable"
-import { SPINNER_FRAMES } from "@opencode/tui/component/spinner"
-import { go } from "@opencode/tui/logo"
+import { UF0RS_VERSION } from "../version"
+import "@uf0rs/tui/component/spinner-renderable"
+import { SPINNER_FRAMES } from "@uf0rs/tui/component/spinner"
+import { go } from "@uf0rs/tui/logo"
 import { setTimeout } from "node:timers/promises"
 import {
   batch,
@@ -336,12 +336,12 @@ function UpdateFooter(props: {
           ] as const)
         : []),
       ["to", colors.muted],
-      [OPENCODE_VERSION, colors.accent],
+      [UF0RS_VERSION, colors.accent],
     )
   const completedHeader = phrase(
     ["WOPPS", colors.muted, true],
     ["updated to", colors.muted],
-    [OPENCODE_VERSION, colors.accent],
+    [UF0RS_VERSION, colors.accent],
   )
   const pausedHeader = phrase(["WOPPS", colors.muted, true], ["update paused", colors.muted])
   const outcomeStatus = () =>

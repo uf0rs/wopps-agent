@@ -1,10 +1,10 @@
 export * as ShellTool from "./shell.js"
 
-import { ToolFailure } from "@opencode/ai/effect"
-import type { Context } from "@opencode/plugin/effect/plugin"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import type { ShellCreateBefore } from "@opencode/plugin/effect/shell"
-import type { Tool } from "@opencode/schema/tool"
+import { ToolFailure } from "@uf0rs/ai/effect"
+import type { Context } from "@uf0rs/plugin/effect/plugin"
+import type { SessionHooks } from "@uf0rs/plugin/effect/session"
+import type { ShellCreateBefore } from "@uf0rs/plugin/effect/shell"
+import type { Tool } from "@uf0rs/schema/tool"
 import { Deferred, Effect, Schema, Scope } from "effect"
 import { Environment } from "../../environment/index.js"
 import { Job } from "../../job.js"
@@ -99,7 +99,7 @@ const backgroundResult = (shellID: string, file: string) => ({
 })
 
 export const Plugin = {
-  id: "opencode.tool.shell",
+  id: "uf0rs.tool.shell",
   effect: Effect.fn("ShellTool.Plugin")(function* (ctx: Context) {
     const sessions = yield* Session.Service
     const jobs = yield* Job.Service
@@ -205,9 +205,9 @@ export const Plugin = {
                 (invocation) =>
                   Effect.gen(function* () {
                     invocation.env.AGENT = "1"
-                    invocation.env.OPENCODE = "1"
-                    invocation.env.AI_AGENT ||= "opencode"
-                    invocation.env.OPENCODE_SESSION_ID = context.sessionID
+                    invocation.env.UF0RS = "1"
+                    invocation.env.AI_AGENT ||= "uf0rs"
+                    invocation.env.UF0RS_SESSION_ID = context.sessionID
                     finalTimeout = yield* prepare(invocation, context)
                   }),
               )

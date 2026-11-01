@@ -1,14 +1,14 @@
-import { useDialog } from "@opencode/ui/context/dialog"
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@opencode/ui/dialog"
-import { Divider } from "@opencode/ui/divider"
-import { Loader } from "@opencode/ui/loader"
-import { RadioGroup, RadioItem } from "@opencode/ui/radio"
-import { TextInput } from "@opencode/ui/text-input"
+import { useDialog } from "@uf0rs/ui/context/dialog"
+import { Button } from "@uf0rs/ui/button"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@uf0rs/ui/dialog"
+import { Divider } from "@uf0rs/ui/divider"
+import { Loader } from "@uf0rs/ui/loader"
+import { RadioGroup, RadioItem } from "@uf0rs/ui/radio"
+import { TextInput } from "@uf0rs/ui/text-input"
 import { createMemo, For, Show } from "solid-js"
 import { createStore } from "solid-js/store"
-import { showToast } from "@opencode/ui/toast"
-import { usePlugin, type Context, type IpcClient } from "@opencode/plugin/gui"
+import { showToast } from "@uf0rs/ui/toast"
+import { usePlugin, type Context, type IpcClient } from "@uf0rs/plugin/gui"
 import type { Wsl, WslServersState } from "./contract"
 import { useWslAddServerProbes } from "./probes"
 import { addServerViewModel, type AddServerText } from "./model"
@@ -357,8 +357,8 @@ function useWslAddServerController(props: DialogWslServerProps) {
 
     if (!distro || !action) return
 
-    if (action === "install-opencode") {
-      await run(() => api().installOpencode({ name: distro }))
+    if (action === "install-uf0rs") {
+      await run(() => api().installWopps({ name: distro }))
 
       return
     }
@@ -483,7 +483,7 @@ function unavailable(error: string): WslServersState {
     installed: [],
     online: [],
     distroProbes: {},
-    opencodeChecks: {},
+    uf0rsChecks: {},
     pendingRestart: false,
     servers: [],
     job: null,

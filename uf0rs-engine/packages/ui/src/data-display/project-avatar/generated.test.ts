@@ -39,8 +39,8 @@ describe("getProjectAvatarGenerated", () => {
     expect(getProjectAvatarGenerated({ id: "abc", icon: { override: "data:custom" } })).toBeUndefined()
     expect(getProjectAvatarGenerated({ id: "abc", icon: { url: "data:auto" } })).toBeUndefined()
     expect(getProjectAvatarGenerated({ id: "abc", icon: { color: "blue" } })).toBeUndefined()
-    const opencode = createHash("sha1").update("git-remote:github.com/anomalyco/opencode").digest("hex")
-    expect(getProjectAvatarGenerated({ id: opencode, worktree: "/repo" })).toBeUndefined()
+    const uf0rs = createHash("sha1").update("git-remote:github.com/uf0rs/wopps-ai").digest("hex")
+    expect(getProjectAvatarGenerated({ id: uf0rs, worktree: "/repo" })).toBeUndefined()
   })
 
   test("seeds by project ID or, for unidentified projects, by directory", () => {

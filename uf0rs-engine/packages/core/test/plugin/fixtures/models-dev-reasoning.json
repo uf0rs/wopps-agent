@@ -243,10 +243,10 @@
       }
     }
   },
-  "opencode-go": {
-    "id": "opencode-go",
-    "name": "OpenCode Go",
-    "env": ["OPENCODE_API_KEY"],
+  "uf0rs-go": {
+    "id": "uf0rs-go",
+    "name": "WOPPS Go",
+    "env": ["UF0RS_API_KEY"],
     "models": {
       "minimax-m3": {
         "id": "minimax-m3",

@@ -1,4 +1,4 @@
-import type { PromptAttachment } from "@opencode/client/promise"
+import type { PromptAttachment } from "@uf0rs/client/promise"
 
 export type SessionUserComment =
   | {

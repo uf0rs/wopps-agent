@@ -1,15 +1,15 @@
-import { TextField } from "@opencode/ui/text-field"
+import { TextField } from "@uf0rs/ui/text-field"
 import type { captureException } from "@sentry/solid"
-import { Logo } from "@opencode/ui/logo"
-import { Button } from "@opencode/ui/button"
+import { Logo } from "@uf0rs/ui/logo"
+import { Button } from "@uf0rs/ui/button"
 import { Component, createSignal, onCleanup, onMount, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { Predicate } from "effect"
-import { Updater } from "@opencode/plugin/gui/updater"
+import { Updater } from "@uf0rs/plugin/gui/updater"
 import { usePlatform } from "@/runtime/platform/platform"
 import { useLanguage } from "@/runtime/i18n/language"
 import { createIpcClients } from "@/runtime/plugin/ipc"
-import { Icon } from "@opencode/ui/icon"
+import { Icon } from "@uf0rs/ui/icon"
 import { errorDescriptionKey, errorStatus } from "./description"
 
 type InitError = {
@@ -413,7 +413,7 @@ export const ErrorPage: Component<ErrorPageProps> = (props) => {
             <button
               type="button"
               class="flex items-center text-text-interactive-base gap-1"
-              onClick={() => platform.openExternal("https://opencode.ai/desktop-feedback")}
+              onClick={() => platform.openExternal("https://wopps.ai/desktop-feedback")}
             >
               <div>{language.t("error.page.report.discord")}</div>
               <Icon name="discord" class="text-text-interactive-base" />

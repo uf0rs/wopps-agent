@@ -7,7 +7,7 @@ index 6fb70b4275a59741d28aecc389c2736909130a3e..498e59ebbeb5e8648a6363b782d1a9d3
              return false;
          }
 -        const args = ["--updated"];
-+        // OpenCode: skip NSIS's CRC check of the whole installer, about 0.5 s for 230 MB. The updater already verified
++        // WOPPS: skip NSIS's CRC check of the whole installer, about 0.5 s for 230 MB. The updater already verified
 +        // the download's SHA-512; manual installs keep the check. Must come before /D=.
 +        const args = ["--updated", "/NCRC"];
          if (options.isSilent) {

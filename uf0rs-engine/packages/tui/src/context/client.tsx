@@ -1,5 +1,5 @@
-import type { OpenCodeClient, OpenCodeEvent } from "@opencode/client"
-import { createClientConnection, createPersistentPtyClient } from "@opencode/client/solid"
+import type { WOPPSClient, WOPPSEvent } from "@uf0rs/client"
+import { createClientConnection, createPersistentPtyClient } from "@uf0rs/client/solid"
 import { createGlobalEmitter } from "@solid-primitives/event-bus"
 import { onCleanup } from "solid-js"
 import { createSimpleContext } from "./helper"
@@ -7,11 +7,11 @@ import { createMediaCache } from "../util/media"
 import { useLog } from "./log"
 
 type ManagedService = {
-  reconnect: (signal: AbortSignal) => Promise<{ api: OpenCodeClient; url?: string; headers?: Record<string, string> }>
+  reconnect: (signal: AbortSignal) => Promise<{ api: WOPPSClient; url?: string; headers?: Record<string, string> }>
   restart: () => Promise<void>
 }
 
-type ClientEventMap = { [Type in OpenCodeEvent["type"]]: Extract<OpenCodeEvent, { type: Type }> }
+type ClientEventMap = { [Type in WOPPSEvent["type"]]: Extract<WOPPSEvent, { type: Type }> }
 
 export const {
   use: useClient,
@@ -19,7 +19,7 @@ export const {
   context: ClientContext,
 } = createSimpleContext({
   name: "Client",
-  init: (props: { api: OpenCodeClient; url?: string; headers?: Record<string, string>; service?: ManagedService }) => {
+  init: (props: { api: WOPPSClient; url?: string; headers?: Record<string, string>; service?: ManagedService }) => {
     const log = useLog({ component: "client" })
     const service = props.service
     const events = createGlobalEmitter<ClientEventMap>()

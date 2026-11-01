@@ -3,18 +3,18 @@ export * as ConfigDiscovery from "./discovery.js"
 import os from "os"
 import path from "path"
 import { Effect } from "effect"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
+import { FSUtil } from "@uf0rs/util/fs-util"
+import { Global } from "@uf0rs/util/global"
 import { Location } from "../location.js"
 import { AbsolutePath } from "../schema.js"
 import type { Options } from "../config.js"
 
-export const names = ["uf0rs.json", "uf0rs.jsonc", "opencode.json", "opencode.jsonc"]
+export const names = ["uf0rs.json", "uf0rs.jsonc", "uf0rs.json", "uf0rs.jsonc"]
 
 /** Eligible sources in priority order, including paths that may appear later. */
 export interface Sources {
   readonly system?: { readonly path: AbsolutePath; readonly present: boolean }
-  /** macOS MDM managed preferences plist (`ai.opencode.managed`), when one is deployed. */
+  /** macOS MDM managed preferences plist (`ai.uf0rs.managed`), when one is deployed. */
   readonly preferences?: AbsolutePath
   readonly global?: AbsolutePath
   readonly explicit?: AbsolutePath
@@ -24,22 +24,22 @@ export interface Sources {
   readonly agents: readonly AbsolutePath[]
 }
 
-/** Platform system configuration directory (`/Library/Application Support/opencode`, `/etc/opencode`, `%ProgramData%\opencode`). */
+/** Platform system configuration directory (`/Library/Application Support/uf0rs`, `/etc/uf0rs`, `%ProgramData%\uf0rs`). */
 export function systemDirectory(platform: NodeJS.Platform = process.platform, env: NodeJS.ProcessEnv = process.env) {
-  if (platform === "darwin") return AbsolutePath.make("/Library/Application Support/opencode")
-  if (platform === "win32") return AbsolutePath.make(path.join(env.ProgramData || "C:\\ProgramData", "opencode"))
-  return AbsolutePath.make("/etc/opencode")
+  if (platform === "darwin") return AbsolutePath.make("/Library/Application Support/uf0rs")
+  if (platform === "win32") return AbsolutePath.make(path.join(env.ProgramData || "C:\\ProgramData", "uf0rs"))
+  return AbsolutePath.make("/etc/uf0rs")
 }
 
 /** macOS MDM managed preferences plists, most specific first; the first one present wins. */
 export function preferencePaths(user: string) {
   return [
-    AbsolutePath.make(path.join("/Library/Managed Preferences", user, "ai.opencode.managed.plist")),
-    AbsolutePath.make("/Library/Managed Preferences/ai.opencode.managed.plist"),
+    AbsolutePath.make(path.join("/Library/Managed Preferences", user, "ai.uf0rs.managed.plist")),
+    AbsolutePath.make("/Library/Managed Preferences/ai.uf0rs.managed.plist"),
   ]
 }
 
-// Keys macOS and MDM profiles inject into managed preferences that are not OpenCode config.
+// Keys macOS and MDM profiles inject into managed preferences that are not WOPPS config.
 const preferenceMetadata = new Set([
   "PayloadDisplayName",
   "PayloadIdentifier",
@@ -82,7 +82,7 @@ export const discover = Effect.fn("ConfigDiscovery.discover")(function* (options
     Effect.gen(function* () {
       // Resolve the parent too: missing children must honor symlinked global roots.
       const parent = yield* fs.resolve(directory)
-      return yield* Effect.forEach([".claude", ".agents", ".uf0rs", ".opencode", ...names.toReversed()], (name) =>
+      return yield* Effect.forEach([".claude", ".agents", ".uf0rs", ".uf0rs", ...names.toReversed()], (name) =>
         fs
           .resolve(path.join(parent, name))
           .pipe(Effect.map((resolved) => ({ item: AbsolutePath.make(path.join(directory, name)), resolved }))),
@@ -122,10 +122,10 @@ export const discover = Effect.fn("ConfigDiscovery.discover")(function* (options
     global: globalEnabled ? globalDirectory : undefined,
     explicit: options?.file ? AbsolutePath.make(path.resolve(options.file)) : undefined,
     direct: visible
-      .filter((item) => ![".agents", ".claude", ".uf0rs", ".opencode"].includes(path.basename(item)))
+      .filter((item) => ![".agents", ".claude", ".uf0rs", ".uf0rs"].includes(path.basename(item)))
       .toReversed(),
     project: yield* Effect.forEach(
-      visible.filter((item) => [".uf0rs", ".opencode"].includes(path.basename(item))).toReversed(),
+      visible.filter((item) => [".uf0rs", ".uf0rs"].includes(path.basename(item))).toReversed(),
       (directory) => fs.isDir(directory).pipe(Effect.map((present) => ({ path: directory, present }))),
     ),
     claude:

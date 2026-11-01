@@ -1,4 +1,4 @@
-import { configure } from "@opencode/ai/providers/mistral"
+import { configure } from "@uf0rs/ai/providers/mistral"
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
 import { ai, LLMEvent, LLMRequest, Message, SystemPart, ToolChoice, ToolDefinition } from "../../src/effect.js"

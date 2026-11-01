@@ -1,4 +1,4 @@
-import { decodePersistentPtyMessage, persistentPtyFrame } from "@opencode/client/solid"
+import { decodePersistentPtyMessage, persistentPtyFrame } from "@uf0rs/client/solid"
 import { Option } from "effect"
 import { terminalWriter } from "./writer"
 

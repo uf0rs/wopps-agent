@@ -86,11 +86,11 @@ impl TerminalClient {
         unsafe {
             command.pre_exec(|| nix::unistd::setsid().map(|_| ()).map_err(io::Error::other));
         }
-        let mut child = command.spawn().context("failed to spawn opencode-pty")?;
+        let mut child = command.spawn().context("failed to spawn uf0rs-pty")?;
         let deadline = Instant::now() + START_TIMEOUT;
         while Instant::now() < deadline {
             if let Some(status) = child.try_wait()? {
-                bail!("opencode-pty daemon exited before ownership acquisition: {status}");
+                bail!("uf0rs-pty daemon exited before ownership acquisition: {status}");
             }
             if let Ok(registration) = read_registration(directory)
                 && registration.pid == child.id()
@@ -118,19 +118,19 @@ impl TerminalClient {
             }
             thread::sleep(Duration::from_millis(50));
         }
-        bail!("opencode-pty did not become ready")
+        bail!("uf0rs-pty did not become ready")
     }
 
     #[cfg(not(unix))]
     pub fn start(_directory: &Path) -> Result<Self> {
-        bail!("opencode-pty client transport is not implemented on this platform")
+        bail!("uf0rs-pty client transport is not implemented on this platform")
     }
 
     pub fn discover(directory: &Path) -> Result<Self> {
         let registration = read_registration(directory)?;
         if registration.protocol != PROTOCOL_VERSION {
             bail!(
-                "opencode-pty protocol mismatch: service={}, client={PROTOCOL_VERSION}",
+                "uf0rs-pty protocol mismatch: service={}, client={PROTOCOL_VERSION}",
                 registration.protocol
             );
         }
@@ -151,7 +151,7 @@ impl TerminalClient {
             {
                 Ok(client)
             }
-            _ => bail!("opencode-pty registration did not match the running service"),
+            _ => bail!("uf0rs-pty registration did not match the running service"),
         }
     }
 
@@ -396,12 +396,12 @@ impl TerminalClient {
 
     #[cfg(not(unix))]
     fn request(&self, _request: Request) -> Result<Response> {
-        bail!("opencode-pty client transport is not implemented on this platform")
+        bail!("uf0rs-pty client transport is not implemented on this platform")
     }
 }
 
 fn unexpected<T>(response: Response) -> Result<T> {
-    bail!("unexpected opencode-pty response: {response:?}")
+    bail!("unexpected uf0rs-pty response: {response:?}")
 }
 
 #[cfg(unix)]
@@ -435,14 +435,14 @@ pub fn run_cli() -> Result<()> {
     let directory = || -> Result<PathBuf> {
         let name = name
             .as_deref()
-            .ok_or_else(|| anyhow!("--name is required; use `opencode-pty help`"))?;
+            .ok_or_else(|| anyhow!("--name is required; use `uf0rs-pty help`"))?;
         runtime_dir(root.as_deref(), name)
     };
     let no_arguments = |usage: &str| {
         if positional.is_empty() {
             Ok(())
         } else {
-            Err(anyhow!("usage: opencode-pty {usage}"))
+            Err(anyhow!("usage: uf0rs-pty {usage}"))
         }
     };
     match command.as_deref() {
@@ -458,14 +458,14 @@ pub fn run_cli() -> Result<()> {
         Some("watch") => {
             let id = positional
                 .first()
-                .ok_or_else(|| anyhow!("usage: opencode-pty watch TERMINAL_ID --name NAME"))?
+                .ok_or_else(|| anyhow!("usage: uf0rs-pty watch TERMINAL_ID --name NAME"))?
                 .parse()
                 .context("expected terminal ID")?;
             watch(&directory()?, id)
         }
         Some("version" | "--version" | "-V") => {
             println!(
-                "opencode-pty {} (protocol {})",
+                "uf0rs-pty {} (protocol {})",
                 env!("CARGO_PKG_VERSION"),
                 crate::protocol::PROTOCOL_VERSION
             );
@@ -475,14 +475,14 @@ pub fn run_cli() -> Result<()> {
             print_usage();
             Ok(())
         }
-        Some(command) => bail!("unknown command {command:?}; use `opencode-pty help`"),
+        Some(command) => bail!("unknown command {command:?}; use `uf0rs-pty help`"),
     }
 }
 
 fn status(directory: &Path) -> Result<()> {
     let client = TerminalClient::discover(directory)?;
     println!(
-        "opencode-pty running: pid={} instance={} terminals={}",
+        "uf0rs-pty running: pid={} instance={} terminals={}",
         client.registration.pid,
         client.registration.instance_id,
         client.list()?.len()
@@ -497,12 +497,12 @@ fn stop(directory: &Path) -> Result<()> {
     let deadline = Instant::now() + START_TIMEOUT;
     while Instant::now() < deadline {
         if TerminalClient::discover(directory).is_err() {
-            println!("stopped opencode-pty pid={pid} (all terminals exited)");
+            println!("stopped uf0rs-pty pid={pid} (all terminals exited)");
             return Ok(());
         }
         thread::sleep(Duration::from_millis(25));
     }
-    bail!("opencode-pty pid={pid} did not stop within {START_TIMEOUT:?}");
+    bail!("uf0rs-pty pid={pid} did not stop within {START_TIMEOUT:?}");
 }
 
 #[cfg(unix)]
@@ -549,7 +549,7 @@ fn watch(_directory: &Path, _id: TerminalId) -> Result<()> {
 fn play(directory: &Path) -> Result<()> {
     let client = TerminalClient::start(directory)?;
     let mut active = client.list()?.first().map(|terminal| terminal.id);
-    println!("\n  opencode-pty playground");
+    println!("\n  uf0rs-pty playground");
     println!(
         "  owning service pid={} · `quit` stops all terminals\n",
         client.registration.pid
@@ -722,11 +722,11 @@ fn set_stdin_raw() -> Result<()> {
 
 fn print_usage() {
     println!(
-        "usage: opencode-pty [play|status|list|watch ID|stop|daemon] --name NAME [--runtime-dir DIR]"
+        "usage: uf0rs-pty [play|status|list|watch ID|stop|daemon] --name NAME [--runtime-dir DIR]"
     );
-    println!("       opencode-pty --version");
+    println!("       uf0rs-pty --version");
     println!(
-        "  NAME selects DIR/NAME; DIR defaults to ${{XDG_STATE_HOME:-~/.local/state}}/opencode/pty"
+        "  NAME selects DIR/NAME; DIR defaults to ${{XDG_STATE_HOME:-~/.local/state}}/uf0rs/pty"
     );
 }
 

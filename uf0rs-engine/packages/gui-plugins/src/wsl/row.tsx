@@ -1,11 +1,11 @@
-import { Button } from "@opencode/ui/button"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Menu } from "@opencode/ui/menu"
+import { Button } from "@uf0rs/ui/button"
+import { Icon } from "@uf0rs/ui/icon"
+import { IconButton } from "@uf0rs/ui/icon-button"
+import { Menu } from "@uf0rs/ui/menu"
 import { Show } from "solid-js"
-import { usePlugin, type IpcClient, type ServerRow } from "@opencode/plugin/gui"
+import { usePlugin, type IpcClient, type ServerRow } from "@uf0rs/plugin/gui"
 import type { Wsl, WslServersState } from "./contract"
-import { wslOpencodeAction } from "./model"
+import { wslWoppsAction } from "./model"
 
 export default function WslRow(props: {
   row: ServerRow
@@ -16,13 +16,13 @@ export default function WslRow(props: {
   request: <T>(key: string, action: () => Promise<T>) => void
 }) {
   const plugin = usePlugin()
-  const check = () => props.state()?.opencodeChecks[props.distro]
-  const opencodeAction = () => wslOpencodeAction(check())
+  const check = () => props.state()?.uf0rsChecks[props.distro]
+  const uf0rsAction = () => wslWoppsAction(check())
 
   const busy = () => {
     const job = props.state()?.job
 
-    return job?.kind === "install-opencode" && job.distro === props.distro
+    return job?.kind === "install-uf0rs" && job.distro === props.distro
   }
 
   return (
@@ -44,12 +44,12 @@ export default function WslRow(props: {
             </div>
           </div>
           <div class="settings-servers-actions">
-            <Show when={opencodeAction()}>
+            <Show when={uf0rsAction()}>
               {(label) => (
                 <Button
                   size="small"
                   disabled={busy() || props.pending(props.row.key)}
-                  onClick={() => props.request(props.row.key, () => api().installOpencode({ name: props.distro }))}
+                  onClick={() => props.request(props.row.key, () => api().installWopps({ name: props.distro }))}
                 >
                   {busy() ? plugin.t("server.updating") : plugin.t(label())}
                 </Button>

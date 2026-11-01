@@ -10,9 +10,9 @@ import {
   LanguageModel,
   LLMClient,
   Media,
-} from "@opencode/ai/effect"
-import { Speech, SpeechClient, SpeechEvent, TranscriptionClient, Video, VideoClient } from "@opencode/ai/experimental"
-import { Route, Protocol, RequestExecutor, WebSocketTransport } from "@opencode/ai/route"
+} from "@uf0rs/ai/effect"
+import { Speech, SpeechClient, SpeechEvent, TranscriptionClient, Video, VideoClient } from "@uf0rs/ai/experimental"
+import { Route, Protocol, RequestExecutor, WebSocketTransport } from "@uf0rs/ai/route"
 import {
   Alibaba,
   AssemblyAI,
@@ -28,7 +28,7 @@ import {
   Google,
   Meta,
   MiniMax,
-  OpenCode,
+  WOPPS,
   OpenAI,
   OpenAICompatible,
   OpenRouter,
@@ -37,7 +37,7 @@ import {
   VercelAIGateway,
   XAI,
   ZAI,
-} from "@opencode/ai/providers"
+} from "@uf0rs/ai/providers"
 import {
   AnthropicMessages,
   OpenAIChat,
@@ -46,8 +46,8 @@ import {
   OpenAIResponses,
   OpenResponses,
   OpenResponsesChannel,
-} from "@opencode/ai/protocols"
-import { TestLLM } from "@opencode/ai/testing"
+} from "@uf0rs/ai/protocols"
+import { TestLLM } from "@uf0rs/ai/testing"
 
 describe("public exports", () => {
   test("modality, provider, and protocol entrypoints load first in a fresh process", async () => {
@@ -115,7 +115,7 @@ describe("public exports", () => {
   })
 
   test("provider barrels expose user-facing facades", async () => {
-    const { OpenAICompatibleResponses } = await import("@opencode/ai/providers")
+    const { OpenAICompatibleResponses } = await import("@uf0rs/ai/providers")
 
     expect(OpenAI.model).toBeFunction()
     expect(OpenAI.provider.responses).toBe(OpenAI.responses)
@@ -137,7 +137,7 @@ describe("public exports", () => {
     expect(OpenRouter.model).toBeFunction()
     expect(OpenRouter.decision).toBeFunction()
     expect(TypeSafeAI.decision).toBeFunction()
-    expect(OpenCode.decision).toBeFunction()
+    expect(WOPPS.decision).toBeFunction()
     expect(VercelAIGateway.decision("typesafe-ai/jev").route.id).toBe("openai-decisions")
     expect(Baseten.decision).toBeFunction()
     expect(DigitalOcean.decision).toBeFunction()

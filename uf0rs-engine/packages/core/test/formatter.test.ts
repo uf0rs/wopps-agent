@@ -2,16 +2,16 @@ import fs from "fs/promises"
 import path from "path"
 import { describe, expect } from "bun:test"
 import { Deferred, Effect, Fiber } from "effect"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Bus } from "@opencode/core/bus"
-import { Database } from "@opencode/core/database/database"
-import { LocationServiceMap } from "@opencode/core/location-services"
-import { Plugin } from "@opencode/core/plugin"
-import { SdkPlugins } from "@opencode/core/plugin/sdk"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Info } from "@opencode/schema/config"
-import { Global } from "@opencode/util/global"
-import { LayerNode } from "@opencode/util/effect/layer-node"
+import { AppNodeBuilder } from "@uf0rs/core/effect/app-node-builder"
+import { Bus } from "@uf0rs/core/bus"
+import { Database } from "@uf0rs/core/database/database"
+import { LocationServiceMap } from "@uf0rs/core/location-services"
+import { Plugin } from "@uf0rs/core/plugin"
+import { SdkPlugins } from "@uf0rs/core/plugin/sdk"
+import { AbsolutePath } from "@uf0rs/core/schema"
+import { Info } from "@uf0rs/schema/config"
+import { Global } from "@uf0rs/util/global"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
 import { Formatter } from "../src/formatter"
 import { Location } from "../src/location"
 import { tempGlobalLayer } from "./fixture/global"
@@ -41,7 +41,7 @@ function withFormatter<A, E, R>(
 ) {
   return withTemp((directory) =>
     Effect.promise(() =>
-      fs.writeFile(path.join(directory, "opencode.json"), JSON.stringify({ formatter: configured })),
+      fs.writeFile(path.join(directory, "uf0rs.json"), JSON.stringify({ formatter: configured })),
     ).pipe(
       Effect.andThen(
         Effect.gen(function* () {
@@ -66,7 +66,7 @@ function append(expression: string) {
 const markdown = { command: append("'md'"), extensions: [".md"] }
 const project = { command: append("'project'"), extensions: [".project"] }
 
-// Writes formatter config layers from lowest to highest priority: global, project, then project .opencode.
+// Writes formatter config layers from lowest to highest priority: global, project, then project .uf0rs.
 function withLayers<A, E, R>(
   layers: ConfigInput["formatter"][],
   body: (formatter: Formatter.Interface, directory: string) => Effect.Effect<A, E, R>,
@@ -75,11 +75,11 @@ function withLayers<A, E, R>(
     Effect.gen(function* () {
       const global = yield* Global.Service
       yield* Effect.promise(async () => {
-        await fs.mkdir(path.join(directory, ".opencode"))
+        await fs.mkdir(path.join(directory, ".uf0rs"))
         const files = [
-          path.join(global.config, "opencode.jsonc"),
-          path.join(directory, "opencode.json"),
-          path.join(directory, ".opencode", "opencode.jsonc"),
+          path.join(global.config, "uf0rs.jsonc"),
+          path.join(directory, "uf0rs.json"),
+          path.join(directory, ".uf0rs", "uf0rs.jsonc"),
         ]
         await Promise.all(layers.map((formatter, index) => fs.writeFile(files[index], JSON.stringify({ formatter }))))
       })

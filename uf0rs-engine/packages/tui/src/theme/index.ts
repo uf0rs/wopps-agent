@@ -4,11 +4,11 @@ import {
   parseThemeDocument,
   type ThemeDocument,
   type ModeDefinition,
-} from "@opencode/theme/tui"
+} from "@uf0rs/theme/tui"
 import { resolveThemeColors } from "./resolve"
 import { DEFAULT_THEMES, type Theme, type ThemeV1Json } from "./v1"
 import wopps from "./assets/v2/wopps.json" with { type: "json" }
-import opencode2 from "./assets/v2/opencode2.json" with { type: "json" }
+import uf0rs2 from "./assets/v2/uf0rs2.json" with { type: "json" }
 
 export { DEFAULT_THEMES, type Theme, type ThemeV1Json } from "./v1"
 
@@ -30,15 +30,15 @@ export function getUf0rsTheme() {
   return document
 }
 
-export const getOpenCodeTheme = getUf0rsTheme
+export const getWOPPSTheme = getUf0rsTheme
 
-let opencode2Theme: ThemeDocument | undefined
+let uf0rs2Theme: ThemeDocument | undefined
 
 // Temporary theme for the "new-designs" experiment. It is not part of allThemes(), so only the
 // TUI theme context offers it, and only while the experiment is enabled.
-export function getOpenCode2Theme() {
-  opencode2Theme ??= parseThemeDocument(opencode2, "opencode2")
-  return opencode2Theme
+export function getWOPPS2Theme() {
+  uf0rs2Theme ??= parseThemeDocument(uf0rs2, "uf0rs2")
+  return uf0rs2Theme
 }
 
 function listThemes(): Record<string, ThemeDocumentSource> {

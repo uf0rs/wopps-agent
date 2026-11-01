@@ -17,7 +17,7 @@ export interface Interface {
   readonly reconnect: Effect.Effect<SidecarCredentials.Data>
 }
 
-export class Service extends Context.Service<Service, Interface>()("opencode/desktop/BackgroundService") {}
+export class Service extends Context.Service<Service, Interface>()("uf0rs/desktop/BackgroundService") {}
 
 export const layer = Layer.effect(
   Service,
@@ -39,18 +39,18 @@ const connect = Effect.fn("BackgroundService.connect")(function* (mode: "initial
   const path = yield* Path.Path
   const desktopCli = yield* DesktopCli.Service
   const runFork = Effect.runForkWith(yield* Effect.context<FileSystem.FileSystem | Path.Path>())
-  const isolated = !app.isPackaged && process.env.OPENCODE_DESKTOP_ISOLATED_SERVER === "1"
+  const isolated = !app.isPackaged && process.env.UF0RS_DESKTOP_ISOLATED_SERVER === "1"
   const cli = yield* desktopCli.resolve
   const version = serviceVersion({ channel: CHANNEL, isolated, mode, version: cli.version })
 
   if (isolated) process.env.XDG_STATE_HOME = app.getPath("userData")
-  const client = yield* Effect.promise(() => import("@opencode/client/service"))
+  const client = yield* Effect.promise(() => import("@uf0rs/client/service"))
 
   const file =
-    process.env.OPENCODE_DESKTOP_SERVER_CHANNEL === "local"
+    process.env.UF0RS_DESKTOP_SERVER_CHANNEL === "local"
       ? path.join(
           process.env.XDG_STATE_HOME ?? path.join(app.getPath("home"), ".local", "state"),
-          "opencode",
+          "uf0rs",
           "service-local.json",
         )
       : undefined

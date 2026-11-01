@@ -27,25 +27,25 @@ const tools: readonly ToolFixture[] = [
   {
     icon: "✱",
     label:
-      'Grep "OPENCODE.*DB|database|sqlite|drizzle|dev.*db|data.*dir|xdg|APPDATA" in packages/opencode/src (151 matches)',
+      'Grep "UF0RS.*DB|database|sqlite|drizzle|dev.*db|data.*dir|xdg|APPDATA" in packages/uf0rs/src (151 matches)',
   },
   {
     icon: "✱",
-    label: 'Glob "**/*db*" in packages/opencode (6 matches)',
+    label: 'Glob "**/*db*" in packages/uf0rs (6 matches)',
   },
   {
     icon: "→",
-    label: "Read packages/opencode/src/storage/db.ts [offset=1, limit=130]",
+    label: "Read packages/uf0rs/src/storage/db.ts [offset=1, limit=130]",
   },
   {
     icon: "→",
-    label: "Read packages/opencode/src/index.ts [offset=1, limit=100]",
+    label: "Read packages/uf0rs/src/index.ts [offset=1, limit=100]",
     error: "No LSP server available for this file type.",
   },
   {
     icon: "✱",
     label:
-      'Grep "export const OPENCODE_DB|OPENCODE_DB|OPENCODE_DEV|Global\\.Path\\.data|data =" in packages/opencode/src (115 matches)',
+      'Grep "export const UF0RS_DB|UF0RS_DB|UF0RS_DEV|Global\\.Path\\.data|data =" in packages/uf0rs/src (115 matches)',
   },
 ] as const
 

@@ -1,8 +1,8 @@
 import { For, Show } from "solid-js"
-import type { PermissionRequest } from "@opencode/client/promise"
-import { Button } from "@opencode/ui/button"
-import { DockPrompt } from "@opencode/session-ui/dock-prompt"
-import { Icon } from "@opencode/ui/icon"
+import type { PermissionRequest } from "@uf0rs/client/promise"
+import { Button } from "@uf0rs/ui/button"
+import { DockPrompt } from "@uf0rs/session-ui/dock-prompt"
+import { Icon } from "@uf0rs/ui/icon"
 import { useLanguage } from "@/runtime/i18n/language"
 
 export function SessionPermissionDock(props: {

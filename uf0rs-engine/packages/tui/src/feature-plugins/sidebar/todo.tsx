@@ -1,4 +1,4 @@
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@uf0rs/plugin/tui"
 import { createMemo, For, Show } from "solid-js"
 import { TextAttributes } from "@opentui/core"
 import { TodoItem } from "../../component/todo-item"
@@ -50,7 +50,7 @@ export function SidebarTodo(props: { context: Plugin.Context; sessionID: string 
 }
 
 export default Plugin.define({
-  id: "opencode.sidebar.todo",
+  id: "uf0rs.sidebar.todo",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

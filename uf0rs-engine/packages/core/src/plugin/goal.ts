@@ -1,11 +1,11 @@
 export * as GoalPlugin from "./goal.js"
 
-import { isContextOverflowFailure, Message } from "@opencode/ai/effect"
-import { define } from "@opencode/plugin/effect/plugin"
-import type { SessionIdleBackground } from "@opencode/plugin/effect/session"
-import { Goal } from "@opencode/schema/goal"
-import { Session } from "@opencode/schema/session"
-import { isExactRootFallback } from "@opencode/util/session-title-fallback"
+import { isContextOverflowFailure, Message } from "@uf0rs/ai/effect"
+import { define } from "@uf0rs/plugin/effect/plugin"
+import type { SessionIdleBackground } from "@uf0rs/plugin/effect/session"
+import { Goal } from "@uf0rs/schema/goal"
+import { Session } from "@uf0rs/schema/session"
+import { isExactRootFallback } from "@uf0rs/util/session-title-fallback"
 import { Cause, Clock, DateTime, Duration, Effect, FiberMap, Option, Schema, Stream } from "effect"
 import CONTINUATION from "./goal/continuation.txt"
 import JUDGE from "./goal/judge.txt"
@@ -38,7 +38,7 @@ const decodeVerdict = Schema.decodeUnknownOption(Schema.fromJsonString(Verdict))
 const USAGE = "Usage: /goal <objective> | pause | resume | clear"
 
 export const Plugin = define({
-  id: "opencode.goal",
+  id: "uf0rs.goal",
   effect: Effect.fn(function* (ctx) {
     const read = Effect.fn("GoalPlugin.read")(function* (sessionID: string) {
       return Option.getOrUndefined(decodeState(yield* ctx.storage.get(PREFIX + sessionID)))

@@ -1,5 +1,5 @@
 import { Popover } from "@kobalte/core/popover"
-import { Badge } from "@opencode/ui/badge"
+import { Badge } from "@uf0rs/ui/badge"
 import { createEffect, createMemo, For, Match, on, Show, Switch } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useLanguage } from "@/runtime/i18n/language"

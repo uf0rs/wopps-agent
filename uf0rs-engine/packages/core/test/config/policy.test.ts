@@ -1,19 +1,19 @@
 import { describe, expect } from "bun:test"
-import { Document, Event, Info, type Entry } from "@opencode/schema/config"
-import { ConfigPolicy } from "@opencode/schema/config/policy"
-import { Permission } from "@opencode/schema/permission"
-import { Config } from "@opencode/core/config"
-import { Integration } from "@opencode/core/integration"
-import { ConfigPolicyPlugin } from "@opencode/core/config/plugin/policy"
-import { Bus } from "@opencode/core/bus"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { Provider } from "@opencode/core/provider"
-import { Session } from "@opencode/core/session"
-import { Credential } from "@opencode/core/credential"
-import { ConfigIntegration } from "@opencode/core/config/integration"
-import { WebSearch } from "@opencode/core/websearch"
+import { Document, Event, Info, type Entry } from "@uf0rs/schema/config"
+import { ConfigPolicy } from "@uf0rs/schema/config/policy"
+import { Permission } from "@uf0rs/schema/permission"
+import { Config } from "@uf0rs/core/config"
+import { Integration } from "@uf0rs/core/integration"
+import { ConfigPolicyPlugin } from "@uf0rs/core/config/plugin/policy"
+import { Bus } from "@uf0rs/core/bus"
+import { Plugin } from "@uf0rs/core/plugin"
+import { PluginHooks } from "@uf0rs/core/plugin/hooks"
+import { PluginHost } from "@uf0rs/core/plugin/host"
+import { Provider } from "@uf0rs/core/provider"
+import { Session } from "@uf0rs/core/session"
+import { Credential } from "@uf0rs/core/credential"
+import { ConfigIntegration } from "@uf0rs/core/config/integration"
+import { WebSearch } from "@uf0rs/core/websearch"
 import { Effect, Schema } from "effect"
 import { testEffect } from "../lib/effect"
 import { organizationPolicy } from "../fixture/policy"
@@ -45,9 +45,9 @@ const orgID = "org_01M3CAP8H43Z49CER6NT0Y3ZF1"
 const lockdown = () =>
   document(
     integration("integration.connect", "deny", "*"),
-    integration("integration.connect", "allow", "opencode"),
+    integration("integration.connect", "allow", "uf0rs"),
     integration("integration.use", "deny", "*"),
-    integration("integration.use", "allow", `opencode#${orgID}`),
+    integration("integration.use", "allow", `uf0rs#${orgID}`),
   )
 
 const consoleCredential = (org: string) =>
@@ -195,16 +195,16 @@ describe("ConfigPolicyPlugin.Plugin", () => {
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.openai, () => {})
         catalog.update(Provider.ID.anthropic, () => {})
-        catalog.update(Provider.ID.opencode, () => {})
+        catalog.update(Provider.ID.uf0rs, () => {})
       })
       yield* addPlugin([
-        organizationPolicy([provider("deny", "*"), provider("allow", "opencode")]),
+        organizationPolicy([provider("deny", "*"), provider("allow", "uf0rs")]),
         document(provider("allow", "anthropic")),
       ])
 
       expect(yield* catalog.get(Provider.ID.anthropic)).toBeUndefined()
       expect(yield* catalog.get(Provider.ID.openai)).toBeUndefined()
-      expect(yield* catalog.get(Provider.ID.opencode)).toBeDefined()
+      expect(yield* catalog.get(Provider.ID.uf0rs)).toBeDefined()
     }),
   )
 
@@ -240,16 +240,16 @@ describe("ConfigPolicyPlugin.Plugin", () => {
       const bus = yield* Bus.Service
       const test = yield* Config.Test
       const host = yield* PluginHost.make(yield* Plugin.Service)
-      const opencode = Integration.ID.make("opencode")
+      const uf0rs = Integration.ID.make("uf0rs")
       yield* catalog.transform((catalog) => catalog.update(Provider.ID.openai, () => {}))
       yield* ConfigPolicyPlugin.Plugin.effect(host)
       expect(yield* catalog.get(Provider.ID.openai)).toBeDefined()
 
-      yield* test.integration?.(opencode, organizationPolicy([provider("deny", "openai")])) ?? Effect.void
+      yield* test.integration?.(uf0rs, organizationPolicy([provider("deny", "openai")])) ?? Effect.void
       yield* bus.publish(Event.Updated, {})
       yield* waitUntil(catalog.get(Provider.ID.openai).pipe(Effect.map((provider) => provider === undefined)))
 
-      yield* test.integration?.(opencode, undefined) ?? Effect.void
+      yield* test.integration?.(uf0rs, undefined) ?? Effect.void
       yield* bus.publish(Event.Updated, {})
       yield* waitUntil(catalog.get(Provider.ID.openai).pipe(Effect.map((provider) => provider !== undefined)))
     }).pipe(Effect.provide(Config.testLayer())),
@@ -269,25 +269,25 @@ describe("integration policy", () => {
         execute: () => Effect.succeed([]),
       })
       yield* catalog.transform((catalog) => {
-        // The signed-out free tier enables OpenCode without any connection.
-        catalog.update(Provider.ID.opencode, (provider) => {
+        // The signed-out free tier enables WOPPS without any connection.
+        catalog.update(Provider.ID.uf0rs, (provider) => {
           provider.activation = "enabled"
         })
         // An env API key: Anthropic's integration with no account.
         catalog.update(Provider.ID.anthropic, (provider) => {
           provider.activation = "enabled"
         })
-        // A provider authored in opencode.json.
+        // A provider authored in uf0rs.json.
         catalog.update(Provider.ID.make("my-llm"), (provider) => {
           provider.activation = "enabled"
         })
         // A provider the Console organization supplies.
         catalog.update(Provider.ID.make("acme-gateway"), (provider) => {
-          provider.integrationID = Integration.ID.make("opencode")
+          provider.integrationID = Integration.ID.make("uf0rs")
         })
       })
       yield* websearch.transform((editor) => {
-        editor.add(search("opencode"))
+        editor.add(search("uf0rs"))
         editor.add(search("exa"))
       })
       yield* ConfigPolicyPlugin.Plugin.effect(host)
@@ -302,16 +302,16 @@ describe("integration policy", () => {
 
       // A personal Console account is a different account of the same integration.
       const personal = yield* credentials.create({
-        integrationID: Integration.ID.make("opencode"),
+        integrationID: Integration.ID.make("uf0rs"),
         value: consoleCredential("org_personal"),
       })
       expect(yield* available()).toEqual([])
 
       // Only the required organization's connection works, and with it everything that organization supplies.
-      yield* credentials.create({ integrationID: Integration.ID.make("opencode"), value: consoleCredential(orgID) })
+      yield* credentials.create({ integrationID: Integration.ID.make("uf0rs"), value: consoleCredential(orgID) })
       yield* eventually(available().pipe(Effect.map((ids) => ids.length > 0)))
-      expect(yield* available()).toEqual(["acme-gateway", "opencode"])
-      expect(yield* searches()).toEqual(["opencode"])
+      expect(yield* available()).toEqual(["acme-gateway", "uf0rs"])
+      expect(yield* searches()).toEqual(["uf0rs"])
 
       // Switching back to the personal account revokes it again.
       yield* credentials.activate(personal.id)
@@ -325,23 +325,23 @@ describe("integration policy", () => {
       const catalog = yield* Provider.Service
       const credentials = yield* Credential.Service
       yield* credentials.create({
-        integrationID: Integration.ID.make("opencode"),
+        integrationID: Integration.ID.make("uf0rs"),
         value: consoleCredential("org_other"),
       })
       yield* catalog.transform((catalog) => {
-        catalog.update(Provider.ID.opencode, () => {})
+        catalog.update(Provider.ID.uf0rs, () => {})
         catalog.update(Provider.ID.anthropic, () => {})
       })
       yield* addPlugin([
         document(
           integration("integration.use", "deny", "*"),
           integration("integration.use", "allow", "anthropic"),
-          integration("integration.use", "allow", "opencode"),
+          integration("integration.use", "allow", "uf0rs"),
         ),
       ])
       expect(yield* catalog.get(Provider.ID.anthropic)).toBeDefined()
-      // `opencode` names only account-less use; a connected account needs `opencode#*` or its own ID.
-      expect(yield* catalog.get(Provider.ID.opencode)).toBeUndefined()
+      // `uf0rs` names only account-less use; a connected account needs `uf0rs#*` or its own ID.
+      expect(yield* catalog.get(Provider.ID.uf0rs)).toBeUndefined()
     }),
   )
 
@@ -367,13 +367,13 @@ describe("integration policy", () => {
             type: "document",
             integrationID: origin,
             info: decode({
-              providers: { "acme-gateway": { package: "@opencode/ai/providers/openai-compatible", models: {} } },
+              providers: { "acme-gateway": { package: "@uf0rs/ai/providers/openai-compatible", models: {} } },
             }),
           }),
           new Document({
             type: "document",
             info: decode({
-              providers: { "my-llm": { package: "@opencode/ai/providers/openai-compatible", models: {} } },
+              providers: { "my-llm": { package: "@uf0rs/ai/providers/openai-compatible", models: {} } },
             }),
           }),
         ])

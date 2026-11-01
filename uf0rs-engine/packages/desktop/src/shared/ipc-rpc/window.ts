@@ -1,4 +1,4 @@
-import { desktopZoomLevels } from "@opencode/app/desktop-menu"
+import { desktopZoomLevels } from "@uf0rs/app/desktop-menu"
 import { Schema } from "effect"
 import { Rpc, RpcGroup } from "effect/rpc"
 

@@ -109,9 +109,9 @@ when it changes; an OSC change hidden behind a user title publishes nothing.
 
 ## Failure Boundary
 
-Losing the owning server connection stops `opencode-pty` and its terminals.
+Losing the owning server connection stops `uf0rs-pty` and its terminals.
 An explicitly prepared restart handoff allows a replacement server to claim
-the same daemon before a fixed deadline. If `opencode-pty` itself dies, its
+the same daemon before a fixed deadline. If `uf0rs-pty` itself dies, its
 terminals may die; live replacement of the daemon is not supported.
 
 ## Persistent Service Boundary
@@ -145,8 +145,8 @@ socket uses a fixed-length hash of the canonical runtime path
 under a private per-user `/tmp` directory to stay below platform path limits.
 
 Every command requires `--name NAME`; the runtime directory is `DIR/NAME`,
-where `--runtime-dir DIR` defaults to OpenCode's state directory,
-`${XDG_STATE_HOME:-~/.local/state}/opencode/pty`. A name is one path component
+where `--runtime-dir DIR` defaults to WOPPS's state directory,
+`${XDG_STATE_HOME:-~/.local/state}/uf0rs/pty`. A name is one path component
 of letters, digits, `.`, `_`, or `-`. Registration defaults to a temporary directory only when no home
 directory can be found: macOS deletes regular files there that are unaccessed for three
 days, even while the daemon runs. Temporary cleaners skip sockets, so the
@@ -167,7 +167,7 @@ lock file and runtime directory; the forced-exit watchdog removes only the
 registration, leaving the rest to a later sweep. The sweep checks liveness
 through the registered process object.
 
-OpenCode chooses a fresh UUID runtime directory for each server, independent of
+WOPPS chooses a fresh UUID runtime directory for each server, independent of
 the database. It starts the daemon only when the first terminal is created.
 Only an explicit restart handoff descriptor lets a replacement server reuse
 the previous daemon's runtime directory and claim its ownership.

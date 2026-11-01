@@ -132,7 +132,7 @@ fn serve(
                             if let Err(error) =
                                 handle_connection(stream, &service, &registration, &control)
                             {
-                                eprintln!("opencode-pty request failed: {error:#}");
+                                eprintln!("uf0rs-pty request failed: {error:#}");
                             }
                         })
                     };
@@ -174,7 +174,7 @@ fn serve(
     let cleanup = runtime.cleanup.clone();
     let watchdog = thread::spawn(move || {
         if cleanup_rx.recv_timeout(Duration::from_secs(5)).is_err() {
-            eprintln!("opencode-pty cleanup timed out; forcing exit");
+            eprintln!("uf0rs-pty cleanup timed out; forcing exit");
             let _ = cleanup.run();
             std::process::exit(1);
         }
@@ -192,7 +192,7 @@ fn serve(
 }
 
 fn pause_accept(until: &mut Option<Instant>, error: &io::Error) {
-    eprintln!("opencode-pty accept paused: {error}");
+    eprintln!("uf0rs-pty accept paused: {error}");
     *until = Some(Instant::now() + ACCEPT_BACKOFF);
 }
 
@@ -590,7 +590,7 @@ mod tests {
         fn start(acquire: Duration, handoff: Duration, safety_net: Duration) -> Self {
             static NEXT: AtomicUsize = AtomicUsize::new(0);
             let root = std::env::temp_dir().join(format!(
-                "opencode-pty-server-{}-{}",
+                "uf0rs-pty-server-{}-{}",
                 std::process::id(),
                 NEXT.fetch_add(1, Ordering::Relaxed)
             ));

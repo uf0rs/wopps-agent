@@ -6,7 +6,7 @@ import { Keymap } from "../context/keymap"
 import { useRoute } from "../context/route"
 import { useSessionTabs } from "../context/session-tabs"
 import { useTheme } from "../context/theme"
-import { withTimestampedFallback } from "@opencode/util/session-title-fallback"
+import { withTimestampedFallback } from "@uf0rs/util/session-title-fallback"
 import { Locale } from "../util/locale"
 
 /**

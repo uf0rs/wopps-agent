@@ -4,9 +4,9 @@ import type { MockServerConfig } from "../utils/mock-server"
 import { mockWorkspace } from "../utils/workspace"
 import { expectSessionTitle } from "../utils/waits"
 
-const directory = "C:\\OpenCode\\main"
+const directory = "C:\\WOPPS\\main"
 
-const workspace = "C:\\OpenCode\\worktree"
+const workspace = "C:\\WOPPS\\worktree"
 
 const sessionID = "ses_mcp_workspace"
 

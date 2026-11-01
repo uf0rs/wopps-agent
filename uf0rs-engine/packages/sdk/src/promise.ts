@@ -1,8 +1,8 @@
 export * as PromiseSdk from "./promise"
 
-import { OpenCode, type OpenCodeClient } from "@opencode/client"
-import type { Plugin } from "@opencode/plugin"
-import { Session } from "@opencode/schema/session"
+import { WOPPS, type WOPPSClient } from "@uf0rs/client"
+import type { Plugin } from "@uf0rs/plugin"
+import { Session } from "@uf0rs/schema/session"
 import { Effect, Schema } from "effect"
 import { EmbeddedHost } from "./internal/host"
 
@@ -23,10 +23,10 @@ export interface CreateOptions
   readonly instances?: InstanceOptions
 }
 
-export type Interface = Omit<OpenCodeClient, "plugin"> & {
-  readonly sessions: OpenCodeClient["session"]
-  readonly events: OpenCodeClient["event"]
-  readonly plugin: ((plugin: Plugin.Plugin) => Promise<void>) & OpenCodeClient["plugin"]
+export type Interface = Omit<WOPPSClient, "plugin"> & {
+  readonly sessions: WOPPSClient["session"]
+  readonly events: WOPPSClient["event"]
+  readonly plugin: ((plugin: Plugin.Plugin) => Promise<void>) & WOPPSClient["plugin"]
   readonly close: () => Promise<void>
   readonly [Symbol.asyncDispose]: () => Promise<void>
 }
@@ -43,7 +43,7 @@ export async function create(options: CreateOptions = {}, embed: EmbeddedHost.Em
               key: (session) => instances.key(Schema.encodeSync(Session.Info)(session)),
               configure: (key) =>
                 Effect.gen(function* () {
-                  const { PluginPromise } = yield* Effect.promise(() => import("@opencode/core/plugin/promise"))
+                  const { PluginPromise } = yield* Effect.promise(() => import("@uf0rs/core/plugin/promise"))
                   const configuration = yield* Effect.tryPromise(async () => instances.configure(key))
                   return { plugins: configuration.plugins.map(PluginPromise.fromPromise) }
                 }),
@@ -53,9 +53,9 @@ export async function create(options: CreateOptions = {}, embed: EmbeddedHost.Em
       embed,
     ),
   )
-  const client = OpenCode.make({ baseUrl: "http://opencode.local", fetch: host.fetch })
+  const client = WOPPS.make({ baseUrl: "http://uf0rs.local", fetch: host.fetch })
   const register = async (plugin: Plugin.Plugin) => {
-    const { PluginPromise } = await import("@opencode/core/plugin/promise")
+    const { PluginPromise } = await import("@uf0rs/core/plugin/promise")
     return host.runtime.runPromise(host.plugins.register(PluginPromise.fromPromise(plugin)))
   }
   return {
@@ -70,6 +70,6 @@ export async function create(options: CreateOptions = {}, embed: EmbeddedHost.Em
 
 async function adaptPlugins(plugins: ReadonlyArray<Plugin.Plugin> | undefined) {
   if (!plugins?.length) return undefined
-  const { PluginPromise } = await import("@opencode/core/plugin/promise")
+  const { PluginPromise } = await import("@uf0rs/core/plugin/promise")
   return plugins.map(PluginPromise.fromPromise)
 }

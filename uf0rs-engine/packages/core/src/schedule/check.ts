@@ -1,9 +1,9 @@
 export * as ScheduleCheck from "./check.js"
 
-import { CodeMode } from "@opencode/codemode"
-import { isRecord } from "@opencode/util/record"
-import { collectStream } from "@opencode/util/process"
-import type { Schedule as ScheduleSchema } from "@opencode/schema/schedule"
+import { CodeMode } from "@uf0rs/codemode"
+import { isRecord } from "@uf0rs/util/record"
+import { collectStream } from "@uf0rs/util/process"
+import type { Schedule as ScheduleSchema } from "@uf0rs/schema/schedule"
 import { Array, Duration, Effect, Option, Result, Schema } from "effect"
 import { ChildProcess } from "effect/process"
 import { Agent } from "../agent.js"
@@ -29,14 +29,14 @@ const CODE_LIMITS: CodeMode.ExecutionLimits = {
 }
 
 const FORBIDDEN_CODE_TOOLS = new Set([
-  "opencode.schedule_create",
-  "opencode.schedule_pause",
-  "opencode.schedule_resume",
-  "opencode.schedule_delete",
-  "opencode.session_move",
-  "opencode.session_rename",
-  "opencode.worktree_create",
-  "opencode.worktree_remove",
+  "uf0rs.schedule_create",
+  "uf0rs.schedule_pause",
+  "uf0rs.schedule_resume",
+  "uf0rs.schedule_delete",
+  "uf0rs.session_move",
+  "uf0rs.session_rename",
+  "uf0rs.worktree_create",
+  "uf0rs.worktree_remove",
 ])
 
 const decodeCodeObjectResult = Schema.decodeUnknownResult(

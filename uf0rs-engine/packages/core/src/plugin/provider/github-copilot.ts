@@ -1,6 +1,6 @@
-import type { IntegrationOAuthMethodRegistration } from "@opencode/plugin/effect/integration"
-import type { SessionRequestKind, SessionTitle } from "@opencode/plugin/effect/session"
-import { isRecord } from "@opencode/util/record"
+import type { IntegrationOAuthMethodRegistration } from "@uf0rs/plugin/effect/integration"
+import type { SessionRequestKind, SessionTitle } from "@uf0rs/plugin/effect/session"
+import { isRecord } from "@uf0rs/util/record"
 import { Effect, Option, Schema } from "effect"
 import { HttpClient } from "effect/http"
 import { IntegrationConnection } from "../../integration/connection.js"
@@ -10,7 +10,7 @@ import { App } from "../../app.js"
 import { Integration } from "../../integration.js"
 import { Model } from "../../model.js"
 import { Agent } from "../../agent.js"
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@uf0rs/plugin/effect/plugin"
 import { Provider } from "../../provider.js"
 import { SessionAffinity } from "../../session/affinity.js"
 import { SharedCache } from "../../shared-cache.js"
@@ -160,7 +160,7 @@ const oauth = (app: App.Info) =>
   }) satisfies IntegrationOAuthMethodRegistration
 
 export const GithubCopilotPlugin = define({
-  id: "opencode.provider.github.copilot",
+  id: "uf0rs.provider.github.copilot",
   effect: Effect.fn(function* (ctx) {
     const providers = yield* Provider.Service
     const cache = yield* SharedCache.Service
@@ -228,12 +228,12 @@ export const GithubCopilotPlugin = define({
       // else goes through the bundled Copilot SDK's model ID fallback.
       for (const id of item.models.keys()) {
         evt.models.update(item.provider.id, id, (model) => {
-          if (model.package === "@opencode/ai/providers/anthropic") {
+          if (model.package === "@uf0rs/ai/providers/anthropic") {
             if (loaded.baseURL)
               model.settings = Provider.mergeOverlay(model.settings, { baseURL: `${loaded.baseURL}/v1` })
             return
           }
-          const responses = model.package === "@opencode/ai/providers/openai"
+          const responses = model.package === "@uf0rs/ai/providers/openai"
           model.package = Provider.aisdk("@ai-sdk/github-copilot")
           model.settings = Provider.mergeOverlay(model.settings, {
             ...(loaded.baseURL ? { baseURL: loaded.baseURL } : {}),

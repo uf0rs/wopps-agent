@@ -2,7 +2,7 @@ import type {
   SessionMessageAssistantTool,
   SessionMessageInfo,
   SessionMessageToolStateCompleted,
-} from "@opencode/client"
+} from "@uf0rs/client"
 import { isRecord } from "./record"
 
 export type TodoStatus = "pending" | "in_progress" | "completed" | "cancelled"

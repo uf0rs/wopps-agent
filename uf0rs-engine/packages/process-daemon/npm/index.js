@@ -10,8 +10,8 @@ const suffix = [process.platform, arch, libc].filter(Boolean).join("-")
 export const binaryPath =
   supported && arch
     ? path.join(
-        path.dirname(require.resolve(`@opencode/pty-${suffix}/package.json`)),
+        path.dirname(require.resolve(`@uf0rs/pty-${suffix}/package.json`)),
         "bin",
-        process.platform === "win32" ? "opencode-pty.exe" : "opencode-pty",
+        process.platform === "win32" ? "uf0rs-pty.exe" : "uf0rs-pty",
       )
     : undefined

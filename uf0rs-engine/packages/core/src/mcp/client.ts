@@ -28,8 +28,8 @@ import {
   type VersionNegotiationOptions,
 } from "@modelcontextprotocol/client"
 import { Cause, Clock, Duration, Effect, Exit, Schedule, Schema } from "effect"
-import { ConfigMCP } from "@opencode/schema/config/mcp"
-import type { Session } from "@opencode/schema/session"
+import { ConfigMCP } from "@uf0rs/schema/config/mcp"
+import type { Session } from "@uf0rs/schema/session"
 import { McpStdio } from "./stdio.js"
 
 const DEFAULT_STARTUP_TIMEOUT = 30_000
@@ -167,7 +167,7 @@ export const connect = Effect.fnUntraced(function* (
   // Remote only. A provider with no stored token and a no-op redirect ends in UnauthorizedError → needs_auth.
   authProvider?: OAuthClientProvider,
   elicitation?: ElicitationHandler,
-  clientInfo: Implementation = { name: "opencode", version: "unknown" },
+  clientInfo: Implementation = { name: "uf0rs", version: "unknown" },
 ) {
   // The SDK takes list-changed handlers at construction, but consumers register after connect. On a
   // modern connection the SDK opens the subscriptions/listen stream behind these itself.
@@ -213,7 +213,7 @@ export const connect = Effect.fnUntraced(function* (
       capabilities: {
         ...(elicitation ? { elicitation: { form: {}, url: {} } } : {}),
         // Legacy era only: roots are deprecated as of 2026-07-28 and modern servers cannot request them.
-        // Some legacy servers refuse to run without one (https://github.com/anomalyco/opencode/issues/2308).
+        // Some legacy servers refuse to run without one (https://github.com/uf0rs/wopps-ai/issues/2308).
         roots: {},
       },
       versionNegotiation: negotiation(protocol),
@@ -304,7 +304,7 @@ export const connect = Effect.fnUntraced(function* (
         args,
         cwd: config.cwd ? path.resolve(directory, config.cwd) : directory,
         environment: {
-          ...(command === "opencode" ? { BUN_BE_BUN: "1" } : {}),
+          ...(command === "uf0rs" ? { BUN_BE_BUN: "1" } : {}),
           ...config.environment,
         },
       })
@@ -429,7 +429,7 @@ export const connect = Effect.fnUntraced(function* (
             {
               name: input.name,
               arguments: input.args ?? {},
-              ...(input.sessionID === undefined ? {} : { _meta: { "ai.opencode/sessionID": input.sessionID } }),
+              ...(input.sessionID === undefined ? {} : { _meta: { "ai.uf0rs/sessionID": input.sessionID } }),
             },
             // Requesting progress keeps long calls alive under the SDK's timeout; execution is the hard wall.
             { signal, timeout: execution, onprogress: () => {} },

@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "Home",
   "nav.openMenu": "Open menu",
   "nav.getStartedFree": "Get started for free",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "WOPPS",
 
   "nav.context.copyLogo": "Copy logo as SVG",
   "nav.context.copyWordmark": "Copy wordmark as SVG",
@@ -43,14 +43,14 @@ export const dict = {
   "email.success": "Almost done. Check your inbox and confirm your email address.",
   "email.error": "Couldn't subscribe you. Please try again.",
 
-  "notFound.title": "OpenCode | Not Found",
+  "notFound.title": "WOPPS | Not Found",
   "notFound.heading": "404 - Page Not Found",
   "notFound.home": "Home",
   "notFound.docs": "Docs",
   "notFound.github": "GitHub",
   "notFound.discord": "Discord",
-  "notFound.logoLightAlt": "OpenCode logo light",
-  "notFound.logoDarkAlt": "OpenCode logo dark",
+  "notFound.logoLightAlt": "WOPPS logo light",
+  "notFound.logoDarkAlt": "WOPPS logo dark",
 
   "common.cancel": "Cancel",
   "common.contactUs": "Contact us",
@@ -60,9 +60,9 @@ export const dict = {
   "common.faq": "FAQ",
   "common.learnMore": "Learn more",
 
-  "app.meta.description": "OpenCode - The open source coding agent.",
+  "app.meta.description": "WOPPS - The open source coding agent.",
 
-  "home.title": "OpenCode | The open source AI coding agent",
+  "home.title": "WOPPS | The open source AI coding agent",
 
   "home.banner.badge": "New",
 
@@ -72,8 +72,8 @@ export const dict = {
 
   "home.install.ariaLabel": "Install options",
 
-  "home.what.title": "What is OpenCode?",
-  "home.what.body": "OpenCode is an open source agent that helps you write code in your terminal, IDE, or desktop.",
+  "home.what.title": "What is WOPPS?",
+  "home.what.body": "WOPPS is an open source agent that helps you write code in your terminal, IDE, or desktop.",
   "home.what.multiSession.title": "Multi-session",
   "home.what.multiSession.body": "Start multiple agents in parallel on the same project",
   "home.what.copilot.title": "GitHub Copilot",
@@ -88,48 +88,48 @@ export const dict = {
 
   "home.growth.title": "The open source AI coding agent",
   "home.growth.body":
-    "With over <strong>{{stars}}</strong> GitHub stars, <strong>{{contributors}}</strong> contributors, and over <strong>{{commits}}</strong> commits, OpenCode is used and trusted by over <strong>{{monthlyUsers}}</strong> developers every month.",
+    "With over <strong>{{stars}}</strong> GitHub stars, <strong>{{contributors}}</strong> contributors, and over <strong>{{commits}}</strong> commits, WOPPS is used and trusted by over <strong>{{monthlyUsers}}</strong> developers every month.",
   "home.growth.githubStars": "GitHub Stars",
   "home.growth.contributors": "Contributors",
   "home.growth.monthlyDevs": "Monthly Devs",
 
   "home.privacy.title": "Built for privacy first",
   "home.privacy.body":
-    "OpenCode does not store any of your code or context data, so that it can operate in privacy sensitive environments.",
+    "WOPPS does not store any of your code or context data, so that it can operate in privacy sensitive environments.",
   "home.privacy.learnMore": "Learn more about",
   "home.privacy.link": "privacy",
 
-  "home.faq.q1": "What is OpenCode?",
+  "home.faq.q1": "What is WOPPS?",
   "home.faq.a1":
-    "OpenCode is an open source agent that helps you write and run code with any AI model. It's available as a terminal-based interface, desktop app, or IDE extension.",
-  "home.faq.q2": "How do I use OpenCode?",
+    "WOPPS is an open source agent that helps you write and run code with any AI model. It's available as a terminal-based interface, desktop app, or IDE extension.",
+  "home.faq.q2": "How do I use WOPPS?",
   "home.faq.a2.before": "The easiest way to get started is to read the",
   "home.faq.a2.link": "intro",
-  "home.faq.q3": "Do I need extra AI subscriptions to use OpenCode?",
+  "home.faq.q3": "Do I need extra AI subscriptions to use WOPPS?",
   "home.faq.a3.p1":
-    "Not necessarily. OpenCode comes with a set of free models that you can use without creating an account.",
+    "Not necessarily. WOPPS comes with a set of free models that you can use without creating an account.",
   "home.faq.a3.p2.beforeZen": "Aside from these, you can use any of the popular coding models by creating a",
   "home.faq.a3.p2.afterZen": " account.",
   "home.faq.a3.p3":
-    "While we encourage users to use Zen, OpenCode also works with all popular providers such as OpenAI, Anthropic, xAI etc.",
+    "While we encourage users to use Zen, WOPPS also works with all popular providers such as OpenAI, Anthropic, xAI etc.",
   "home.faq.a3.p4.beforeLocal": "You can even connect your",
   "home.faq.a3.p4.localLink": "local models",
-  "home.faq.q4": "Can I use my existing AI subscriptions with OpenCode?",
+  "home.faq.q4": "Can I use my existing AI subscriptions with WOPPS?",
   "home.faq.a4.p1": "Yes, you can use your ChatGPT Plus/Pro or GitHub Copilot subscriptions.",
-  "home.faq.q5": "Can I only use OpenCode in the terminal?",
-  "home.faq.a5.beforeDesktop": "Not anymore! OpenCode is now available as an app for your",
+  "home.faq.q5": "Can I only use WOPPS in the terminal?",
+  "home.faq.a5.beforeDesktop": "Not anymore! WOPPS is now available as an app for your",
   "home.faq.a5.desktop": "desktop",
   "home.faq.a5.and": "and",
   "home.faq.a5.web": "web",
-  "home.faq.q6": "How much does OpenCode cost?",
+  "home.faq.q6": "How much does WOPPS cost?",
   "home.faq.a6":
-    "OpenCode is 100% free to use. It also comes with a set of free models. There might be additional costs if you connect any other provider.",
+    "WOPPS is 100% free to use. It also comes with a set of free models. There might be additional costs if you connect any other provider.",
   "home.faq.q7": "What about data and privacy?",
   "home.faq.a7.p1": "Your data and information is only stored when you use our free models.",
   "home.faq.a7.p2.beforeModels": "Learn more about",
   "home.faq.a7.p2.modelsLink": "our models",
-  "home.faq.q8": "Is OpenCode open source?",
-  "home.faq.a8.p1": "Yes, OpenCode is fully open source. The source code is public on",
+  "home.faq.q8": "Is WOPPS open source?",
+  "home.faq.a8.p1": "Yes, WOPPS is fully open source. The source code is public on",
   "home.faq.a8.p2": "under the",
   "home.faq.a8.mitLicense": "MIT License",
   "home.faq.a8.p3":
@@ -137,30 +137,30 @@ export const dict = {
 
   "home.zenCta.title": "Access reliable optimized models for coding agents",
   "home.zenCta.body":
-    "Zen gives you access to a handpicked set of AI models that OpenCode has tested and benchmarked specifically for coding agents. No need to worry about inconsistent performance and quality across providers. Use validated models that work.",
+    "Zen gives you access to a handpicked set of AI models that WOPPS has tested and benchmarked specifically for coding agents. No need to worry about inconsistent performance and quality across providers. Use validated models that work.",
   "home.zenCta.link": "Learn about Zen",
 
-  "zen.title": "OpenCode Zen | A curated set of reliable optimized models for coding agents",
+  "zen.title": "WOPPS Zen | A curated set of reliable optimized models for coding agents",
   "zen.hero.title": "Reliable optimized models for coding agents",
   "zen.hero.body":
-    "Zen gives you access to a curated set of AI models that OpenCode has tested and benchmarked specifically for coding agents. No need to worry about inconsistent performance and quality. Use validated models that work.",
+    "Zen gives you access to a curated set of AI models that WOPPS has tested and benchmarked specifically for coding agents. No need to worry about inconsistent performance and quality. Use validated models that work.",
 
-  "zen.faq.q1": "What is OpenCode Zen?",
+  "zen.faq.q1": "What is WOPPS Zen?",
   "zen.faq.a1":
-    "Zen is a curated set of AI models tested and benchmarked for coding agents created by the team behind OpenCode.",
+    "Zen is a curated set of AI models tested and benchmarked for coding agents created by the team behind WOPPS.",
   "zen.faq.q2": "What makes Zen more accurate?",
   "zen.faq.a2":
     "Zen only provides models that have been specifically tested and benchmarked for coding agents. You wouldn't use a butter knife to cut steak, so don't use poor models for coding.",
   "zen.faq.q3": "Is Zen cheaper?",
   "zen.faq.a3":
-    "Zen is not for profit. Zen passes through the costs from the model providers to you. The higher Zen's usage, the better the rates OpenCode can negotiate, and pass those to you.",
+    "Zen is not for profit. Zen passes through the costs from the model providers to you. The higher Zen's usage, the better the rates WOPPS can negotiate, and pass those to you.",
   "zen.faq.q4": "How much does Zen cost?",
   "zen.faq.a4.p1.beforePricing": "Zen",
   "zen.faq.a4.p1.pricingLink": "charges per request",
   "zen.faq.a4.p1.afterPricing": "with zero markups, so you pay exactly what the model provider charges.",
   "zen.faq.a4.p2.beforeAccount": "Your total cost depends on usage, and you can set monthly spend limits in your",
   "zen.faq.a4.p2.accountLink": "account",
-  "zen.faq.a4.p3": "To cover costs, OpenCode adds only a small payment processing fee of $1.23 per $20 balance top-up.",
+  "zen.faq.a4.p3": "To cover costs, WOPPS adds only a small payment processing fee of $1.23 per $20 balance top-up.",
   "zen.faq.q5": "What about data and privacy?",
   "zen.faq.a5.beforeExceptions":
     "All Zen models are hosted in the US and EU. Providers follow a zero-retention policy and do not use your data for model training, with the",
@@ -171,7 +171,7 @@ export const dict = {
   "zen.faq.a7": "Yes, you can disable billing at any time and use your remaining balance.",
   "zen.faq.q8": "Can I use Zen with other coding agents?",
   "zen.faq.a8":
-    "While Zen works great with OpenCode, you can use Zen with any agent. Follow the setup instructions in your preferred coding agent.",
+    "While Zen works great with WOPPS, you can use Zen with any agent. Follow the setup instructions in your preferred coding agent.",
   "zen.faq.q9": "Can I get a refund?",
   "zen.faq.a9":
     "You may qualify for a refund if the charge was made within the last 14 days and you have not used the credits from that purchase. {{contact}} to request a refund.",
@@ -183,12 +183,12 @@ export const dict = {
   "zen.problem.title": "What problem is Zen solving?",
   "zen.problem.body":
     "There are so many models available, but only a few work well with coding agents. Most providers configure them differently with varying results.",
-  "zen.problem.subtitle": "We're fixing this for everyone, not just OpenCode users.",
+  "zen.problem.subtitle": "We're fixing this for everyone, not just WOPPS users.",
   "zen.problem.item1": "Testing select models and consulting their teams",
   "zen.problem.item2": "Working with providers to ensure they're delivered properly",
   "zen.problem.item3": "Benchmarking all model-provider combinations we recommend",
   "zen.how.title": "How Zen works",
-  "zen.how.body": "While we suggest you use Zen with OpenCode, you can use Zen with any agent.",
+  "zen.how.body": "While we suggest you use Zen with WOPPS, you can use Zen with any agent.",
   "zen.how.step1.title": "Sign up and add $20 balance",
   "zen.how.step1.beforeLink": "follow the",
   "zen.how.step1.link": "setup instructions",
@@ -203,7 +203,7 @@ export const dict = {
   "zen.privacy.exceptionsLink": "following exceptions",
 
   "go.promo.kimiK31Pro": "Kimi K3.1 Pro is now available in Go.",
-  "go.title": "OpenCode Go | Low cost coding models for everyone",
+  "go.title": "WOPPS Go | Low cost coding models for everyone",
   "go.meta.description": "Go costs $10/month, with generous usage limits and reliable access to leading coding models.",
   "go.hero.title": "Low cost coding models for everyone",
   "go.hero.tagline": "Use with any agent. Top up credit if needed. Cancel any time.",
@@ -249,13 +249,13 @@ export const dict = {
 
   "go.problem.title": "What problem is Go solving?",
   "go.problem.body":
-    "We're focused on bringing the OpenCode experience to as many people as possible. OpenCode Go is a low cost $10/month subscription. It provides generous limits and reliable access to the most capable coding models.",
+    "We're focused on bringing the WOPPS experience to as many people as possible. WOPPS Go is a low cost $10/month subscription. It provides generous limits and reliable access to the most capable coding models.",
   "go.problem.item1": "Low cost subscription pricing",
   "go.problem.item2": "Generous limits and reliable access",
   "go.problem.item3": "Built for as many programmers as possible",
   "go.problem.item4": "A curated model lineup tested for agentic coding",
   "go.how.title": "How Go works",
-  "go.how.body": "Go costs $10/month. You can use it with OpenCode or any agent.",
+  "go.how.body": "Go costs $10/month. You can use it with WOPPS or any agent.",
   "go.how.step1.title": "Create an account",
   "go.how.step1.beforeLink": "follow the",
   "go.how.step1.link": "setup instructions",
@@ -264,7 +264,7 @@ export const dict = {
   "go.how.step2.afterLink": "with generous limits",
   "go.how.step3.title": "Start coding",
   "go.how.step3.body": "with reliable access to capable coding models",
-  "go.faq.q1": "What is OpenCode Go?",
+  "go.faq.q1": "What is WOPPS Go?",
   "go.faq.a1":
     "Go is a low-cost subscription that gives you reliable access to capable coding models for agentic coding.",
   "go.faq.q2": "What models does Go include?",
@@ -312,12 +312,12 @@ export const dict = {
   "go.faq.a10":
     "You may qualify for a refund if the charge was made within the last 14 days and you have not used your Go allowance during that billing period. {{contact}} to request a refund.",
 
-  "download.title": "OpenCode | Download",
-  "download.meta.description": "Download OpenCode for macOS, Windows, and Linux",
-  "download.section.terminal": "OpenCode Terminal",
-  "download.section.desktop": "OpenCode Desktop",
-  "download.section.extensions": "OpenCode Extensions",
-  "download.section.integrations": "OpenCode Integrations",
+  "download.title": "WOPPS | Download",
+  "download.meta.description": "Download WOPPS for macOS, Windows, and Linux",
+  "download.section.terminal": "WOPPS Terminal",
+  "download.section.desktop": "WOPPS Desktop",
+  "download.section.extensions": "WOPPS Extensions",
+  "download.section.integrations": "WOPPS Integrations",
   "download.action.download": "Download",
   "download.action.install": "Install",
 
@@ -329,21 +329,21 @@ export const dict = {
   "download.platform.linuxRpm": "Linux (.rpm)",
 
   "download.faq.a3.beforeLocal":
-    "Not necessarily, but probably. You'll need an AI subscription if you want to connect OpenCode to a paid provider, although you can work with",
+    "Not necessarily, but probably. You'll need an AI subscription if you want to connect WOPPS to a paid provider, although you can work with",
   "download.faq.a3.localLink": "local models",
   "download.faq.a3.afterLocal.beforeZen": "for free. While we encourage users to use",
-  "download.faq.a3.afterZen": ", OpenCode works with all popular providers such as OpenAI, Anthropic, xAI etc.",
+  "download.faq.a3.afterZen": ", WOPPS works with all popular providers such as OpenAI, Anthropic, xAI etc.",
 
-  "download.faq.a5.p1": "OpenCode is 100% free to use.",
+  "download.faq.a5.p1": "WOPPS is 100% free to use.",
   "download.faq.a5.p2.beforeZen":
-    "Any additional costs will come from your subscription to a model provider. While OpenCode works with any model provider, we recommend using",
+    "Any additional costs will come from your subscription to a model provider. While WOPPS works with any model provider, we recommend using",
   "download.faq.a5.p2.afterZen": ".",
 
-  "enterprise.title": "OpenCode | Enterprise solutions for your organization",
-  "enterprise.meta.description": "Contact OpenCode for enterprise solutions",
+  "enterprise.title": "WOPPS | Enterprise solutions for your organization",
+  "enterprise.meta.description": "Contact WOPPS for enterprise solutions",
   "enterprise.hero.title": "Your code is yours",
   "enterprise.hero.body1":
-    "OpenCode operates securely inside your organization with no data or context stored and no licensing restrictions or ownership claims. Start a trial with your team, then deploy it across your organization by integrating it with your SSO and internal AI gateway.",
+    "WOPPS operates securely inside your organization with no data or context stored and no licensing restrictions or ownership claims. Start a trial with your team, then deploy it across your organization by integrating it with your SSO and internal AI gateway.",
   "enterprise.hero.body2": "Let us know how we can help.",
   "enterprise.form.name.label": "Full name",
   "enterprise.form.name.placeholder": "Jeff Bezos",
@@ -375,33 +375,33 @@ export const dict = {
   "enterprise.form.error.internalServer": "Internal server error.",
   "enterprise.form.error.captcha": "Captcha verification failed. Please try again.",
   "enterprise.faq.title": "FAQ",
-  "enterprise.faq.q1": "What is OpenCode Enterprise?",
+  "enterprise.faq.q1": "What is WOPPS Enterprise?",
   "enterprise.faq.a1":
-    "OpenCode Enterprise is for organizations that want to ensure that their code and data never leaves their infrastructure. It can do this by using a centralized config that integrates with your SSO and internal AI gateway.",
-  "enterprise.faq.q2": "How do I get started with OpenCode Enterprise?",
+    "WOPPS Enterprise is for organizations that want to ensure that their code and data never leaves their infrastructure. It can do this by using a centralized config that integrates with your SSO and internal AI gateway.",
+  "enterprise.faq.q2": "How do I get started with WOPPS Enterprise?",
   "enterprise.faq.a2":
-    "Simply start with an internal trial with your team. OpenCode by default does not store your code or context data, making it easy to get started. Then contact us to discuss pricing and implementation options.",
+    "Simply start with an internal trial with your team. WOPPS by default does not store your code or context data, making it easy to get started. Then contact us to discuss pricing and implementation options.",
   "enterprise.faq.q3": "How does enterprise pricing work?",
   "enterprise.faq.a3":
     "If you have your own LLM gateway, we do not charge for tokens used. For further details, contact us for a custom quote based on your organization's needs.",
-  "enterprise.faq.q4": "Is my data secure with OpenCode Enterprise?",
+  "enterprise.faq.q4": "Is my data secure with WOPPS Enterprise?",
   "enterprise.faq.a4":
-    "Yes. OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider. With central config and SSO integration, your data remains secure within your organization's infrastructure.",
+    "Yes. WOPPS does not store your code or context data. All processing happens locally or through direct API calls to your AI provider. With central config and SSO integration, your data remains secure within your organization's infrastructure.",
   "enterprise.faq.q5": "Where can I find your security and compliance documentation?",
   "enterprise.faq.a5.before":
     "Our Trust Center has everything: SOC 2 Type 2 report, security policies, subprocessor list, and answers to common security questions. Visit",
   "enterprise.faq.a5.after": "to review or request documents under NDA.",
 
-  "brand.title": "OpenCode | Brand",
-  "brand.meta.description": "OpenCode brand guidelines",
+  "brand.title": "WOPPS | Brand",
+  "brand.meta.description": "WOPPS brand guidelines",
   "brand.heading": "Brand guidelines",
-  "brand.subtitle": "Resources and assets to help you work with the OpenCode brand.",
+  "brand.subtitle": "Resources and assets to help you work with the WOPPS brand.",
   "brand.downloadAll": "Download all assets",
 
-  "changelog.title": "OpenCode | Changelog",
-  "changelog.meta.description": "OpenCode release notes and changelog",
+  "changelog.title": "WOPPS | Changelog",
+  "changelog.meta.description": "WOPPS release notes and changelog",
   "changelog.hero.title": "Changelog",
-  "changelog.hero.subtitle": "New updates and improvements to OpenCode",
+  "changelog.hero.subtitle": "New updates and improvements to WOPPS",
   "changelog.empty": "No changelog entries found.",
   "changelog.viewJson": "View JSON",
 } as const

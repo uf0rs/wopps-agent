@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "opencode-update",
+  "name": "uf0rs-update",
   "main": "src/index.ts",
   "compatibility_date": "2026-07-21",
   "workers_dev": false,
@@ -8,28 +8,28 @@
   "pipelines": [
     {
       "binding": "EVENTS",
-      // Shared lake stream from anomalyco/platform/production.
+      // Shared lake stream from uf0rs/platform/production.
       "stream": "251a89241c3a461c9007f6b6f345ed8b",
     },
   ],
   "routes": [
     {
-      "pattern": "update.opencode.ai",
+      "pattern": "update.wopps.ai",
       "custom_domain": true,
     },
     {
-      "pattern": "opencode.ai/update",
-      "zone_name": "opencode.ai",
+      "pattern": "wopps.ai/update",
+      "zone_name": "wopps.ai",
     },
     {
-      "pattern": "opencode.ai/update/*",
-      "zone_name": "opencode.ai",
+      "pattern": "wopps.ai/update/*",
+      "zone_name": "wopps.ai",
     },
   ],
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "opencode-update",
+      "database_name": "uf0rs-update",
       "database_id": "2c010a96-811f-43d5-804d-7188534e5858",
       "migrations_dir": "migrations",
     },

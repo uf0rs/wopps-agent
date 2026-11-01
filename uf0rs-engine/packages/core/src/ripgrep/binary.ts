@@ -4,11 +4,11 @@ import { Context, Effect, Layer, Stream } from "effect"
 import { HttpClient, HttpClientRequest } from "effect/http"
 import { ChildProcess } from "effect/process"
 import { ChildProcessSpawner } from "effect/process/ChildProcessSpawner"
-import { CrossSpawnSpawner } from "@opencode/util/cross-spawn-spawner"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
+import { CrossSpawnSpawner } from "@uf0rs/util/cross-spawn-spawner"
+import { makeGlobalNode } from "@uf0rs/util/effect/app-node"
+import { httpClient } from "@uf0rs/util/effect/app-node-platform"
+import { FSUtil } from "@uf0rs/util/fs-util"
+import { Global } from "@uf0rs/util/global"
 import { which } from "../util/which.js"
 
 export namespace RipgrepBinary {
@@ -57,7 +57,7 @@ export namespace RipgrepBinary {
     readonly filepath: Effect.Effect<string, Error>
   }
 
-  export class Service extends Context.Service<Service, Interface>()("@opencode/RipgrepBinary") {}
+  export class Service extends Context.Service<Service, Interface>()("@uf0rs/RipgrepBinary") {}
 
   const layer = Layer.effect(
     Service,

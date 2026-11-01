@@ -15,7 +15,7 @@
   node_modules ? callPackage ./node_modules.nix { },
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "opencode";
+  pname = "uf0rs";
   inherit (node_modules) version src;
   inherit node_modules;
 
@@ -46,9 +46,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   env.MODELS_DEV_API_JSON = "${models-dev}/dist/_api.json";
-  env.OPENCODE_DISABLE_MODELS_FETCH = true;
-  env.OPENCODE_VERSION = finalAttrs.version;
-  env.OPENCODE_CHANNEL = "prod";
+  env.UF0RS_DISABLE_MODELS_FETCH = true;
+  env.UF0RS_VERSION = finalAttrs.version;
+  env.UF0RS_CHANNEL = "prod";
   env.NODE_OPTIONS = "--max-old-space-size=4096";
 
   buildPhase = ''
@@ -63,10 +63,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 dist/cli-*/bin/opencode $out/bin/opencode
+    install -Dm755 dist/cli-*/bin/uf0rs $out/bin/uf0rs
 
     # OpenTUI dlopens Wayland for clipboard images.
-    wrapProgram $out/bin/opencode \
+    wrapProgram $out/bin/uf0rs \
       --prefix PATH : ${
         lib.makeBinPath (
           [
@@ -79,7 +79,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ wayland ]}
       ''}
 
-    ln -s opencode $out/bin/opencode2
+    ln -s uf0rs $out/bin/uf0rs2
 
     runHook postInstall
   '';
@@ -88,27 +88,27 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # v2 dropped the `completion` subcommand; --completions is the global flag.
     # --completions also accepts sh, which emits the same script as bash.
     # staged to files, substitute below rejects anything that is not a regular file
-    $out/bin/opencode --completions bash > opencode.bash
-    $out/bin/opencode --completions zsh > _opencode
-    $out/bin/opencode --completions fish > opencode.fish
+    $out/bin/uf0rs --completions bash > uf0rs.bash
+    $out/bin/uf0rs --completions zsh > _uf0rs
+    $out/bin/uf0rs --completions fish > uf0rs.fish
 
-    installShellCompletion --cmd opencode \
-      --bash opencode.bash \
-      --fish opencode.fish \
-      --zsh _opencode
+    installShellCompletion --cmd uf0rs \
+      --bash uf0rs.bash \
+      --fish uf0rs.fish \
+      --zsh _uf0rs
 
-    # OPENCODE_CLI_NAME is a build-time define, so the opencode2 copies are
+    # UF0RS_CLI_NAME is a build-time define, so the uf0rs2 copies are
     # renamed rather than regenerated. --replace-fail is a global literal
-    # substitution, so any lowercase opencode that later appears in a
-    # description or help text ships as opencode2 in the opencode2 copy.
-    substitute opencode.bash opencode2.bash --replace-fail opencode opencode2
-    substitute _opencode _opencode2 --replace-fail opencode opencode2
-    substitute opencode.fish opencode2.fish --replace-fail opencode opencode2
+    # substitution, so any lowercase uf0rs that later appears in a
+    # description or help text ships as uf0rs2 in the uf0rs2 copy.
+    substitute uf0rs.bash uf0rs2.bash --replace-fail uf0rs uf0rs2
+    substitute _uf0rs _uf0rs2 --replace-fail uf0rs uf0rs2
+    substitute uf0rs.fish uf0rs2.fish --replace-fail uf0rs uf0rs2
 
-    installShellCompletion --cmd opencode2 \
-      --bash opencode2.bash \
-      --fish opencode2.fish \
-      --zsh _opencode2
+    installShellCompletion --cmd uf0rs2 \
+      --bash uf0rs2.bash \
+      --fish uf0rs2.fish \
+      --zsh _uf0rs2
   '';
 
   nativeInstallCheckInputs = [
@@ -116,7 +116,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
   doInstallCheck = true;
-  versionCheckKeepEnvironment = [ "HOME" "OPENCODE_DISABLE_MODELS_FETCH" ];
+  versionCheckKeepEnvironment = [ "HOME" "UF0RS_DISABLE_MODELS_FETCH" ];
   versionCheckProgramArg = "--version";
 
   passthru = {
@@ -125,9 +125,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "The open source coding agent";
-    homepage = "https://opencode.ai";
+    homepage = "https://wopps.ai";
     license = lib.licenses.mit;
-    mainProgram = "opencode";
+    mainProgram = "uf0rs";
     inherit (node_modules.meta) platforms;
   };
 })

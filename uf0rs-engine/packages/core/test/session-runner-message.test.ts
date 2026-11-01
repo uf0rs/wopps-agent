@@ -1,15 +1,15 @@
 import { describe, expect, test } from "bun:test"
-import { Message, Media } from "@opencode/ai/effect"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { SessionMessage } from "@opencode/core/session/message"
-import { AgentAttachment, Base64, FileAttachment, SkillAttachment } from "@opencode/schema/prompt"
-import { Skill } from "@opencode/schema/skill"
-import { toLLMMessages } from "@opencode/core/session/runner/to-llm-message"
-import { Agent } from "@opencode/core/agent"
-import { Shell } from "@opencode/schema/shell"
-import { Location } from "@opencode/schema/location"
-import { AbsolutePath } from "@opencode/schema/schema"
+import { Message, Media } from "@uf0rs/ai/effect"
+import { Model } from "@uf0rs/core/model"
+import { Provider } from "@uf0rs/core/provider"
+import { SessionMessage } from "@uf0rs/core/session/message"
+import { AgentAttachment, Base64, FileAttachment, SkillAttachment } from "@uf0rs/schema/prompt"
+import { Skill } from "@uf0rs/schema/skill"
+import { toLLMMessages } from "@uf0rs/core/session/runner/to-llm-message"
+import { Agent } from "@uf0rs/core/agent"
+import { Shell } from "@uf0rs/schema/shell"
+import { Location } from "@uf0rs/schema/location"
+import { AbsolutePath } from "@uf0rs/schema/schema"
 import { DateTime } from "effect"
 import path from "path"
 import { pathToFileURL } from "url"
@@ -905,15 +905,15 @@ Earlier work
     ])
   })
 
-  test("replays flat state under an OpenCode hosted model's route key", () => {
-    const opencode = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.opencode })
+  test("replays flat state under an WOPPS hosted model's route key", () => {
+    const uf0rs = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.uf0rs })
     const messages = toLLMMessages(
       [
         SessionMessage.Assistant.make({
-          id: id("assistant-opencode-reasoning"),
+          id: id("assistant-uf0rs-reasoning"),
           type: "assistant",
           agent: build,
-          model: opencode,
+          model: uf0rs,
           content: [
             SessionMessage.AssistantReasoning.make({
               type: "reasoning",
@@ -924,7 +924,7 @@ Earlier work
           time: { created, completed: created },
         }),
       ],
-      opencode,
+      uf0rs,
       "anthropic",
     )
 

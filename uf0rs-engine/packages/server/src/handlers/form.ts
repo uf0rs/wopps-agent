@@ -1,4 +1,4 @@
-import { Form } from "@opencode/core/form"
+import { Form } from "@uf0rs/core/form"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"

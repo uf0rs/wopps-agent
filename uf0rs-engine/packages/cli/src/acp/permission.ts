@@ -1,9 +1,9 @@
 import type { PermissionOption, SessionUpdate } from "@agentclientprotocol/sdk"
-import type { OpenCodeClient, OpenCodeEvent } from "@opencode/client/effect"
-import { FileDiff } from "@opencode/schema/file-diff"
-import type { Permission } from "@opencode/schema/permission"
-import type { Session } from "@opencode/schema/session"
-import { Patch } from "@opencode/util/patch"
+import type { WOPPSClient, WOPPSEvent } from "@uf0rs/client/effect"
+import { FileDiff } from "@uf0rs/schema/file-diff"
+import type { Permission } from "@uf0rs/schema/permission"
+import type { Session } from "@uf0rs/schema/session"
+import { Patch } from "@uf0rs/util/patch"
 import { applyPatch, parsePatch, reversePatch, structuredPatch, type StructuredPatch } from "diff"
 import { Effect, Option, Schema } from "effect"
 import { ACPChild } from "./child"
@@ -21,12 +21,12 @@ import {
   type ToolInput,
 } from "./tool"
 
-type PermissionEvent = Extract<OpenCodeEvent, { type: "permission.asked" }>
+type PermissionEvent = Extract<WOPPSEvent, { type: "permission.asked" }>
 type Tool = { readonly id: string; readonly name: string; readonly input: ToolInput }
 type Preview = ReturnType<typeof diff>
 
 type Input = {
-  readonly client: OpenCodeClient
+  readonly client: WOPPSClient
   readonly connection: ACPConnection.Interface
   readonly event: PermissionEvent
   readonly sessionID: Session.ID

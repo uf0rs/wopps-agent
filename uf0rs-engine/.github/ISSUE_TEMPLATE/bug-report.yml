@@ -19,10 +19,10 @@ body:
       required: false
 
   - type: input
-    id: opencode-version
+    id: uf0rs-version
     attributes:
-      label: OpenCode version
-      description: What version of OpenCode are you using?
+      label: WOPPS version
+      description: What version of WOPPS are you using?
     validations:
       required: false
 

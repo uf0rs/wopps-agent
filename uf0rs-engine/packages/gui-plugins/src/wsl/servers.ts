@@ -1,8 +1,8 @@
-import type { MainContext } from "@opencode/plugin/gui/main"
+import type { MainContext } from "@uf0rs/plugin/gui/main"
 import type {
   WslDistroProbe,
   WslJob,
-  WslOpencodeCheck,
+  WslWoppsCheck,
   WslServerConfig,
   WslServerItem,
   WslServerRuntime,
@@ -77,10 +77,10 @@ export function createWslServersController(options: WslServersControllerOptions)
     updateServer(id, (item) => ({ ...item, runtime }))
   }
 
-  const setCliCheck = (distro: string, check: WslOpencodeCheck) => {
+  const setCliCheck = (distro: string, check: WslWoppsCheck) => {
     setState({
-      opencodeChecks: {
-        ...state.opencodeChecks,
+      uf0rsChecks: {
+        ...state.uf0rsChecks,
         [distro]: check,
       },
     })
@@ -113,16 +113,16 @@ export function createWslServersController(options: WslServersControllerOptions)
       setState({ distroProbes: { ...state.distroProbes, ...Object.fromEntries(distroProbes) } })
     }
 
-    const opencodeChecks = await Promise.all(
+    const uf0rsChecks = await Promise.all(
       unique.flatMap((distro) =>
-        distroProbeReady(state.distroProbes[distro]) && !state.opencodeChecks[distro]
+        distroProbeReady(state.distroProbes[distro]) && !state.uf0rsChecks[distro]
           ? [inspectCli(distro).then((check) => [distro, check] as const)]
           : [],
       ),
     )
 
-    if (opencodeChecks.length) {
-      setState({ opencodeChecks: { ...state.opencodeChecks, ...Object.fromEntries(opencodeChecks) } })
+    if (uf0rsChecks.length) {
+      setState({ uf0rsChecks: { ...state.uf0rsChecks, ...Object.fromEntries(uf0rsChecks) } })
     }
   }
 
@@ -278,8 +278,8 @@ export function createWslServersController(options: WslServersControllerOptions)
       await runJob({ kind: "probe-addable", distros, startedAt: Date.now() }, () => probeAddableDistros(distros))
     },
 
-    async installOpencode(distro: string) {
-      await runJob({ kind: "install-opencode", distro, startedAt: Date.now() }, async () => {
+    async installWopps(distro: string) {
+      await runJob({ kind: "install-uf0rs", distro, startedAt: Date.now() }, async () => {
         const id = state.servers.find((item) => item.config.distro === distro)?.config.id
 
         if (id) await stopServer(id)
@@ -343,7 +343,7 @@ function initialState(): WslServersState {
     installed: [],
     online: [],
     distroProbes: {},
-    opencodeChecks: {},
+    uf0rsChecks: {},
     pendingRestart: false,
     servers: [],
     job: null,
@@ -356,7 +356,7 @@ function cliCheck(
   resolvedPath: string | null,
   version: string | null,
   expectedVersion: string,
-): WslOpencodeCheck {
+): WslWoppsCheck {
   if (!resolvedPath) {
     return {
       distro,
@@ -364,7 +364,7 @@ function cliCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: t("error.opencodeMissing"),
+      error: t("error.uf0rsMissing"),
     }
   }
 
@@ -375,7 +375,7 @@ function cliCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: t("error.opencodeCannotRun"),
+      error: t("error.uf0rsCannotRun"),
     }
   }
 
@@ -389,7 +389,7 @@ function cliCheck(
   }
 }
 
-function requireMatchingCli(t: MainContext["t"], check: WslOpencodeCheck, expected: string) {
+function requireMatchingCli(t: MainContext["t"], check: WslWoppsCheck, expected: string) {
   if (check.version === expected) return
   throw new Error(
     t("error.updateVersion", {
@@ -402,11 +402,11 @@ function requireMatchingCli(t: MainContext["t"], check: WslOpencodeCheck, expect
 
 function removeDistroState(state: WslServersState, distro: string) {
   const distroProbes = { ...state.distroProbes }
-  const opencodeChecks = { ...state.opencodeChecks }
+  const uf0rsChecks = { ...state.uf0rsChecks }
   delete distroProbes[distro]
-  delete opencodeChecks[distro]
+  delete uf0rsChecks[distro]
 
-  return { distroProbes, opencodeChecks }
+  return { distroProbes, uf0rsChecks }
 }
 
 function distroProbeReady(probe: WslDistroProbe | undefined) {

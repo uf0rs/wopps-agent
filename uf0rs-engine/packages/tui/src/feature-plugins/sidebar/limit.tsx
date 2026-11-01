@@ -1,4 +1,4 @@
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@uf0rs/plugin/tui"
 import { createMemo, Show } from "solid-js"
 import { TextAttributes } from "@opentui/core"
 import { useUsageLimits } from "../../component/usage"
@@ -41,7 +41,7 @@ export function SidebarLimit(props: { context: Plugin.Context }) {
 }
 
 export default Plugin.define({
-  id: "opencode.sidebar.limit",
+  id: "uf0rs.sidebar.limit",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

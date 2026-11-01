@@ -3,7 +3,7 @@
 export default $config({
   app(input) {
     return {
-      name: "opencode",
+      name: "uf0rs",
       removal: input?.stage === "production" ? "retain" : "remove",
       protect: ["production"].includes(input?.stage),
       home: "cloudflare",
@@ -19,8 +19,8 @@ export default $config({
                 profile: process.env.GITHUB_ACTIONS
                   ? undefined
                   : input.stage === "production"
-                    ? "opencode-production"
-                    : "opencode-dev",
+                    ? "uf0rs-production"
+                    : "uf0rs-dev",
               },
               stripe: {
                 version: "0.0.28",
@@ -33,7 +33,7 @@ export default $config({
   async run() {
     if ($app.stage === "beta") {
       const { createWebApp } = await import("./infra/webapp.js")
-      return { WebAppUrl: createWebApp("beta.opencode.ai").url }
+      return { WebAppUrl: createWebApp("beta.wopps.ai").url }
     }
 
     const stage = await import("./infra/stage.js")

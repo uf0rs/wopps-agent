@@ -1,5 +1,5 @@
-import type { OpenCodeClient } from "@opencode/client/promise"
-import { uuid } from "@opencode/util/uuid"
+import type { WOPPSClient } from "@uf0rs/client/promise"
+import { uuid } from "@uf0rs/util/uuid"
 import { decodeEvent, type VoiceEvent } from "./protocol"
 import { delegatorInstructions, liveInstructions, tools } from "./spec"
 
@@ -34,7 +34,7 @@ export class VoiceTransport {
 
   constructor(
     private readonly inputOptions: {
-      api: OpenCodeClient
+      api: WOPPSClient
       event: (event: VoiceEvent) => void
       levels: (input: number, output: number) => void
       dropped: () => void

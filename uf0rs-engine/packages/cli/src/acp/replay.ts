@@ -1,6 +1,6 @@
 import type { SessionUpdate } from "@agentclientprotocol/sdk"
-import type { OpenCodeClient } from "@opencode/client/effect"
-import type { SessionMessage } from "@opencode/schema/session-message"
+import type { WOPPSClient } from "@uf0rs/client/effect"
+import type { SessionMessage } from "@uf0rs/schema/session-message"
 import { Effect, Option, Stream } from "effect"
 import type { Capabilities } from "./capabilities"
 import { ACPClient } from "./client"
@@ -13,7 +13,7 @@ import { ACPTranslate } from "./translate"
 import { completedToolUpdate, errorToolUpdate, pendingToolCall, runningToolUpdate } from "./tool"
 
 export function history(
-  client: OpenCodeClient,
+  client: WOPPSClient,
   connection: ACPConnection.Interface,
   attached: Attached,
   capabilities: Capabilities,

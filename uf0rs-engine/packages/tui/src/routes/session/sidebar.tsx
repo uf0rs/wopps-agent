@@ -4,7 +4,7 @@ import { useTheme } from "../../context/theme"
 import { useConfig } from "../../config"
 import { useLocal } from "../../context/local"
 import { Slot } from "../../plugin/render"
-import { withTimestampedFallback } from "@opencode/util/session-title-fallback"
+import { withTimestampedFallback } from "@uf0rs/util/session-title-fallback"
 import { TextAttributes } from "@opentui/core"
 import "../../component/title-shimmer"
 

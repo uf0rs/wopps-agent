@@ -1,15 +1,15 @@
 ---
 title: Policies
-description: Control which configured resources OpenCode may use.
+description: Control which configured resources WOPPS may use.
 ---
 
-:::caution[Requires OpenCode 2]
-Policies are not enforced in OpenCode 1. The examples on this page require OpenCode 2. In OpenCode 1, use [`disabled_providers`](/docs/config#disabled-providers) or [`enabled_providers`](/docs/config#enabled-providers) to control provider availability. See the [OpenCode 2 policies documentation](https://opencode.ai/v2/docs/policies/) for current usage.
+:::caution[Requires WOPPS 2]
+Policies are not enforced in WOPPS 1. The examples on this page require WOPPS 2. In WOPPS 1, use [`disabled_providers`](/docs/config#disabled-providers) or [`enabled_providers`](/docs/config#enabled-providers) to control provider availability. See the [WOPPS 2 policies documentation](https://wopps.ai/v2/docs/policies/) for current usage.
 :::
 
-Policies control whether OpenCode may perform an action on a named resource. This OpenCode 2 feature is experimental and is configured with the `experimental.policies` array in `opencode.json`.
+Policies control whether WOPPS may perform an action on a named resource. This WOPPS 2 feature is experimental and is configured with the `experimental.policies` array in `uf0rs.json`.
 
-Policies are separate from [permissions](/docs/permissions). Permissions control what tools can do during a session, while policies control whether OpenCode may use a resource such as an LLM provider.
+Policies are separate from [permissions](/docs/permissions). Permissions control what tools can do during a session, while policies control whether WOPPS may use a resource such as an LLM provider.
 
 ---
 
@@ -23,9 +23,9 @@ Each policy statement has three fields:
 
 For example, deny use of the `openai` provider:
 
-```json title="opencode.json"
+```json title="uf0rs.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://wopps.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ A provider denied by policy is not available for model selection or model use, e
 
 ## Available Policies
 
-OpenCode currently supports one policy action:
+WOPPS currently supports one policy action:
 
 | Action         | Resource                      | Description                           |
 | -------------- | ----------------------------- | ------------------------------------- |
@@ -58,9 +58,9 @@ More policy actions may be added in the future.
 
 The `resource` field supports wildcard matching. Use `*` to match zero or more characters and `?` to match one character.
 
-```json title="opencode.json"
+```json title="uf0rs.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://wopps.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ When multiple statements match, the last matching statement wins. Put broad rule
 
 For example, allow only Anthropic:
 
-```json title="opencode.json"
+```json title="uf0rs.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://wopps.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Policies may be set in both your global config and project config. If policies f
 
 ## Provider Lists
 
-In OpenCode 2, use policies instead of the older `disabled_providers` and `enabled_providers` settings when controlling provider access. Keep using those provider lists in OpenCode 1.
+In WOPPS 2, use policies instead of the older `disabled_providers` and `enabled_providers` settings when controlling provider access. Keep using those provider lists in WOPPS 1.
 
 To replace `disabled_providers`:
 
-```json title="opencode.json"
+```json title="uf0rs.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ To replace `disabled_providers`:
 
 To replace `enabled_providers`, deny all providers first and allow the selected providers after it:
 
-```json title="opencode.json"
+```json title="uf0rs.json"
 {
   "experimental": {
     "policies": [

@@ -3,9 +3,9 @@ import path from "node:path"
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises"
 import { Effect } from "effect"
 import { applyEdits, modify, parse, type ParseError } from "jsonc-parser"
-import { Global } from "@opencode/util/global"
-import { Npm } from "@opencode/util/npm"
-import { Host } from "@opencode/plugin/host"
+import { Global } from "@uf0rs/util/global"
+import { Npm } from "@uf0rs/util/npm"
+import { Host } from "@uf0rs/plugin/host"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
 import { resolveConfigPath } from "../mcp/add"
@@ -44,7 +44,7 @@ export default Runtime.handler(
 )
 
 // The server lists packages with a server or GUI part, and the TUI loads their TUI parts from that list; the desktop
-// app reads GUI parts only from the global opencode.json. Only a TUI-only package belongs in the TUI's own config.
+// app reads GUI parts only from the global uf0rs.json. Only a TUI-only package belongs in the TUI's own config.
 export function configurationTarget(entrypoints: Host.Entrypoints) {
   if (entrypoints.server || entrypoints.gui) return "server" as const
   if (entrypoints.tui) return "tui" as const

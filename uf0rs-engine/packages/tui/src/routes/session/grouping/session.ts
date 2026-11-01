@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageInfo } from "@opencode/client"
+import type { SessionMessageAssistant, SessionMessageInfo } from "@uf0rs/client"
 import { groupEntries, mergeGroups, splitGroups, type GroupNode } from "./tree"
 
 export type PartRef = {

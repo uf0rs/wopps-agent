@@ -4,19 +4,19 @@ import { tmpdir } from "node:os"
 import path from "path"
 import { Clock, Deferred, Effect, Fiber, Stream } from "effect"
 import { TestClock } from "effect/testing"
-import { Command } from "@opencode/core/command"
-import { Bus } from "@opencode/core/bus"
-import { Credential } from "@opencode/core/credential"
-import { Integration } from "@opencode/core/integration"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { Rpc } from "@opencode/core/rpc"
-import { Event } from "@opencode/schema/config"
-import { PluginModule } from "@opencode/core/plugin/module"
-import { Session } from "@opencode/core/session"
-import { SessionSchema } from "@opencode/core/session/schema"
-import { Watcher } from "@opencode/core/filesystem/watcher"
-import { fromPromise } from "@opencode/plugin/promise/adapter"
+import { Command } from "@uf0rs/core/command"
+import { Bus } from "@uf0rs/core/bus"
+import { Credential } from "@uf0rs/core/credential"
+import { Integration } from "@uf0rs/core/integration"
+import { Plugin } from "@uf0rs/core/plugin"
+import { PluginHost } from "@uf0rs/core/plugin/host"
+import { Rpc } from "@uf0rs/core/rpc"
+import { Event } from "@uf0rs/schema/config"
+import { PluginModule } from "@uf0rs/core/plugin/module"
+import { Session } from "@uf0rs/core/session"
+import { SessionSchema } from "@uf0rs/core/session/schema"
+import { Watcher } from "@uf0rs/core/filesystem/watcher"
+import { fromPromise } from "@uf0rs/plugin/promise/adapter"
 import { testEffect } from "./lib/effect"
 import { PluginTestLayer } from "./plugin/fixture"
 
@@ -116,7 +116,7 @@ it.live("serves a local plugin's GUI bundle, and reloads it alone when only the 
     const bus = yield* Bus.Service
     yield* plugins.awaitActivation
     const directory = yield* Effect.acquireRelease(
-      Effect.promise(() => mkdtemp(path.join(tmpdir(), "opencode-plugin-gui-"))),
+      Effect.promise(() => mkdtemp(path.join(tmpdir(), "uf0rs-plugin-gui-"))),
       (directory) => Effect.promise(() => rm(directory, { recursive: true, force: true })),
     )
     const starts = path.join(directory, "starts")

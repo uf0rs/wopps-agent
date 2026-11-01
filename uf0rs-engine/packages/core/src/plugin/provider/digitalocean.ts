@@ -1,5 +1,5 @@
-import type { IntegrationOAuthMethodRegistration } from "@opencode/plugin/effect/integration"
-import { define } from "@opencode/plugin/effect/plugin"
+import type { IntegrationOAuthMethodRegistration } from "@uf0rs/plugin/effect/integration"
+import { define } from "@uf0rs/plugin/effect/plugin"
 import { Clock, Deferred, Effect, Option, Schema } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import type { Server } from "node:http"
@@ -115,7 +115,7 @@ const oauth = {
 } satisfies IntegrationOAuthMethodRegistration
 
 export const DigitalOceanPlugin = define({
-  id: "opencode.provider.digitalocean",
+  id: "uf0rs.provider.digitalocean",
   effect: Effect.fn(function* (ctx) {
     const cache = yield* SharedCache.Service
     const http = HttpClient.filterStatusOk(yield* HttpClient.HttpClient)

@@ -36,6 +36,6 @@ describe("inlineCodeKind", () => {
   })
 
   test("detects http urls", () => {
-    expect(inlineCodeKind("https://opencode.ai/docs")).toBe("url")
+    expect(inlineCodeKind("https://wopps.ai/docs")).toBe("url")
   })
 })

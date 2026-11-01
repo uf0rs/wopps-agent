@@ -1,5 +1,5 @@
-import type { CredentialApi, ExperimentalApi, ExperimentalGenerateApi, PluginApi } from "@opencode/client/effect/api"
-import type { Location } from "@opencode/schema/location"
+import type { CredentialApi, ExperimentalApi, ExperimentalGenerateApi, PluginApi } from "@uf0rs/client/effect/api"
+import type { Location } from "@uf0rs/schema/location"
 import type { Effect, Scope } from "effect"
 import type { PluginOptions } from "../options.js"
 import type { App } from "../app.js"

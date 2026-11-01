@@ -1,7 +1,7 @@
-import { OpenCode, type ExperimentalMigrationV1StatusOutput } from "@opencode/client/promise"
-import { useLanguage } from "@opencode/app/desktop"
-import { Loader } from "@opencode/ui/loader"
-import { showToast, toaster, Toast } from "@opencode/ui/toast"
+import { WOPPS, type ExperimentalMigrationV1StatusOutput } from "@uf0rs/client/promise"
+import { useLanguage } from "@uf0rs/app/desktop"
+import { Loader } from "@uf0rs/ui/loader"
+import { showToast, toaster, Toast } from "@uf0rs/ui/toast"
 import { createRoot, createSignal, onCleanup, onMount } from "solid-js"
 import type { ServerReadyData } from "../shared/ipc-contract"
 
@@ -83,7 +83,7 @@ export function MigrationStatus(props: { server: ServerReadyData }) {
     if (abort.signal.aborted) return
 
     // The main process credentials sidecar requests; see `wireRendererHeaders`.
-    const client = OpenCode.make({ baseUrl: props.server.url })
+    const client = WOPPS.make({ baseUrl: props.server.url })
 
     void (async () => {
       while (true) {

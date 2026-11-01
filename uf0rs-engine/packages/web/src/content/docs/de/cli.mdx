@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: OpenCode CLI Optionen und Befehle.
+description: WOPPS CLI Optionen und Befehle.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Der OpenCode CLI startet standardmäßig das [TUI](/docs/tui), wenn er ohne Argumente ausgeführt wird.
+Der WOPPS CLI startet standardmäßig das [TUI](/docs/tui), wenn er ohne Argumente ausgeführt wird.
 
 ```bash
-opencode
+uf0rs
 ```
 
-Es akzeptiert aber auch Befehle, wie auf dieser Seite dokumentiert. Dadurch können Sie programmgesteuert mit OpenCode interagieren.
+Es akzeptiert aber auch Befehle, wie auf dieser Seite dokumentiert. Dadurch können Sie programmgesteuert mit WOPPS interagieren.
 
 ```bash
-opencode run "Explain how closures work in JavaScript"
+uf0rs run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-Starten Sie die Terminalbenutzeroberfläche OpenCode.
+Starten Sie die Terminalbenutzeroberfläche WOPPS.
 
 ```bash
-opencode [project]
+uf0rs [project]
 ```
 
 #### Optionen
@@ -44,26 +44,26 @@ opencode [project]
 
 ## Befehle
 
-Der OpenCode CLI verfügt außerdem über die folgenden Befehle.
+Der WOPPS CLI verfügt außerdem über die folgenden Befehle.
 
 ---
 
 ### attach
 
-Schließen Sie ein Terminal an einen bereits laufenden OpenCode-Backend-Server an, der über die Befehle `serve` oder `web` gestartet wurde.
+Schließen Sie ein Terminal an einen bereits laufenden WOPPS-Backend-Server an, der über die Befehle `serve` oder `web` gestartet wurde.
 
 ```bash
-opencode attach [url]
+uf0rs attach [url]
 ```
 
-Dies ermöglicht die Verwendung von TUI mit einem Remote-Backend OpenCode. Zum Beispiel:
+Dies ermöglicht die Verwendung von TUI mit einem Remote-Backend WOPPS. Zum Beispiel:
 
 ```bash
 # Start the backend server for web/mobile access
-opencode web --port 4096 --hostname 0.0.0.0
+uf0rs web --port 4096 --hostname 0.0.0.0
 
 # In another terminal, attach the TUI to the running backend
-opencode attach http://10.20.30.40:4096
+uf0rs attach http://10.20.30.40:4096
 ```
 
 #### Optionen
@@ -74,8 +74,8 @@ opencode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c` | Letzte Sitzung fortsetzen                                                          |
 | <nobr><code>{"--session"}</code></nobr>  | `-s` | Session-ID zum Fortfahren                                                          |
 | <nobr><code>{"--fork"}</code></nobr>     |      | Sitzung beim Fortsetzen abzweigen (mit `--continue` oder `--session` verwenden)    |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | Basic-Auth-Passwort (standardmäßig `OPENCODE_SERVER_PASSWORD`)                     |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | Basic-Auth-Benutzername (standardmäßig `OPENCODE_SERVER_USERNAME` oder `opencode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Basic-Auth-Passwort (standardmäßig `UF0RS_SERVER_PASSWORD`)                     |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Basic-Auth-Benutzername (standardmäßig `UF0RS_SERVER_USERNAME` oder `uf0rs`) |
 
 ---
 
@@ -84,20 +84,20 @@ opencode attach http://10.20.30.40:4096
 Befehl zum Verwalten von Anmeldeinformationen und Anmelden für Anbieter.
 
 ```bash
-opencode auth [command]
+uf0rs auth [command]
 ```
 
 ---
 
 #### login
 
-OpenCode wird von der Anbieterliste bei [Models.dev](https://models.dev) unterstützt, sodass Sie `opencode auth login` verwenden können, um API-Schlüssel für jeden Anbieter zu konfigurieren, den Sie verwenden möchten. Dies wird in `~/.local/share/opencode/auth.json` gespeichert.
+WOPPS wird von der Anbieterliste bei [Models.dev](https://models.dev) unterstützt, sodass Sie `uf0rs auth login` verwenden können, um API-Schlüssel für jeden Anbieter zu konfigurieren, den Sie verwenden möchten. Dies wird in `~/.local/share/uf0rs/auth.json` gespeichert.
 
 ```bash
-opencode auth login
+uf0rs auth login
 ```
 
-Wenn OpenCode startet, lädt es den Anbieter aus der Anmeldeinformationsdatei. Und ob in Ihren Umgebungen Schlüssel sind oder in Ihrem Projekt eine `.env`-Datei vorhanden ist.
+Wenn WOPPS startet, lädt es den Anbieter aus der Anmeldeinformationsdatei. Und ob in Ihren Umgebungen Schlüssel sind oder in Ihrem Projekt eine `.env`-Datei vorhanden ist.
 
 ---
 
@@ -106,13 +106,13 @@ Wenn OpenCode startet, lädt es den Anbieter aus der Anmeldeinformationsdatei. U
 Listet alle authentifizierten Anbieter auf, wie in der Anmeldeinformationsdatei gespeichert.
 
 ```bash
-opencode auth list
+uf0rs auth list
 ```
 
 Oder die Kurzversion.
 
 ```bash
-opencode auth ls
+uf0rs auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ opencode auth ls
 Melden Sie sich von einem Anbieter ab, indem Sie ihn aus der Anmeldeinformationsdatei löschen.
 
 ```bash
-opencode auth logout
+uf0rs auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ opencode auth logout
 Verwalten Sie den GitHub-Agenten für die Repository-Automatisierung.
 
 ```bash
-opencode github [command]
+uf0rs github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ opencode github [command]
 Installieren Sie den GitHub-Agenten in Ihrem Repository.
 
 ```bash
-opencode github install
+uf0rs github install
 ```
 
 Dadurch wird der erforderliche GitHub-Aktionsworkflow eingerichtet und Sie durch den Konfigurationsprozess geführt. [Learn more](/docs/github).
@@ -154,7 +154,7 @@ Dadurch wird der erforderliche GitHub-Aktionsworkflow eingerichtet und Sie durch
 Führen Sie den GitHub-Agenten aus. Dies wird normalerweise in GitHub-Aktionen verwendet.
 
 ```bash
-opencode github run
+uf0rs github run
 ```
 
 ##### Optionen
@@ -171,7 +171,7 @@ opencode github run
 Verwalten Sie Model Context Protocol-Server.
 
 ```bash
-opencode mcp [command]
+uf0rs mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ opencode mcp [command]
 Fügen Sie Ihrer Konfiguration einen MCP-Server hinzu.
 
 ```bash
-opencode mcp add
+uf0rs mcp add
 ```
 
 Dieser Befehl führt Sie durch das Hinzufügen eines lokalen oder Remote-MCP-Servers.
@@ -193,13 +193,13 @@ Dieser Befehl führt Sie durch das Hinzufügen eines lokalen oder Remote-MCP-Ser
 Listen Sie alle konfigurierten MCP-Server und deren Verbindungsstatus auf.
 
 ```bash
-opencode mcp list
+uf0rs mcp list
 ```
 
 Oder nutzen Sie die Kurzversion.
 
 ```bash
-opencode mcp ls
+uf0rs mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ opencode mcp ls
 Authentifizieren Sie sich mit einem OAuth-fähigen MCP-Server.
 
 ```bash
-opencode mcp auth [name]
+uf0rs mcp auth [name]
 ```
 
 Wenn Sie keinen Servernamen angeben, werden Sie aufgefordert, einen der verfügbaren OAuth-fähigen Server auszuwählen.
@@ -217,13 +217,13 @@ Wenn Sie keinen Servernamen angeben, werden Sie aufgefordert, einen der verfügb
 Sie können auch OAuth-fähige Server und deren Authentifizierungsstatus auflisten.
 
 ```bash
-opencode mcp auth list
+uf0rs mcp auth list
 ```
 
 Oder nutzen Sie die Kurzversion.
 
 ```bash
-opencode mcp auth ls
+uf0rs mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ opencode mcp auth ls
 Entfernen Sie OAuth-Anmeldeinformationen für einen MCP-Server.
 
 ```bash
-opencode mcp logout [name]
+uf0rs mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ opencode mcp logout [name]
 Beheben Sie OAuth-Verbindungsprobleme für einen MCP-Server.
 
 ```bash
-opencode mcp debug <name>
+uf0rs mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ opencode mcp debug <name>
 Listen Sie alle verfügbaren Modelle der konfigurierten Anbieter auf.
 
 ```bash
-opencode models [provider]
+uf0rs models [provider]
 ```
 
 Dieser Befehl zeigt alle bei Ihren konfigurierten Anbietern verfügbaren Modelle im Format `provider/model` an.
@@ -263,7 +263,7 @@ Dies ist nützlich, um die genauen Modellnamen herauszufinden, die in [Ihrer Kon
 Sie können optional eine Anbieter-ID übergeben, um Modelle nach diesem Anbieter zu filtern.
 
 ```bash
-opencode models anthropic
+uf0rs models anthropic
 ```
 
 #### Optionen
@@ -273,36 +273,36 @@ opencode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | Aktualisieren Sie den Modellcache von models.dev                                      |
 | <nobr><code>{"--verbose"}</code></nobr> | Verwenden Sie eine ausführlichere Modellausgabe (einschließlich Metadaten wie Kosten) |
 
-Verwenden Sie das Flag `--refresh`, um die zwischengespeicherte Modellliste zu aktualisieren. Dies ist nützlich, wenn einem Anbieter neue Modelle hinzugefügt wurden und Sie diese in OpenCode sehen möchten.
+Verwenden Sie das Flag `--refresh`, um die zwischengespeicherte Modellliste zu aktualisieren. Dies ist nützlich, wenn einem Anbieter neue Modelle hinzugefügt wurden und Sie diese in WOPPS sehen möchten.
 
 ```bash
-opencode models --refresh
+uf0rs models --refresh
 ```
 
 ---
 
 ### run
 
-Führen Sie OpenCode im nicht interaktiven Modus aus, indem Sie direkt eine Eingabeaufforderung übergeben.
+Führen Sie WOPPS im nicht interaktiven Modus aus, indem Sie direkt eine Eingabeaufforderung übergeben.
 
 ```bash
-opencode run [message..]
+uf0rs run [message..]
 ```
 
 Dies ist nützlich für die Skripterstellung, die Automatisierung oder wenn Sie eine schnelle Antwort wünschen, ohne das vollständige TUI zu starten. Zum Beispiel:
 
-```bash "opencode run"
-opencode run Explain the use of context in Go
+```bash "uf0rs run"
+uf0rs run Explain the use of context in Go
 ```
 
-Sie können auch eine Verbindung zu einer laufenden `opencode serve`-Instanz herstellen, um bei jedem Lauf Kaltstartzeiten für den MCP-Server zu vermeiden:
+Sie können auch eine Verbindung zu einer laufenden `uf0rs serve`-Instanz herstellen, um bei jedem Lauf Kaltstartzeiten für den MCP-Server zu vermeiden:
 
 ```bash
 # Start a headless server in one terminal
-opencode serve
+uf0rs serve
 
 # In another terminal, run commands that attach to it
-opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+uf0rs run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### Optionen
@@ -318,9 +318,9 @@ opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f` | Datei(en) zum Anhängen an die Nachricht                                                             |
 | <nobr><code>{"--format"}</code></nobr>   |      | Format: default (formatiert) oder json (rohe JSON-Ereignisse)                                       |
 | <nobr><code>{"--title"}</code></nobr>    |      | Titel für die Sitzung (verwendet eine verkürzte Eingabeaufforderung, wenn kein Wert angegeben wird) |
-| <nobr><code>{"--attach"}</code></nobr>   |      | An einen laufenden OpenCode-Server anschließen (z.B. http://localhost:4096)                         |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | Basic-Auth-Passwort (standardmäßig `OPENCODE_SERVER_PASSWORD`)                                      |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | Basic-Auth-Benutzername (standardmäßig `OPENCODE_SERVER_USERNAME` oder `opencode`)                  |
+| <nobr><code>{"--attach"}</code></nobr>   |      | An einen laufenden WOPPS-Server anschließen (z.B. http://localhost:4096)                         |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Basic-Auth-Passwort (standardmäßig `UF0RS_SERVER_PASSWORD`)                                      |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Basic-Auth-Benutzername (standardmäßig `UF0RS_SERVER_USERNAME` oder `uf0rs`)                  |
 | <nobr><code>{"--dir"}</code></nobr>      |      | Verzeichnis für die Ausführung, oder Pfad auf dem Remote-Server beim Anhängen                       |
 | <nobr><code>{"--variant"}</code></nobr>  |      | Modellvariante (anbieterspezifischer Reasoning-Aufwand)                                             |
 | <nobr><code>{"--thinking"}</code></nobr> |      | Denkblöcke anzeigen                                                                                 |
@@ -330,13 +330,13 @@ opencode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-Starten Sie einen Headless-OpenCode-Server für den API-Zugriff. Sehen Sie sich die [Server-Dokumentation](/docs/server) für die vollständige HTTP-Schnittstelle an.
+Starten Sie einen Headless-WOPPS-Server für den API-Zugriff. Sehen Sie sich die [Server-Dokumentation](/docs/server) für die vollständige HTTP-Schnittstelle an.
 
 ```bash
-opencode serve
+uf0rs serve
 ```
 
-Dadurch wird ein HTTP-Server gestartet, der API-Zugriff auf OpenCode-Funktionalität ohne die TUI-Schnittstelle bietet. Legen Sie `OPENCODE_SERVER_PASSWORD` fest, um die HTTP-Basisauthentifizierung zu aktivieren (Benutzername ist standardmäßig `opencode`).
+Dadurch wird ein HTTP-Server gestartet, der API-Zugriff auf WOPPS-Funktionalität ohne die TUI-Schnittstelle bietet. Legen Sie `UF0RS_SERVER_PASSWORD` fest, um die HTTP-Basisauthentifizierung zu aktivieren (Benutzername ist standardmäßig `uf0rs`).
 
 #### Optionen
 
@@ -351,20 +351,20 @@ Dadurch wird ein HTTP-Server gestartet, der API-Zugriff auf OpenCode-Funktionali
 
 ### session
 
-OpenCode-Sitzungen verwalten.
+WOPPS-Sitzungen verwalten.
 
 ```bash
-opencode session [command]
+uf0rs session [command]
 ```
 
 ---
 
 #### list
 
-Listen Sie alle OpenCode-Sitzungen auf.
+Listen Sie alle WOPPS-Sitzungen auf.
 
 ```bash
-opencode session list
+uf0rs session list
 ```
 
 ##### Optionen
@@ -378,10 +378,10 @@ opencode session list
 
 ### stats
 
-Zeigen Sie Token-Nutzungs- und Kostenstatistiken für Ihre OpenCode-Sitzungen an.
+Zeigen Sie Token-Nutzungs- und Kostenstatistiken für Ihre WOPPS-Sitzungen an.
 
 ```bash
-opencode stats
+uf0rs stats
 ```
 
 #### Optionen
@@ -400,7 +400,7 @@ opencode stats
 Sitzungsdaten als JSON exportieren.
 
 ```bash
-opencode export [sessionID]
+uf0rs export [sessionID]
 ```
 
 Wenn Sie keine Sitzungs-ID angeben, werden Sie aufgefordert, eine der verfügbaren Sitzungen auszuwählen.
@@ -412,24 +412,24 @@ Wenn Sie keine Sitzungs-ID angeben, werden Sie aufgefordert, eine der verfügbar
 Importieren Sie Sitzungsdaten aus einer JSON-Datei.
 
 ```bash
-opencode import <file>
+uf0rs import <file>
 ```
 
 ```bash
-opencode import session.json
+uf0rs import session.json
 ```
 
 ---
 
 ### web
 
-Starten Sie einen Headless-OpenCode-Server mit einer Weboberfläche.
+Starten Sie einen Headless-WOPPS-Server mit einer Weboberfläche.
 
 ```bash
-opencode web
+uf0rs web
 ```
 
-Dadurch wird ein HTTP-Server gestartet und ein Webbrowser geöffnet, um über eine Webschnittstelle auf OpenCode zuzugreifen. Legen Sie `OPENCODE_SERVER_PASSWORD` fest, um die HTTP-Basisauthentifizierung zu aktivieren (Benutzername ist standardmäßig `opencode`).
+Dadurch wird ein HTTP-Server gestartet und ein Webbrowser geöffnet, um über eine Webschnittstelle auf WOPPS zuzugreifen. Legen Sie `UF0RS_SERVER_PASSWORD` fest, um die HTTP-Basisauthentifizierung zu aktivieren (Benutzername ist standardmäßig `uf0rs`).
 
 #### Optionen
 
@@ -447,7 +447,7 @@ Dadurch wird ein HTTP-Server gestartet und ein Webbrowser geöffnet, um über ei
 Starten Sie einen ACP (Agent Client Protocol) Server.
 
 ```bash
-opencode acp
+uf0rs acp
 ```
 
 Dieser Befehl startet einen ACP-Server, der über stdin/stdout unter Verwendung von nd-JSON kommuniziert.
@@ -464,10 +464,10 @@ Dieser Befehl startet einen ACP-Server, der über stdin/stdout unter Verwendung 
 
 ### uninstall
 
-Deinstallieren Sie OpenCode und entfernen Sie alle zugehörigen Dateien.
+Deinstallieren Sie WOPPS und entfernen Sie alle zugehörigen Dateien.
 
 ```bash
-opencode uninstall
+uf0rs uninstall
 ```
 
 #### Optionen
@@ -483,22 +483,22 @@ opencode uninstall
 
 ### upgrade
 
-Aktualisiert OpenCode auf die neueste Version oder eine bestimmte Version.
+Aktualisiert WOPPS auf die neueste Version oder eine bestimmte Version.
 
 ```bash
-opencode upgrade [target]
+uf0rs upgrade [target]
 ```
 
 Um auf die neueste Version zu aktualisieren:
 
 ```bash
-opencode upgrade
+uf0rs upgrade
 ```
 
 Um auf eine bestimmte Version zu aktualisieren.
 
 ```bash
-opencode upgrade v0.1.48
+uf0rs upgrade v0.1.48
 ```
 
 #### Optionen
@@ -511,7 +511,7 @@ opencode upgrade v0.1.48
 
 ## Globale Flags
 
-Der OpenCode CLI akzeptiert die folgenden globalen Flags.
+Der WOPPS CLI akzeptiert die folgenden globalen Flags.
 
 | Flag                                       | Kurz | Beschreibung                              |
 | ------------------------------------------ | ---- | ----------------------------------------- |
@@ -524,32 +524,32 @@ Der OpenCode CLI akzeptiert die folgenden globalen Flags.
 
 ## Umgebungsvariablen
 
-OpenCode kann mithilfe von Umgebungsvariablen konfiguriert werden.
+WOPPS kann mithilfe von Umgebungsvariablen konfiguriert werden.
 
 | Variable                              | Typ             | Beschreibung                                                                     |
 | ------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
-| `OPENCODE_GIT_BASH_PATH`              | Zeichenfolge    | Pfad zur ausführbaren Git Bash-Datei unter Windows                               |
-| `OPENCODE_CONFIG`                     | Zeichenfolge    | Pfad zur Konfigurationsdatei                                                     |
-| `OPENCODE_CONFIG_DIR`                 | Zeichenfolge    | Pfad zum Konfigurationsverzeichnis                                               |
-| `OPENCODE_CONFIG_CONTENT`             | Zeichenfolge    | Inline-JSON-Konfigurationsinhalt                                                 |
-| `OPENCODE_DISABLE_AUTOUPDATE`         | boolescher Wert | Automatische Update-Prüfungen deaktivieren                                       |
-| `OPENCODE_DISABLE_PRUNE`              | boolescher Wert | Bereinigung alter Daten deaktivieren                                             |
-| `OPENCODE_DISABLE_TERMINAL_TITLE`     | boolescher Wert | Deaktivieren Sie die automatische Aktualisierung von Terminaltiteln              |
-| `OPENCODE_PERMISSION`                 | Zeichenfolge    | Inline-JSON-Berechtigungskonfiguration                                           |
-| `OPENCODE_DISABLE_DEFAULT_PLUGINS`    | boolescher Wert | Standard-Plugins deaktivieren                                                    |
-| `OPENCODE_DISABLE_LSP_DOWNLOAD`       | boolescher Wert | Automatische LSP-Server-Downloads deaktivieren                                   |
-| `OPENCODE_ENABLE_EXPERIMENTAL_MODELS` | boolescher Wert | Experimentelle Modelle aktivieren                                                |
-| `OPENCODE_DISABLE_AUTOCOMPACT`        | boolescher Wert | Automatische Kontextkomprimierung deaktivieren                                   |
-| `OPENCODE_DISABLE_CLAUDE_CODE`        | boolescher Wert | Deaktivieren Sie das Lesen von `.claude` (Prompt + Skills)                       |
-| `OPENCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolescher Wert | Deaktivieren Sie das Lesen von `~/.claude/CLAUDE.md`                             |
-| `OPENCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolescher Wert | Deaktivieren Sie das Laden von `.claude/skills`                                  |
-| `OPENCODE_DISABLE_MODELS_FETCH`       | boolescher Wert | Deaktivieren Sie das Abrufen von Modellen aus Remote-Quellen                     |
-| `OPENCODE_FAKE_VCS`                   | Zeichenfolge    | Gefälschter VCS-Anbieter zu Testzwecken                                          |
-| `OPENCODE_CLIENT`                     | Zeichenfolge    | Client-ID (standardmäßig `cli`)                                                  |
-| `OPENCODE_ENABLE_EXA`                 | boolescher Wert | Exa-Websuchtools aktivieren                                                      |
-| `OPENCODE_SERVER_PASSWORD`            | Zeichenfolge    | Aktivieren Sie die Basisauthentifizierung für `serve`/`web`                      |
-| `OPENCODE_SERVER_USERNAME`            | Zeichenfolge    | Benutzernamen für die Basisauthentifizierung überschreiben (Standard `opencode`) |
-| `OPENCODE_MODELS_URL`                 | Zeichenfolge    | Benutzerdefinierte URL zum Abrufen der Modellkonfiguration                       |
+| `UF0RS_GIT_BASH_PATH`              | Zeichenfolge    | Pfad zur ausführbaren Git Bash-Datei unter Windows                               |
+| `UF0RS_CONFIG`                     | Zeichenfolge    | Pfad zur Konfigurationsdatei                                                     |
+| `UF0RS_CONFIG_DIR`                 | Zeichenfolge    | Pfad zum Konfigurationsverzeichnis                                               |
+| `UF0RS_CONFIG_CONTENT`             | Zeichenfolge    | Inline-JSON-Konfigurationsinhalt                                                 |
+| `UF0RS_DISABLE_AUTOUPDATE`         | boolescher Wert | Automatische Update-Prüfungen deaktivieren                                       |
+| `UF0RS_DISABLE_PRUNE`              | boolescher Wert | Bereinigung alter Daten deaktivieren                                             |
+| `UF0RS_DISABLE_TERMINAL_TITLE`     | boolescher Wert | Deaktivieren Sie die automatische Aktualisierung von Terminaltiteln              |
+| `UF0RS_PERMISSION`                 | Zeichenfolge    | Inline-JSON-Berechtigungskonfiguration                                           |
+| `UF0RS_DISABLE_DEFAULT_PLUGINS`    | boolescher Wert | Standard-Plugins deaktivieren                                                    |
+| `UF0RS_DISABLE_LSP_DOWNLOAD`       | boolescher Wert | Automatische LSP-Server-Downloads deaktivieren                                   |
+| `UF0RS_ENABLE_EXPERIMENTAL_MODELS` | boolescher Wert | Experimentelle Modelle aktivieren                                                |
+| `UF0RS_DISABLE_AUTOCOMPACT`        | boolescher Wert | Automatische Kontextkomprimierung deaktivieren                                   |
+| `UF0RS_DISABLE_CLAUDE_CODE`        | boolescher Wert | Deaktivieren Sie das Lesen von `.claude` (Prompt + Skills)                       |
+| `UF0RS_DISABLE_CLAUDE_CODE_PROMPT` | boolescher Wert | Deaktivieren Sie das Lesen von `~/.claude/CLAUDE.md`                             |
+| `UF0RS_DISABLE_CLAUDE_CODE_SKILLS` | boolescher Wert | Deaktivieren Sie das Laden von `.claude/skills`                                  |
+| `UF0RS_DISABLE_MODELS_FETCH`       | boolescher Wert | Deaktivieren Sie das Abrufen von Modellen aus Remote-Quellen                     |
+| `UF0RS_FAKE_VCS`                   | Zeichenfolge    | Gefälschter VCS-Anbieter zu Testzwecken                                          |
+| `UF0RS_CLIENT`                     | Zeichenfolge    | Client-ID (standardmäßig `cli`)                                                  |
+| `UF0RS_ENABLE_EXA`                 | boolescher Wert | Exa-Websuchtools aktivieren                                                      |
+| `UF0RS_SERVER_PASSWORD`            | Zeichenfolge    | Aktivieren Sie die Basisauthentifizierung für `serve`/`web`                      |
+| `UF0RS_SERVER_USERNAME`            | Zeichenfolge    | Benutzernamen für die Basisauthentifizierung überschreiben (Standard `uf0rs`) |
+| `UF0RS_MODELS_URL`                 | Zeichenfolge    | Benutzerdefinierte URL zum Abrufen der Modellkonfiguration                       |
 
 ---
 
@@ -559,20 +559,20 @@ Diese Umgebungsvariablen ermöglichen experimentelle Funktionen, die sich änder
 
 | Variable                                        | Typ             | Beschreibung                                              |
 | ----------------------------------------------- | --------------- | --------------------------------------------------------- |
-| `OPENCODE_EXPERIMENTAL`                         | boolescher Wert | Experimentelle Funktionen unter dem Sammelflag aktivieren |
-| `OPENCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolescher Wert | Symbolerkennung aktivieren                                |
-| `OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolescher Wert | Kopieren bei Auswahl in TUI deaktivieren                  |
-| `OPENCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | Zahl            | Standard-Timeout für Bash-Befehle in ms                   |
-| `OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | Zahl            | Maximale Ausgabetokens für LLM-Antworten                  |
-| `OPENCODE_EXPERIMENTAL_FILEWATCHER`             | boolescher Wert | Dateiüberwachung für das gesamte Verzeichnis aktivieren   |
-| `OPENCODE_EXPERIMENTAL_OXFMT`                   | boolescher Wert | Oxfmt-Formatierer aktivieren                              |
-| `OPENCODE_EXPERIMENTAL_LSP_TOOL`                | boolescher Wert | Experimentelles LSP-Tool aktivieren                       |
-| `OPENCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolescher Wert | Dateiüberwachung deaktivieren                             |
-| `OPENCODE_EXPERIMENTAL_EXA`                     | boolescher Wert | Experimentelle Exa-Funktionen aktivieren                  |
-| `OPENCODE_EXPERIMENTAL_LSP_TY`                  | boolescher Wert | TY LSP für Python-Dateien aktivieren                      |
-| `OPENCODE_EXPERIMENTAL_PLAN_MODE`               | boolescher Wert | Planmodus aktivieren                                      |
-| `OPENCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolescher Wert | Experimentelles Ereignissystem aktivieren                 |
-| `OPENCODE_EXPERIMENTAL_NATIVE_LLM`              | boolescher Wert | Nativen LLM-Anfragepfad aktivieren                        |
-| `OPENCODE_EXPERIMENTAL_PARALLEL`                | boolescher Wert | Parallele Websuche aktivieren                             |
-| `OPENCODE_EXPERIMENTAL_SCOUT`                   | boolescher Wert | Scout-Subagent aktivieren                                 |
-| `OPENCODE_EXPERIMENTAL_WORKSPACES`              | boolescher Wert | Workspace-Unterstützung aktivieren                        |
+| `UF0RS_EXPERIMENTAL`                         | boolescher Wert | Experimentelle Funktionen unter dem Sammelflag aktivieren |
+| `UF0RS_EXPERIMENTAL_ICON_DISCOVERY`          | boolescher Wert | Symbolerkennung aktivieren                                |
+| `UF0RS_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolescher Wert | Kopieren bei Auswahl in TUI deaktivieren                  |
+| `UF0RS_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | Zahl            | Standard-Timeout für Bash-Befehle in ms                   |
+| `UF0RS_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | Zahl            | Maximale Ausgabetokens für LLM-Antworten                  |
+| `UF0RS_EXPERIMENTAL_FILEWATCHER`             | boolescher Wert | Dateiüberwachung für das gesamte Verzeichnis aktivieren   |
+| `UF0RS_EXPERIMENTAL_OXFMT`                   | boolescher Wert | Oxfmt-Formatierer aktivieren                              |
+| `UF0RS_EXPERIMENTAL_LSP_TOOL`                | boolescher Wert | Experimentelles LSP-Tool aktivieren                       |
+| `UF0RS_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolescher Wert | Dateiüberwachung deaktivieren                             |
+| `UF0RS_EXPERIMENTAL_EXA`                     | boolescher Wert | Experimentelle Exa-Funktionen aktivieren                  |
+| `UF0RS_EXPERIMENTAL_LSP_TY`                  | boolescher Wert | TY LSP für Python-Dateien aktivieren                      |
+| `UF0RS_EXPERIMENTAL_PLAN_MODE`               | boolescher Wert | Planmodus aktivieren                                      |
+| `UF0RS_EXPERIMENTAL_EVENT_SYSTEM`            | boolescher Wert | Experimentelles Ereignissystem aktivieren                 |
+| `UF0RS_EXPERIMENTAL_NATIVE_LLM`              | boolescher Wert | Nativen LLM-Anfragepfad aktivieren                        |
+| `UF0RS_EXPERIMENTAL_PARALLEL`                | boolescher Wert | Parallele Websuche aktivieren                             |
+| `UF0RS_EXPERIMENTAL_SCOUT`                   | boolescher Wert | Scout-Subagent aktivieren                                 |
+| `UF0RS_EXPERIMENTAL_WORKSPACES`              | boolescher Wert | Workspace-Unterstützung aktivieren                        |

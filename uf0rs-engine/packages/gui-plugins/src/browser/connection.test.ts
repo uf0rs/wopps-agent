@@ -1,6 +1,6 @@
 import { afterEach, expect, jest, test } from "bun:test"
-import { Browser } from "@opencode/plugin-browser/rpc"
-import type { IpcClient } from "@opencode/plugin/gui"
+import { Browser } from "@uf0rs/plugin-browser/rpc"
+import type { IpcClient } from "@uf0rs/plugin/gui"
 import { createConnection } from "./connection"
 import type { BrowserPane, PaneEvent } from "./ipc"
 

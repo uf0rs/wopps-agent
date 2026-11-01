@@ -8,7 +8,7 @@ export type Response = TestMedia.Response<SpeechResponse>
 
 export interface TestInterface extends TestMedia.TestInterface<SpeechRequestFor, SpeechEvent, SpeechResponse> {}
 
-export class Test extends Context.Service<Test, TestInterface>()("@opencode/ai/TestSpeech/Test") {}
+export class Test extends Context.Service<Test, TestInterface>()("@uf0rs/ai/TestSpeech/Test") {}
 
 export type LayerOptions = TestScript.Options<SpeechRequestFor, Response>
 

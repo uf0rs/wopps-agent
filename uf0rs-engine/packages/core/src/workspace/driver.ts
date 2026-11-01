@@ -1,7 +1,7 @@
 export * as WorkspaceDriver from "./driver.js"
 
-import { Workspace } from "@opencode/schema/workspace"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
+import { Workspace } from "@uf0rs/schema/workspace"
+import { makeGlobalNode } from "@uf0rs/util/effect/app-node"
 import { Context, Effect, Layer, Schema } from "effect"
 import type { Scope } from "effect"
 import type { EnvironmentDriver } from "../environment/driver.js"
@@ -68,7 +68,7 @@ export interface Registry {
 }
 
 export class RegistryService extends Context.Service<RegistryService, Registry>()(
-  "@opencode/WorkspaceDriverRegistry",
+  "@uf0rs/WorkspaceDriverRegistry",
 ) {}
 
 export const registry = (drivers: Readonly<Record<string, Interface>>): Registry => ({

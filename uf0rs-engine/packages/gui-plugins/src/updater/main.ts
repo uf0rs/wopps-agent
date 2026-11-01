@@ -1,8 +1,8 @@
 import { dialog } from "electron"
 import { Effect, Exit, Schema, Scope } from "effect"
-import { builtinMainContext } from "@opencode/plugin/gui/builtin"
-import { MenubarItem, type Plugin } from "@opencode/plugin/gui/main"
-import { Updater } from "@opencode/plugin/gui/updater"
+import { builtinMainContext } from "@uf0rs/plugin/gui/builtin"
+import { MenubarItem, type Plugin } from "@uf0rs/plugin/gui/main"
+import { Updater } from "@uf0rs/plugin/gui/updater"
 import { logContext } from "./log"
 import { make } from "./machine"
 
@@ -20,7 +20,7 @@ const setup: Plugin.MainSetup = async (ctx) => {
   const ready = builtin.storage.store("ready", {
     schema: Schema.NullOr(Schema.Struct({ version: Schema.String })),
     initial: null,
-    from: { settings: "ready", file: "opencode.updater" },
+    from: { settings: "ready", file: "uf0rs.updater" },
   })
 
   // electron-updater loads only in packaged builds, after the first window is up.

@@ -1,12 +1,12 @@
 import { expect } from "bun:test"
 import { Effect, Fiber, Stream } from "effect"
 import { FetchHttpClient } from "effect/http"
-import { KV } from "@opencode/core/kv"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { Location } from "@opencode/core/location"
-import { AbsolutePath } from "@opencode/core/schema"
-import { WellKnown } from "@opencode/core/wellknown"
+import { KV } from "@uf0rs/core/kv"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
+import { Bus } from "@uf0rs/core/bus"
+import { Location } from "@uf0rs/core/location"
+import { AbsolutePath } from "@uf0rs/core/schema"
+import { WellKnown } from "@uf0rs/core/wellknown"
 import { location } from "./fixture/location"
 import { testEffect } from "./lib/effect"
 
@@ -20,7 +20,7 @@ it.live("loads embedded and remote configuration", () =>
         port: 0,
         fetch(request) {
           const url = new URL(request.url)
-          if (url.pathname === "/.well-known/opencode") {
+          if (url.pathname === "/.well-known/uf0rs") {
             return Response.json({
               auth: { command: ["login"], env: "TOKEN" },
               config: { model: "embedded/model" },

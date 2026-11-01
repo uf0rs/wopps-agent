@@ -1,11 +1,11 @@
 import { APICallError } from "@ai-sdk/provider"
 import type { LanguageModelV3, LanguageModelV3StreamPart } from "@ai-sdk/provider"
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible"
-import { AISDK } from "@opencode/core/aisdk"
-import { SessionRunnerRetry } from "@opencode/core/session/runner/retry"
-import { toSessionError } from "@opencode/core/session/to-session-error"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
+import { AISDK } from "@uf0rs/core/aisdk"
+import { SessionRunnerRetry } from "@uf0rs/core/session/runner/retry"
+import { toSessionError } from "@uf0rs/core/session/to-session-error"
+import { Model } from "@uf0rs/core/model"
+import { Provider } from "@uf0rs/core/provider"
 import {
   ai,
   AIError,
@@ -20,9 +20,9 @@ import {
   RateLimitError,
   TransportError,
   UnknownProviderError,
-} from "@opencode/ai/effect"
-import { LLMClient, RequestExecutor } from "@opencode/ai/route"
-import { compileRequest } from "@opencode/ai/testing"
+} from "@uf0rs/ai/effect"
+import { LLMClient, RequestExecutor } from "@uf0rs/ai/route"
+import { compileRequest } from "@uf0rs/ai/testing"
 import { expect } from "bun:test"
 import { Effect, Layer } from "effect"
 import { HttpClientRequest, HttpClientResponse } from "effect/http"

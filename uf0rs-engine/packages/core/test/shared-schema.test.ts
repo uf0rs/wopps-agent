@@ -1,32 +1,32 @@
 import { expect, test } from "bun:test"
 import { Schema } from "effect"
-import { Agent } from "@opencode/core/agent"
-import { Session } from "@opencode/core/session"
-import { SessionStore } from "@opencode/core/session/store"
-import { Location } from "@opencode/schema/location"
-import { Model } from "@opencode/schema/model"
-import { Provider } from "@opencode/schema/provider"
-import { Project } from "@opencode/schema/project"
-import { Worktree } from "@opencode/schema/worktree"
-import { Prompt } from "@opencode/schema/prompt"
-import { SessionInbox } from "@opencode/schema/session-inbox"
-import { SessionMessage } from "@opencode/schema/session-message"
-import { Workspace } from "@opencode/schema/workspace"
-import { Command } from "@opencode/schema/command"
-import { Connection } from "@opencode/schema/connection"
-import { Credential } from "@opencode/schema/credential"
-import { FileSystem } from "@opencode/schema/filesystem"
-import { Integration } from "@opencode/schema/integration"
-import { LLM } from "@opencode/schema/llm"
-import { Permission } from "@opencode/schema/permission"
-import { Pty } from "@opencode/schema/pty"
-import { Reference } from "@opencode/schema/reference"
-import { Skill } from "@opencode/schema/skill"
-import { AbsolutePath, optional, statics } from "@opencode/schema/schema"
+import { Agent } from "@uf0rs/core/agent"
+import { Session } from "@uf0rs/core/session"
+import { SessionStore } from "@uf0rs/core/session/store"
+import { Location } from "@uf0rs/schema/location"
+import { Model } from "@uf0rs/schema/model"
+import { Provider } from "@uf0rs/schema/provider"
+import { Project } from "@uf0rs/schema/project"
+import { Worktree } from "@uf0rs/schema/worktree"
+import { Prompt } from "@uf0rs/schema/prompt"
+import { SessionInbox } from "@uf0rs/schema/session-inbox"
+import { SessionMessage } from "@uf0rs/schema/session-message"
+import { Workspace } from "@uf0rs/schema/workspace"
+import { Command } from "@uf0rs/schema/command"
+import { Connection } from "@uf0rs/schema/connection"
+import { Credential } from "@uf0rs/schema/credential"
+import { FileSystem } from "@uf0rs/schema/filesystem"
+import { Integration } from "@uf0rs/schema/integration"
+import { LLM } from "@uf0rs/schema/llm"
+import { Permission } from "@uf0rs/schema/permission"
+import { Pty } from "@uf0rs/schema/pty"
+import { Reference } from "@uf0rs/schema/reference"
+import { Skill } from "@uf0rs/schema/skill"
+import { AbsolutePath, optional, statics } from "@uf0rs/schema/schema"
 
 test("Core reuses the canonical shared schemas", async () => {
-  const schemaAgent = await import("@opencode/schema/agent")
-  const schemaSession = await import("@opencode/schema/session")
+  const schemaAgent = await import("@uf0rs/schema/agent")
+  const schemaSession = await import("@uf0rs/schema/session")
   const [
     coreCommand,
     coreConnection,
@@ -48,25 +48,25 @@ test("Core reuses the canonical shared schemas", async () => {
     coreSchema,
     coreWorkspace,
   ] = await Promise.all([
-    import("@opencode/core/command"),
-    import("@opencode/core/integration/connection"),
-    import("@opencode/core/credential"),
-    import("@opencode/core/filesystem"),
-    import("@opencode/core/integration"),
-    import("@opencode/core/location"),
-    import("@opencode/ai/effect"),
-    import("@opencode/core/model"),
-    import("@opencode/core/permission"),
-    import("@opencode/core/worktree"),
-    import("@opencode/core/pty"),
-    import("@opencode/core/project/schema"),
-    import("@opencode/core/provider"),
-    import("@opencode/core/reference"),
-    import("@opencode/core/session/inbox"),
-    import("@opencode/core/session/message"),
-    import("@opencode/core/skill"),
-    import("@opencode/core/schema"),
-    import("@opencode/core/workspace"),
+    import("@uf0rs/core/command"),
+    import("@uf0rs/core/integration/connection"),
+    import("@uf0rs/core/credential"),
+    import("@uf0rs/core/filesystem"),
+    import("@uf0rs/core/integration"),
+    import("@uf0rs/core/location"),
+    import("@uf0rs/ai/effect"),
+    import("@uf0rs/core/model"),
+    import("@uf0rs/core/permission"),
+    import("@uf0rs/core/worktree"),
+    import("@uf0rs/core/pty"),
+    import("@uf0rs/core/project/schema"),
+    import("@uf0rs/core/provider"),
+    import("@uf0rs/core/reference"),
+    import("@uf0rs/core/session/inbox"),
+    import("@uf0rs/core/session/message"),
+    import("@uf0rs/core/skill"),
+    import("@uf0rs/core/schema"),
+    import("@uf0rs/core/workspace"),
   ])
 
   const schemas = [

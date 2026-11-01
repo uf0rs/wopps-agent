@@ -38,5 +38,5 @@ export function authorization(sidecar: Data | undefined, url: string) {
 
   if (new URL(url).origin !== sidecar.url) return
 
-  return `Basic ${Buffer.from(`opencode:${sidecar.password}`).toString("base64")}`
+  return `Basic ${Buffer.from(`uf0rs:${sidecar.password}`).toString("base64")}`
 }

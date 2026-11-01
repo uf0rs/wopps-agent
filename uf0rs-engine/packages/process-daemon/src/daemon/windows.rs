@@ -41,7 +41,7 @@ pub(super) fn read_registration(directory: &Path) -> Result<Registration> {
         FILE_SHARE_READ | FILE_SHARE_DELETE,
         &security,
     )
-    .context("opencode-pty registration is unavailable")?;
+    .context("uf0rs-pty registration is unavailable")?;
     check_kind(&file, false)?;
     security.check_private(file.as_raw_handle())?;
     let mut data = Vec::new();
@@ -52,7 +52,7 @@ pub(super) fn read_registration(directory: &Path) -> Result<Registration> {
     if data.len() > 16 * 1024 {
         bail!("PTY registration is too large");
     }
-    serde_json::from_slice(&data).context("invalid opencode-pty registration")
+    serde_json::from_slice(&data).context("invalid uf0rs-pty registration")
 }
 
 pub(super) struct Runtime {
@@ -103,11 +103,11 @@ impl Runtime {
         check_kind(&lock, false)?;
         security.make_private(lock.as_raw_handle())?;
         lock.try_lock_exclusive()
-            .context("another opencode-pty process already owns the service lock")?;
+            .context("another uf0rs-pty process already owns the service lock")?;
 
         let instance_id = format!("{:032x}", rand::random::<u128>());
         let registration = Registration {
-            socket: PathBuf::from(format!(r"\\.\pipe\opencode-pty-{instance_id}")),
+            socket: PathBuf::from(format!(r"\\.\pipe\uf0rs-pty-{instance_id}")),
             instance_id,
             pid: std::process::id(),
             protocol: PROTOCOL_VERSION,
@@ -363,7 +363,7 @@ mod tests {
             instance_id: "first".into(),
             pid: 1,
             protocol: PROTOCOL_VERSION,
-            socket: PathBuf::from(r"\\.\pipe\opencode-pty-first"),
+            socket: PathBuf::from(r"\\.\pipe\uf0rs-pty-first"),
             token: "secret".into(),
             features: features(),
         };

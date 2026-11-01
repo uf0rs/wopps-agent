@@ -1,7 +1,7 @@
 import { MessageTooLargeError, ndJsonStream } from "@agentclientprotocol/sdk"
-import { OpenCode } from "@opencode/client/effect"
-import { Service } from "@opencode/client/effect/service"
-import { CrossSpawnSpawner } from "@opencode/util/cross-spawn-spawner"
+import { WOPPS } from "@uf0rs/client/effect"
+import { Service } from "@uf0rs/client/effect/service"
+import { CrossSpawnSpawner } from "@uf0rs/util/cross-spawn-spawner"
 import { Effect, Option } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/http"
 import { Writable } from "node:stream"
@@ -21,9 +21,9 @@ export default Runtime.handler(
         answer: [],
       })
     }
-    process.env.OPENCODE_CLIENT = "acp"
+    process.env.UF0RS_CLIENT = "acp"
     const endpoint = yield* Standalone.start()
-    const client = yield* OpenCode.make({ baseUrl: endpoint.url }).pipe(
+    const client = yield* WOPPS.make({ baseUrl: endpoint.url }).pipe(
       Effect.provideServiceEffect(
         HttpClient.HttpClient,
         HttpClient.HttpClient.pipe(

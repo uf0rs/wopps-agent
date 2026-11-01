@@ -1,9 +1,9 @@
-import { OpenCode, withMediaRefs, type MediaRequestOptions } from "@opencode/client/promise"
+import { WOPPS, withMediaRefs, type MediaRequestOptions } from "@uf0rs/client/promise"
 import type { ServerConnection } from "@/runtime/server/registry"
 import { decode64 } from "@/runtime/persistence/base64"
 
 export function authTokenFromCredentials(input: { password: string }) {
-  return btoa(`opencode:${input.password}`)
+  return btoa(`uf0rs:${input.password}`)
 }
 
 export function authFromToken(token: string | null) {
@@ -24,7 +24,7 @@ export type ServerRequestOptions = MediaRequestOptions
 
 export function createApiForServer(input: { server: ServerConnection.HttpBase; fetch?: typeof globalThis.fetch }) {
   return withMediaRefs(
-    OpenCode.make({
+    WOPPS.make({
       baseUrl: input.server.url,
       fetch: input.fetch,
       headers: input.server.password

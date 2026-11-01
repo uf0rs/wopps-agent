@@ -1,14 +1,14 @@
 import { expect, setDefaultTimeout } from "bun:test"
-import { Agent } from "@opencode/core/agent"
-import { Bus } from "@opencode/core/bus"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { Session } from "@opencode/core/session"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionExecution } from "@opencode/core/session/execution"
-import { SessionMessage } from "@opencode/core/session/message"
-import { Money } from "@opencode/schema/money"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
+import { Agent } from "@uf0rs/core/agent"
+import { Bus } from "@uf0rs/core/bus"
+import { Model } from "@uf0rs/core/model"
+import { Provider } from "@uf0rs/core/provider"
+import { Session } from "@uf0rs/core/session"
+import { SessionEvent } from "@uf0rs/core/session/event"
+import { SessionExecution } from "@uf0rs/core/session/execution"
+import { SessionMessage } from "@uf0rs/core/session/message"
+import { Money } from "@uf0rs/schema/money"
+import { makeGlobalNode } from "@uf0rs/util/effect/app-node"
 import { Effect, Layer } from "effect"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
@@ -18,7 +18,7 @@ setDefaultTimeout(30_000)
 
 it.live("serves turn diffs by user message with range validation", () =>
   Effect.gen(function* () {
-    const tmp = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("opencode-session-diff-")))
+    const tmp = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("uf0rs-session-diff-")))
     const ids = { user: SessionMessage.ID.create(), assistant: SessionMessage.ID.create() }
     // Deliver the prompt and one step the way the runner would, without a model.
     const execution = Layer.effect(
@@ -70,7 +70,7 @@ it.live("serves turn diffs by user message with range validation", () =>
     const request = (path: string, body?: unknown) =>
       Effect.promise(async () => {
         const response = await handler(
-          new Request(`http://opencode.local${path}`, {
+          new Request(`http://uf0rs.local${path}`, {
             method: body === undefined ? "GET" : "POST",
             headers: body === undefined ? undefined : { "content-type": "application/json" },
             body: body === undefined ? undefined : JSON.stringify(body),

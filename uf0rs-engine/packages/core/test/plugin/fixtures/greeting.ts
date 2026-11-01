@@ -1,4 +1,4 @@
-import { Plugin } from "@opencode/plugin"
+import { Plugin } from "@uf0rs/plugin"
 
 export default Plugin.define({
   id: "greeting",

@@ -1,25 +1,25 @@
 import { describe, expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
-import { Bus } from "@opencode/core/bus"
-import { Config } from "@opencode/core/config"
-import { Generate } from "@opencode/core/generate"
-import { Job } from "@opencode/core/job"
-import { Location } from "@opencode/core/location"
-import { Model } from "@opencode/core/model"
-import { Permission } from "@opencode/core/permission"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { Provider } from "@opencode/core/provider"
-import { Session } from "@opencode/core/session"
-import { SessionEvent } from "@opencode/core/session/event"
-import { Tool } from "@opencode/core/tool"
-import { ImageGenerateTool } from "@opencode/core/tool/plugin/image-generate"
-import { OpenCodeTools } from "@opencode/core/tool/plugin/opencode"
-import { Document, Event, Info } from "@opencode/schema/config"
-import { ConfigExperimental } from "@opencode/schema/config/experimental"
-import type { ImageRequest, ImageResult } from "@opencode/schema/generate"
-import { Global } from "@opencode/util/global"
+import { Bus } from "@uf0rs/core/bus"
+import { Config } from "@uf0rs/core/config"
+import { Generate } from "@uf0rs/core/generate"
+import { Job } from "@uf0rs/core/job"
+import { Location } from "@uf0rs/core/location"
+import { Model } from "@uf0rs/core/model"
+import { Permission } from "@uf0rs/core/permission"
+import { Plugin } from "@uf0rs/core/plugin"
+import { PluginHost } from "@uf0rs/core/plugin/host"
+import { Provider } from "@uf0rs/core/provider"
+import { Session } from "@uf0rs/core/session"
+import { SessionEvent } from "@uf0rs/core/session/event"
+import { Tool } from "@uf0rs/core/tool"
+import { ImageGenerateTool } from "@uf0rs/core/tool/plugin/image-generate"
+import { WOPPSTools } from "@uf0rs/core/tool/plugin/uf0rs"
+import { Document, Event, Info } from "@uf0rs/schema/config"
+import { ConfigExperimental } from "@uf0rs/schema/config/experimental"
+import type { ImageRequest, ImageResult } from "@uf0rs/schema/generate"
+import { Global } from "@uf0rs/util/global"
 import { Effect, Layer, Schedule, Stream } from "effect"
 import { testEffect } from "./lib/effect"
 import { permissionLayer } from "./lib/permission"
@@ -98,7 +98,7 @@ const setup = (providerID = "test") =>
     const location = yield* Location.Service
     const host = yield* PluginHost.make(plugins)
     yield* ImageGenerateTool.Plugin.effect(host)
-    yield* OpenCodeTools.Plugin.effect(host)
+    yield* WOPPSTools.Plugin.effect(host)
     const session = yield* sessions.create({
       location: Location.Ref.make({ directory: location.directory }),
       model: Model.Ref.make({ providerID: Provider.ID.make(providerID), id: Model.ID.make("chat") }),
@@ -487,7 +487,7 @@ describe("experimental_image_generate", () => {
             type: "tool-call",
             id: `models-${JSON.stringify(input)}`,
             name: "execute",
-            input: { code: `return await tools.opencode.models(${JSON.stringify(input)})` },
+            input: { code: `return await tools.uf0rs.models(${JSON.stringify(input)})` },
           },
         }).pipe(
           Effect.map((result) =>

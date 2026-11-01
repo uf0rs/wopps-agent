@@ -1,9 +1,9 @@
 import { createEffect, createMemo, createSignal, on, onCleanup, Show } from "solid-js"
 import { Option, Schema } from "effect"
-import type { SessionStepFailed } from "@opencode/client/promise"
-import { Button } from "@opencode/ui/button"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
+import type { SessionStepFailed } from "@uf0rs/client/promise"
+import { Button } from "@uf0rs/ui/button"
+import { Icon } from "@uf0rs/ui/icon"
+import { IconButton } from "@uf0rs/ui/icon-button"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"
 import { useWorkspaceLocation } from "@/workspaces/location"
@@ -12,7 +12,7 @@ import type { ModelSelection } from "@/providers/models/selection"
 import { formatLimitReset } from "../usage-exceeded-dialogs"
 import { Grow } from "./spring-height"
 
-// OpenCode Console names the workspace and the limit (5 hour, weekly or monthly) in its Go usage limit refusal.
+// WOPPS Console names the workspace and the limit (5 hour, weekly or monthly) in its Go usage limit refusal.
 const decodeGoLimitBody = Schema.decodeUnknownOption(
   Schema.fromJsonString(
     Schema.Struct({
@@ -31,11 +31,11 @@ function goLimit(locale: string, event: SessionStepFailed): GoLimit {
     name: metadata?.limitName,
     reset: formatLimitReset(locale, event.created, event.data.error.retryAfterMs),
     // The Go page is where the workspace turns on Extra Usage to keep going on its balance.
-    link: workspace ? `https://opencode.ai/console/${encodeURIComponent(workspace)}/go` : "https://opencode.ai/console",
+    link: workspace ? `https://wopps.ai/console/${encodeURIComponent(workspace)}/go` : "https://wopps.ai/console",
   }
 }
 
-// A tray that grows out from under the composer, like the queue panel, when an OpenCode Go subscriber reaches a usage
+// A tray that grows out from under the composer, like the queue panel, when an WOPPS Go subscriber reaches a usage
 // limit: when Go is back, and how to keep going now.
 export function SessionGoLimitTray(props: {
   sessionID: string | undefined

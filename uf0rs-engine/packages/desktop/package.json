@@ -1,13 +1,13 @@
 {
-  "name": "@opencode/desktop",
+  "name": "@uf0rs/desktop",
   "private": true,
   "version": "2.2.5",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://opencode.ai",
+  "homepage": "https://wopps.ai",
   "author": {
-    "name": "OpenCode",
-    "email": "hello@opencode.ai"
+    "name": "WOPPS",
+    "email": "hello@wopps.ai"
   },
   "scripts": {
     "typecheck": "bun check --no-script -b",
@@ -32,12 +32,12 @@
     "@brendonovich/vite-plugin-opencode": "0.1.3",
     "@effect/platform-node": "catalog:",
     "@lydell/node-pty": "catalog:",
-    "@opencode/app": "workspace:*",
-    "@opencode/gui-plugins": "workspace:*",
-    "@opencode/plugin": "workspace:*",
-    "@opencode/client": "workspace:*",
-    "@opencode/schema": "workspace:*",
-    "@opencode/ui": "workspace:*",
+    "@uf0rs/app": "workspace:*",
+    "@uf0rs/gui-plugins": "workspace:*",
+    "@uf0rs/plugin": "workspace:*",
+    "@uf0rs/client": "workspace:*",
+    "@uf0rs/schema": "workspace:*",
+    "@uf0rs/ui": "workspace:*",
     "@sentry/solid": "catalog:",
     "@solidjs/router": "catalog:",
     "@types/bun": "catalog:",

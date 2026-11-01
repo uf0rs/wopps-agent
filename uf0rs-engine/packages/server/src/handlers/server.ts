@@ -2,8 +2,8 @@ import { hostname } from "node:os"
 import { Duration, Effect } from "effect"
 import { HttpServerRequest, HttpServerResponse } from "effect/http"
 import { HttpApiBuilder } from "effect/http-api"
-import { PersistentPty } from "@opencode/core/persistent-pty"
-import { UnauthorizedError } from "@opencode/protocol/errors"
+import { PersistentPty } from "@uf0rs/core/persistent-pty"
+import { UnauthorizedError } from "@uf0rs/protocol/errors"
 import { Api } from "../api"
 import { ServerAuth } from "../auth"
 import { ServerInfo } from "../server-info"
@@ -39,7 +39,7 @@ export const ServerHandler = HttpApiBuilder.group(Api, "server.server", (handler
           if (token === undefined) {
             if (!browser) return yield* new UnauthorizedError({ message: "Pairing link expired or already used" })
             return HttpServerResponse.text(
-              "This pairing link expired or was already used. Run `opencode pair` to get a new one.",
+              "This pairing link expired or was already used. Run `uf0rs pair` to get a new one.",
               { status: 401 },
             )
           }

@@ -1,11 +1,11 @@
 import { Effect, Stream } from "effect"
-import { Integration as IntegrationInfo } from "@opencode/schema/integration"
-import { Money } from "@opencode/schema/money"
+import { Integration as IntegrationInfo } from "@uf0rs/schema/integration"
+import { Money } from "@uf0rs/schema/money"
 import { Model } from "../../model.js"
 import { Provider } from "../../provider.js"
 import { Bus } from "../../bus.js"
 import { Integration } from "../../integration.js"
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@uf0rs/plugin/effect/plugin"
 
 type OpenRouterModel = {
   id: string
@@ -130,7 +130,7 @@ async function fetchOpenRouterModels(): Promise<Model.Info[]> {
 }
 
 export const OpenRouterPlugin = define({
-  id: "opencode.provider.openrouter",
+  id: "uf0rs.provider.openrouter",
   effect: Effect.fn(function* (ctx) {
     const bus = yield* Bus.Service
     const integrations = yield* Integration.Service
@@ -162,14 +162,14 @@ export const OpenRouterPlugin = define({
       }
       yield* ctx.provider.transform((providers) => {
         for (const item of providers.list()) {
-          if (item.provider.package !== "@opencode/ai/providers/openrouter") continue
+          if (item.provider.package !== "@uf0rs/ai/providers/openrouter") continue
           providers.models.set(item.provider.id, models)
         }
       })
     })
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {
-        if (item.provider.package !== "@opencode/ai/providers/openrouter") continue
+        if (item.provider.package !== "@uf0rs/ai/providers/openrouter") continue
         evt.update(item.provider.id, (provider) => {
           provider.headers = {
             ...provider.headers,
@@ -181,7 +181,7 @@ export const OpenRouterPlugin = define({
     })
     yield* ctx.model.transform((models) => {
       for (const item of models.provider.list()) {
-        if (item.provider.package !== "@opencode/ai/providers/openrouter") continue
+        if (item.provider.package !== "@uf0rs/ai/providers/openrouter") continue
         for (const modelID of [Model.ID.make("gpt-5-chat-latest"), Model.ID.make("openai/gpt-5-chat")]) {
           if (!models.get(item.provider.id, modelID)) continue
           models.update(item.provider.id, modelID, (model) => {

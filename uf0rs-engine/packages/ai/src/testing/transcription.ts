@@ -9,7 +9,7 @@ export type Response = TestMedia.Response<TranscriptionResponse>
 export interface TestInterface
   extends TestMedia.TestInterface<TranscriptionRequestFor, TranscriptionEvent, TranscriptionResponse> {}
 
-export class Test extends Context.Service<Test, TestInterface>()("@opencode/ai/TestTranscription/Test") {}
+export class Test extends Context.Service<Test, TestInterface>()("@uf0rs/ai/TestTranscription/Test") {}
 
 export type LayerOptions = TestScript.Options<TranscriptionRequestFor, Response>
 

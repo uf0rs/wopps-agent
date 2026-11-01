@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Button } from "@uf0rs/ui/button"
+import { useDialog } from "@uf0rs/ui/context/dialog"
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query"
 import { onMount } from "solid-js"
 import { DialogConnectProvider, useProviderConnectController } from "./dialog"
@@ -59,8 +59,8 @@ export const ApiKey = {
   render: renderConnection("openrouter"),
 }
 
-export const OpenCodeZen = {
-  render: renderConnection("opencode"),
+export const WOPPSZen = {
+  render: renderConnection("uf0rs"),
 }
 
 export const LoginMethods = {

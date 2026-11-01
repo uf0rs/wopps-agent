@@ -1,11 +1,11 @@
 [package]
-name = "opencode-pty"
+name = "uf0rs-pty"
 version = "0.4.0"
 edition = "2024"
 rust-version = "1.90"
-description = "Persistent PTY service for OpenCode"
+description = "Persistent PTY service for WOPPS"
 license = "MIT"
-repository = "https://github.com/anomalyco/opencode"
+repository = "https://github.com/uf0rs/wopps-ai"
 links = "ghostty-vt"
 
 [dependencies]

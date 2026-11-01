@@ -1,20 +1,20 @@
 import { expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
-import { Database } from "@opencode/core/database/database"
-import { Location } from "@opencode/core/location"
-import { Permission } from "@opencode/core/permission"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { Tool } from "@opencode/core/tool"
-import { OpenCodeTools } from "@opencode/core/tool/plugin/opencode"
-import { WorktreeTable } from "@opencode/core/worktree/sql"
-import { WorktreeStrategies } from "@opencode/core/worktree/strategies"
-import { Model } from "@opencode/schema/model"
+import { Database } from "@uf0rs/core/database/database"
+import { Location } from "@uf0rs/core/location"
+import { Permission } from "@uf0rs/core/permission"
+import { Plugin } from "@uf0rs/core/plugin"
+import { PluginHost } from "@uf0rs/core/plugin/host"
+import { ProjectTable } from "@uf0rs/core/project/sql"
+import { Provider } from "@uf0rs/core/provider"
+import { AbsolutePath } from "@uf0rs/core/schema"
+import { Session } from "@uf0rs/core/session"
+import { Tool } from "@uf0rs/core/tool"
+import { WOPPSTools } from "@uf0rs/core/tool/plugin/uf0rs"
+import { WorktreeTable } from "@uf0rs/core/worktree/sql"
+import { WorktreeStrategies } from "@uf0rs/core/worktree/strategies"
+import { Model } from "@uf0rs/schema/model"
 import { Effect } from "effect"
 import { initRepo } from "./fixture/git"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -73,7 +73,7 @@ it.effect("groups available models by provider with paging", () =>
         model.enabled = false
       })
     })
-    yield* OpenCodeTools.Plugin.effect(pluginHost)
+    yield* WOPPSTools.Plugin.effect(pluginHost)
     // The caller runs on `test`, which sorts first despite `other` coming earlier alphabetically.
     const session = yield* sessions.create({
       location: Location.Ref.make({ directory: location.directory }),
@@ -88,7 +88,7 @@ it.effect("groups available models by provider with paging", () =>
           type: "tool-call",
           id: `call-${JSON.stringify(input)}`,
           name: "execute",
-          input: { code: `return await tools.opencode.models(${JSON.stringify(input)})` },
+          input: { code: `return await tools.uf0rs.models(${JSON.stringify(input)})` },
         },
       }).pipe(Effect.map((result) => JSON.parse(result.content?.[0]?.type === "text" ? result.content[0].text : "")))
 
@@ -188,7 +188,7 @@ worktreeIt.live("creates, lists, and removes worktrees for the plugin's project"
       .run()
       .pipe(Effect.orDie)
     yield* strategies.transform((editor) => editor.configure({ directory: AbsolutePath.make(parent.path) }))
-    yield* OpenCodeTools.Plugin.effect(yield* PluginHost.make(plugins))
+    yield* WOPPSTools.Plugin.effect(yield* PluginHost.make(plugins))
     const session = yield* sessions.create({ location: Location.Ref.make({ directory: location.directory }) })
     const registry = yield* Tool.Service
     const program = (code: string) =>
@@ -198,7 +198,7 @@ worktreeIt.live("creates, lists, and removes worktrees for the plugin's project"
         call: { type: "tool-call", id: `call-${code}`, name: "execute", input: { code } },
       })
     const call = (name: string, input: Record<string, unknown>) =>
-      program(`return await tools.opencode.${name}(${JSON.stringify(input)})`)
+      program(`return await tools.uf0rs.${name}(${JSON.stringify(input)})`)
     const run = (name: string, input: Record<string, unknown>) =>
       call(name, input).pipe(
         Effect.map((result) => JSON.parse(result.content?.[0]?.type === "text" ? result.content[0].text : "")),
@@ -239,7 +239,7 @@ worktreeIt.live("creates, lists, and removes worktrees for the plugin's project"
     })
     expect(
       yield* program(
-        `try { await tools.opencode.worktree_remove(${JSON.stringify({ directory })}) } catch (error) { return error.message }`,
+        `try { await tools.uf0rs.worktree_remove(${JSON.stringify({ directory })}) } catch (error) { return error.message }`,
       ),
     ).toMatchObject({ content: [{ type: "text", text: "Keep this worktree" }] })
     expect(yield* Effect.promise(() => Bun.file(path.join(directory, ".git")).exists())).toBe(true)

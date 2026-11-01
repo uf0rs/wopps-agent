@@ -1,7 +1,7 @@
 import { createEffect, createResource, onCleanup } from "solid-js"
 import { createStore } from "solid-js/store"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { Tooltip } from "@opencode/ui/tooltip"
+import { useDialog } from "@uf0rs/ui/context/dialog"
+import { Tooltip } from "@uf0rs/ui/tooltip"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"
 import { ExternalLink } from "@/runtime/platform/external-link"
@@ -82,7 +82,7 @@ export function SettingsAbout(props: { active: boolean }) {
 
   const writerCredits = () => [
     ...writers.map(credit),
-    <ExternalLink href="https://github.com/anomalyco/opencode/graphs/contributors">
+    <ExternalLink href="https://github.com/uf0rs/wopps-ai/graphs/contributors">
       {language.plural("settings.about.otherContributor", otherContributors.latest, {
         count: otherContributors.latest,
       })}
@@ -146,7 +146,7 @@ export function SettingsAbout(props: { active: boolean }) {
       </div>
 
       <p class="settings-about-faint">
-        <ExternalLink href="https://opencode.ai">
+        <ExternalLink href="https://wopps.ai">
           <bdi dir="ltr">{language.t("settings.about.website")}</bdi>
         </ExternalLink>
       </p>

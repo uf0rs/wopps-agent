@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { UsageLimitsBudget, UsageLimitsInfo } from "@opencode/client/promise"
+import type { UsageLimitsBudget, UsageLimitsInfo } from "@uf0rs/client/promise"
 import { modelUsage, usageView } from "./limits"
 
 const RESET = Date.UTC(2026, 10, 1)
@@ -19,13 +19,13 @@ const budget = (input: Partial<UsageLimitsBudget> & Pick<UsageLimitsBudget, "id"
 })
 
 const info = (...budgets: UsageLimitsBudget[]): UsageLimitsInfo => ({
-  workspace: { id: "wrk_1", name: "Acme", usageURL: "https://opencode.ai/wrk_1/activity/overview" },
+  workspace: { id: "wrk_1", name: "Acme", usageURL: "https://wopps.ai/wrk_1/activity/overview" },
   budgets,
 })
 
-const opus = { providerID: "opencode", modelID: "claude-opus-5", name: "Claude Opus 5" }
-const sonnet = { providerID: "opencode", modelID: "claude-sonnet-5", name: "Claude Sonnet 5" }
-const served = (id: string, provider = "opencode") => ({ id, provider: { id: provider, integrationID: "opencode" } })
+const opus = { providerID: "uf0rs", modelID: "claude-opus-5", name: "Claude Opus 5" }
+const sonnet = { providerID: "uf0rs", modelID: "claude-sonnet-5", name: "Claude Sonnet 5" }
+const served = (id: string, provider = "uf0rs") => ({ id, provider: { id: provider, integrationID: "uf0rs" } })
 
 describe("modelUsage", () => {
   test("covers a model by every budget that counts it and keeps the least left", () => {
@@ -47,13 +47,13 @@ describe("modelUsage", () => {
 
     expect(modelUsage(limits, served("claude-sonnet-5"))).toEqual({ left: 30, reached: false, resetsAt: RESET })
     expect(modelUsage(limits, served("claude-opus-5"))).toEqual({ left: 0, reached: true, resetsAt: RESET })
-    // A budget on all spend covers models served through the workspace, but not OpenCode Go or a direct provider.
+    // A budget on all spend covers models served through the workspace, but not WOPPS Go or a direct provider.
     expect(modelUsage(limits, served("gpt-6-sol", "console-openai"))).toEqual({
       left: 400,
       reached: false,
       resetsAt: RESET,
     })
-    expect(modelUsage(limits, served("glm-5.3", "opencode-go"))).toBeUndefined()
+    expect(modelUsage(limits, served("glm-5.3", "uf0rs-go"))).toBeUndefined()
     expect(modelUsage(limits, { id: "claude-opus-5", provider: { id: "anthropic" } })).toBeUndefined()
   })
 })

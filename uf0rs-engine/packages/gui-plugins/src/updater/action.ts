@@ -1,4 +1,4 @@
-import type { UpdaterState } from "@opencode/plugin/gui/updater"
+import type { UpdaterState } from "@uf0rs/plugin/gui/updater"
 
 /** The one update action the settings row and the titlebar pill offer for a state. */
 export function updaterAction(state: UpdaterState | undefined) {

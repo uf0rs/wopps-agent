@@ -1,5 +1,5 @@
 import { Deferred, Effect, Exit, Fiber, Match } from "effect"
-import type { UpdaterState } from "@opencode/plugin/gui/updater"
+import type { UpdaterState } from "@uf0rs/plugin/gui/updater"
 
 type UpdateTarget =
   | { readonly mode: "restart"; readonly version: string }

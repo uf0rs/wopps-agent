@@ -1,11 +1,11 @@
-export * as OpenCodeTools from "./opencode.js"
+export * as WOPPSTools from "./uf0rs.js"
 
-import { SystemPart, ToolFailure } from "@opencode/ai/effect"
-import type { Context } from "@opencode/plugin/effect/plugin"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import { Model } from "@opencode/schema/model"
-import { AbsolutePath } from "@opencode/schema/schema"
-import { Session } from "@opencode/schema/session"
+import { SystemPart, ToolFailure } from "@uf0rs/ai/effect"
+import type { Context } from "@uf0rs/plugin/effect/plugin"
+import type { SessionHooks } from "@uf0rs/plugin/effect/session"
+import { Model } from "@uf0rs/schema/model"
+import { AbsolutePath } from "@uf0rs/schema/schema"
+import { Session } from "@uf0rs/schema/session"
 import { Effect, Schema } from "effect"
 import { FileAccess } from "../../file-access.js"
 import { Git } from "../../git.js"
@@ -92,15 +92,15 @@ const ModelsOutput = Schema.Struct({
 })
 
 export const Plugin = {
-  id: "opencode.tools",
-  effect: Effect.fn("OpenCodeTools.Plugin")(function* (ctx: Context) {
+  id: "uf0rs.tools",
+  effect: Effect.fn("WOPPSTools.Plugin")(function* (ctx: Context) {
     const access = yield* FileAccess.Service
     const permission = yield* Permission.Service
     const hook = (event: SessionHooks["context"]) =>
       Effect.sync(() => {
         event.system.push(
           SystemPart.make(
-            "When you create a worktree outside the current working directory and intend to use it as your primary working directory, consider using `execute` to call `tools.opencode.session_move` and make the worktree the session's working directory.",
+            "When you create a worktree outside the current working directory and intend to use it as your primary working directory, consider using `execute` to call `tools.uf0rs.session_move` and make the worktree the session's working directory.",
           ),
         )
       })
@@ -110,9 +110,9 @@ export const Plugin = {
     yield* ctx.tool
       .transform((draft) => {
         draft.namespace({
-          name: "opencode",
+          name: "uf0rs",
           description:
-            "Tools for managing OpenCode itself, such as working with sessions and worktrees, searching the available models, and reading MCP resources.",
+            "Tools for managing WOPPS itself, such as working with sessions and worktrees, searching the available models, and reading MCP resources.",
         })
         draft.add({
           name: "session_rename",
@@ -120,7 +120,7 @@ export const Plugin = {
             "Rename a session, or omit sessionID to rename the current session. Use a short, specific title that summarizes the work being done.",
           input: RenameInput,
           output: RenameOutput,
-          options: { namespace: "opencode", codemode: true },
+          options: { namespace: "uf0rs", codemode: true },
           execute: (input, context) => {
             const sessionID = input.sessionID ?? context.sessionID
             const title = input.title.trim()
@@ -140,7 +140,7 @@ export const Plugin = {
             "Move a session to another directory, or omit sessionID to move the current session. The current session moves at the next safe boundary; do not run destination-dependent tools in the same execute call.",
           input: MoveInput,
           output: MoveOutput,
-          options: { namespace: "opencode", codemode: true, pinned: true },
+          options: { namespace: "uf0rs", codemode: true, pinned: true },
           execute: (input, context) =>
             Effect.gen(function* () {
               const sessionID = input.sessionID ?? context.sessionID
@@ -164,7 +164,7 @@ export const Plugin = {
           description: "Create a named worktree. Returns its directory.",
           input: WorktreeCreateInput,
           output: Worktree.Info,
-          options: { namespace: "opencode", codemode: true, pinned: true },
+          options: { namespace: "uf0rs", codemode: true, pinned: true },
           execute: (input) =>
             ctx.worktree.create({ projectID: ctx.location.project.id, name: input.name }).pipe(
               Effect.map((output) => ({ output, content: `Created worktree in ${output.directory}.` })),
@@ -178,7 +178,7 @@ export const Plugin = {
           description: "List a repository's worktrees.",
           input: Schema.Struct({}),
           output: Schema.Struct({ worktrees: Worktree.List }),
-          options: { namespace: "opencode", codemode: true, pinned: true },
+          options: { namespace: "uf0rs", codemode: true, pinned: true },
           execute: () =>
             ctx.worktree.list({ projectID: ctx.location.project.id }).pipe(
               Effect.map((worktrees) => ({ output: { worktrees } })),
@@ -191,7 +191,7 @@ export const Plugin = {
             "Remove a worktree. The repository location selects configuration; directory identifies the worktree to remove.",
           input: WorktreeRemoveInput,
           output: WorktreeRemoveOutput,
-          options: { namespace: "opencode", codemode: true, pinned: true, permission: "edit" },
+          options: { namespace: "uf0rs", codemode: true, pinned: true, permission: "edit" },
           execute: (input, context) =>
             Effect.gen(function* () {
               // Removing a worktree deletes files, so it requires the same approval as editing them.
@@ -229,7 +229,7 @@ export const Plugin = {
             "Search the models available to use. Use this to turn a model name the user mentions into an exact reference for a tool that takes a model. Check your own provider first.",
           input: ModelsInput,
           output: ModelsOutput,
-          options: { namespace: "opencode", codemode: true },
+          options: { namespace: "uf0rs", codemode: true },
           execute: (input, context) =>
             Effect.gen(function* () {
               const offset = input.offset ?? 0

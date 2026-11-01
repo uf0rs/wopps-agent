@@ -4,16 +4,16 @@ use std::process::{Command, Stdio};
 use std::thread;
 use std::time::{Duration, Instant};
 
-use opencode_pty::client::TerminalClient;
-use opencode_pty::daemon::{REGISTRATION_FILE, Registration};
-use opencode_pty::protocol::{Envelope, Request, Response, read_frame, write_frame};
-use opencode_pty::service::CreateTerminal;
+use uf0rs_pty::client::TerminalClient;
+use uf0rs_pty::daemon::{REGISTRATION_FILE, Registration};
+use uf0rs_pty::protocol::{Envelope, Request, Response, read_frame, write_frame};
+use uf0rs_pty::service::CreateTerminal;
 
 #[test]
 fn daemon_client_read_rows_roundtrip() {
     // Run the Rust client in a child test process so discovery's environment is
     // isolated without mutating this multithreaded test process's environment.
-    if let Some(directory) = std::env::var_os("OPENCODE_PTY_ROWS_TEST_CHILD") {
+    if let Some(directory) = std::env::var_os("UF0RS_PTY_ROWS_TEST_CHILD") {
         let directory = std::path::PathBuf::from(directory);
         let client = TerminalClient::discover(&directory).unwrap();
         let mut request = CreateTerminal::shell().unwrap();
@@ -46,7 +46,7 @@ fn daemon_client_read_rows_roundtrip() {
                 .contains("positive")
         );
 
-        let registration = opencode_pty::daemon::read_registration(&directory).unwrap();
+        let registration = uf0rs_pty::daemon::read_registration(&directory).unwrap();
         assert_eq!(registration.protocol, 7);
         // Exercise omitted rows independently of the Rust client's null encoding.
         let mut stream = std::os::unix::net::UnixStream::connect(registration.socket).unwrap();
@@ -72,9 +72,9 @@ fn daemon_client_read_rows_roundtrip() {
     }
 
     let root =
-        std::env::temp_dir().join(format!("opencode-pty-rows-{:032x}", rand::random::<u128>()));
+        std::env::temp_dir().join(format!("uf0rs-pty-rows-{:032x}", rand::random::<u128>()));
     let runtime = root.join("rows");
-    let mut daemon = Command::new(env!("CARGO_BIN_EXE_opencode-pty"))
+    let mut daemon = Command::new(env!("CARGO_BIN_EXE_uf0rs-pty"))
         .args(["daemon", "--name", "rows", "--runtime-dir"])
         .arg(&root)
         .stdin(Stdio::null())
@@ -109,7 +109,7 @@ fn daemon_client_read_rows_roundtrip() {
             "daemon_client_read_rows_roundtrip",
             "--nocapture",
         ])
-        .env("OPENCODE_PTY_ROWS_TEST_CHILD", &runtime)
+        .env("UF0RS_PTY_ROWS_TEST_CHILD", &runtime)
         .output();
     drop(owner);
     assert!(daemon.wait().unwrap().success());

@@ -1,20 +1,20 @@
 import { describe, expect, test } from "bun:test"
 import { SqliteClient } from "@effect/sql-sqlite-bun"
-import { EffectDrizzleSqlite } from "@opencode/core/database/drizzle"
-import { Database } from "@opencode/core/database/database"
-import { DatabaseMigration } from "@opencode/core/database/migration"
-import { V1Migration } from "@opencode/core/database/v1-migration"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionSchema } from "@opencode/core/session/schema"
-import { SessionTable } from "@opencode/core/session/sql"
-import { Project } from "@opencode/core/project"
-import { Agent } from "@opencode/schema/agent"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { AbsolutePath } from "@opencode/core/schema"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
+import { EffectDrizzleSqlite } from "@uf0rs/core/database/drizzle"
+import { Database } from "@uf0rs/core/database/database"
+import { DatabaseMigration } from "@uf0rs/core/database/migration"
+import { V1Migration } from "@uf0rs/core/database/v1-migration"
+import { SessionMessage } from "@uf0rs/core/session/message"
+import { SessionSchema } from "@uf0rs/core/session/schema"
+import { SessionTable } from "@uf0rs/core/session/sql"
+import { Project } from "@uf0rs/core/project"
+import { Agent } from "@uf0rs/schema/agent"
+import { ProjectTable } from "@uf0rs/core/project/sql"
+import { AbsolutePath } from "@uf0rs/core/schema"
+import { AppNodeBuilder } from "@uf0rs/core/effect/app-node-builder"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
+import { FSUtil } from "@uf0rs/util/fs-util"
+import { Global } from "@uf0rs/util/global"
 import { Effect, Fiber, Layer, Logger, Schedule, Schema, Scope } from "effect"
 import { eq, sql } from "drizzle-orm"
 import type { SqlClient } from "effect/sql/SqlClient"
@@ -944,7 +944,7 @@ describe("V1Migration database workflow", () => {
 
   test("imports previous V2 sessions and messages containing apostrophes", async () => {
     await using tmp = await tmpdir()
-    const filename = path.join(tmp.path, "opencode-next.db")
+    const filename = path.join(tmp.path, "uf0rs-next.db")
     const sqlite = await import("bun:sqlite")
     const source = new sqlite.Database(filename)
     source.run(`
@@ -1062,7 +1062,7 @@ describe("V1Migration database workflow", () => {
 
   test("imports previous V2 databases missing newer nullable columns", async () => {
     await using tmp = await tmpdir()
-    const filename = path.join(tmp.path, "opencode-next.db")
+    const filename = path.join(tmp.path, "uf0rs-next.db")
     const sqlite = await import("bun:sqlite")
     const source = new sqlite.Database(filename)
     source.run(`

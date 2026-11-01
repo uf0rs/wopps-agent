@@ -1,6 +1,6 @@
-import { Browser } from "@opencode/plugin-browser/rpc"
+import { Browser } from "@uf0rs/plugin-browser/rpc"
 import { Schema } from "effect"
-import type { BuiltinMainStorage, MainStoreFrom } from "@opencode/plugin/gui/builtin"
+import type { BuiltinMainStorage, MainStoreFrom } from "@uf0rs/plugin/gui/builtin"
 
 const Stored = Schema.Struct({
   tabs: Schema.Array(Schema.Struct({ id: Browser.TabID, url: Browser.Tab.fields.url })),
@@ -11,9 +11,9 @@ type Stored = typeof Stored.Type
 
 const empty: Stored = { tabs: [], focusedTabID: null }
 
-/** Tab URLs and focus per `${server}\n${session}`, imported once from the desktop's own `opencode.browser.dat` rows. */
+/** Tab URLs and focus per `${server}\n${session}`, imported once from the desktop's own `uf0rs.browser.dat` rows. */
 export function createBrowserRestoreStore(storage: BuiltinMainStorage) {
-  const from = (key: string): MainStoreFrom => ({ state: ["opencode.browser.dat", key] })
+  const from = (key: string): MainStoreFrom => ({ state: ["uf0rs.browser.dat", key] })
   const open = (key: string) => storage.store(`restore:${key}`, { schema: Stored, initial: empty, from: from(key) })
 
   const stores = new Map<string, ReturnType<typeof open>>()

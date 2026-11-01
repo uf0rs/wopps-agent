@@ -1,15 +1,15 @@
 ---
 title: "Web"
-description: "Run OpenCode in the browser."
+description: "Run WOPPS in the browser."
 ---
 
-OpenCode ships with a web UI that is served from the same server that powers the
+WOPPS ships with a web UI that is served from the same server that powers the
 TUI. It's available by default and password-protected.
 
 ## Access
 
 ```bash
-$ opencode pair
+$ uf0rs pair
 
   Open a link to connect. Links work once and expire in 5 minutes.
 
@@ -19,7 +19,7 @@ $ opencode pair
 ```
 
 Opening a link in a browser signs it in with a session cookie and loads the web
-UI. Scanning the QR code from the OpenCode app, or pasting the link into its
+UI. Scanning the QR code from the WOPPS app, or pasting the link into its
 server address field, connects the app the same way. Sessions last 30 days;
 changing the server password signs every session out.
 
@@ -42,30 +42,30 @@ platform:
 
 Windows reserves ports from 49152 up, and WSL mirrored networking reserves
 another block below that. Print the current address with
-`opencode service status`:
+`uf0rs service status`:
 
 ```bash
-$ opencode service status
+$ uf0rs service status
 http://127.0.0.1:49374
 ```
 
-You can change this config with the `opencode service` command.
+You can change this config with the `uf0rs service` command.
 
 ### Remote access
 
-To connect from anywhere, pair through an [OpenTunnel](https://github.com/anomalyco/opentunnel)
+To connect from anywhere, pair through an [OpenTunnel](https://github.com/uf0rs/opentunnel)
 remote address:
 
 ```bash
-$ opencode pair --remote
+$ uf0rs pair --remote
 ```
 
 The first time it turns remote access on, it asks before going ahead:
 
 ```text
-▲  This will expose your OpenCode server to the internet.
+▲  This will expose your WOPPS server to the internet.
 │  Traffic is end-to-end encrypted, and access requires your server password.
-│  To pair locally instead, run `opencode pair` without the --remote flag.
+│  To pair locally instead, run `uf0rs pair` without the --remote flag.
 │
 ◆  Expose your server to the internet?
 │  ● Yes / ○ No
@@ -73,50 +73,50 @@ The first time it turns remote access on, it asks before going ahead:
 
 Without an interactive terminal, the command fails unless you pass `--yes` to
 accept. Once accepted, later runs skip the prompt, even after remote access has
-been turned off with `opencode service set remote false`.
+been turned off with `uf0rs service set remote false`.
 
 ## Configure
 
-Set any option with `opencode service set`:
+Set any option with `uf0rs service set`:
 
 ```bash
 # Listen on every network interface
-$ opencode service set hostname 0.0.0.0
+$ uf0rs service set hostname 0.0.0.0
 
 # Use a fixed port instead of the channel default
-$ opencode service set port 49374
+$ uf0rs service set port 49374
 
 # Replace the generated password
-$ opencode service set password "a-long-secret"
+$ uf0rs service set password "a-long-secret"
 
 # Allow a web client served from another origin
-$ opencode service set cors https://app.example.com,https://other.example.com
+$ uf0rs service set cors https://app.example.com,https://other.example.com
 
 # Pass an environment variable to the server process
-$ opencode service set env OPENCODE_LOG_LEVEL DEBUG
+$ uf0rs service set env UF0RS_LOG_LEVEL DEBUG
 ```
 
 Changing a setting stops the background server. Start it again to apply the new config:
 
 ```bash
-$ opencode service start
+$ uf0rs service start
 ```
 
 ## Standalone
 
-`opencode serve` runs the same server in the foreground instead of through the
+`uf0rs serve` runs the same server in the foreground instead of through the
 shared background service.
 
 ```bash
-$ opencode serve --hostname 0.0.0.0 --port 4096
+$ uf0rs serve --hostname 0.0.0.0 --port 4096
 server listening on http://0.0.0.0:4096
 server password <password>
 ```
 
 Use it when you want to:
 
-- Run OpenCode on a shared, always-on, or remote host, then connect clients with
-  `opencode --server <url>`.
+- Run WOPPS on a shared, always-on, or remote host, then connect clients with
+  `uf0rs --server <url>`.
 - Control the hostname, port, and CORS origins for a single process.
 - Run under a supervisor like systemd, Docker, or another environment that expects
   a foreground process.
@@ -125,22 +125,22 @@ Use it when you want to:
 Connect a client to it with `--server`:
 
 ```bash
-$ opencode --server http://127.0.0.1:4096
+$ uf0rs --server http://127.0.0.1:4096
 ```
 
 ### Authentication
 
-Set `OPENCODE_PASSWORD` to use a fixed password instead of a generated one. The
-same variable gives the password to `opencode --server`.
+Set `UF0RS_PASSWORD` to use a fixed password instead of a generated one. The
+same variable gives the password to `uf0rs --server`.
 
 ```bash
-$ OPENCODE_PASSWORD="a-long-secret" opencode serve --port 4096
-$ OPENCODE_PASSWORD="a-long-secret" opencode --server http://127.0.0.1:4096
+$ UF0RS_PASSWORD="a-long-secret" uf0rs serve --port 4096
+$ UF0RS_PASSWORD="a-long-secret" uf0rs --server http://127.0.0.1:4096
 ```
 
-Other HTTP clients use Basic auth. The username is always `opencode`, and only
+Other HTTP clients use Basic auth. The username is always `uf0rs`, and only
 the password can be changed.
 
 ```bash
-$ curl -u opencode:a-long-secret http://127.0.0.1:4096/api/info
+$ curl -u uf0rs:a-long-secret http://127.0.0.1:4096/api/info
 ```

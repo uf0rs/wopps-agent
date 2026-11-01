@@ -1,24 +1,24 @@
 export * as ServerWorkerd from "./workerd"
 
 import { Effect, Layer } from "effect"
-import { ConfigPluginSource } from "@opencode/core/config/plugin/source"
-import { Database } from "@opencode/core/database/database"
-import { sqliteLayer } from "@opencode/core/database/sqlite.workerd"
-import type { DurableObjectStorage } from "@opencode/core/database/sqlite.workerd"
-import { EnvironmentUnavailable } from "@opencode/core/environment/unavailable"
-import { FileSystem } from "@opencode/core/filesystem"
-import { FileSystemSearch } from "@opencode/core/filesystem/search"
-import { Pty } from "@opencode/core/pty"
-import { Snapshot } from "@opencode/core/snapshot"
-import { Vcs } from "@opencode/core/vcs"
-import { CrossSpawnSpawner } from "@opencode/util/cross-spawn-spawner"
-import type { LayerNode } from "@opencode/util/effect/layer-node"
-import { Npm } from "@opencode/util/npm"
+import { ConfigPluginSource } from "@uf0rs/core/config/plugin/source"
+import { Database } from "@uf0rs/core/database/database"
+import { sqliteLayer } from "@uf0rs/core/database/sqlite.workerd"
+import type { DurableObjectStorage } from "@uf0rs/core/database/sqlite.workerd"
+import { EnvironmentUnavailable } from "@uf0rs/core/environment/unavailable"
+import { FileSystem } from "@uf0rs/core/filesystem"
+import { FileSystemSearch } from "@uf0rs/core/filesystem/search"
+import { Pty } from "@uf0rs/core/pty"
+import { Snapshot } from "@uf0rs/core/snapshot"
+import { Vcs } from "@uf0rs/core/vcs"
+import { CrossSpawnSpawner } from "@uf0rs/util/cross-spawn-spawner"
+import type { LayerNode } from "@uf0rs/util/effect/layer-node"
+import { Npm } from "@uf0rs/util/npm"
 import { ServerFetch } from "./fetch"
 import type { ServerOptions } from "./options"
 
 /**
- * The workerd runtime profile: boots opencode core and server inside a
+ * The workerd runtime profile: boots uf0rs core and server inside a
  * Cloudflare Durable Object, with every intentionally-local service replaced
  * or disabled.
  *
@@ -38,11 +38,11 @@ import type { ServerOptions } from "./options"
  * (see `script/workerd-probe.ts`).
  */
 export interface Options {
-  /** Durable Object storage whose SQLite database backs the opencode database. */
+  /** Durable Object storage whose SQLite database backs the uf0rs database. */
   readonly storage: DurableObjectStorage
   readonly app?: ServerOptions["app"]
   readonly password?: string
-  /** Inline opencode config content (JSON), same as `ServerOptions.config.content`. */
+  /** Inline uf0rs config content (JSON), same as `ServerOptions.config.content`. */
   readonly config?: { readonly content?: string }
   /** models.dev catalog options; the bundled snapshot is the boot-time floor either way. */
   readonly models?: ServerOptions["models"]

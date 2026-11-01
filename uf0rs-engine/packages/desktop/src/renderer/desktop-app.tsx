@@ -13,8 +13,8 @@ import {
   usePluginServers,
   useTabs,
   type LayoutRoute,
-} from "@opencode/app/desktop"
-import { useTheme } from "@opencode/ui/theme/context"
+} from "@uf0rs/app/desktop"
+import { useTheme } from "@uf0rs/ui/theme/context"
 import type { BaseRouterProps } from "@solidjs/router"
 import { createEffect, createMemo, createResource, lazy, Show, Suspense } from "solid-js"
 import { createStore } from "solid-js/store"
@@ -73,7 +73,7 @@ export function DesktopApp(props: { api: ElectronAPI; version: string }) {
 
   const readyToReveal = () =>
     startup.ready &&
-    (!import.meta.env.OPENCODE_TEST_ONBOARDING || !firstLaunch() || initialUrl !== "/" || startup.drawingReady)
+    (!import.meta.env.UF0RS_TEST_ONBOARDING || !firstLaunch() || initialUrl !== "/" || startup.drawingReady)
 
   // Reveal only after the theme and the first-launch splash choice are both resolved.
   createEffect(() => {
@@ -153,7 +153,7 @@ export function DesktopApp(props: { api: ElectronAPI; version: string }) {
               firstLaunch={!!firstLaunch() && initialUrl === "/"}
               deep={startup.route.type === "draft"}
               platform={platform}
-              preview={import.meta.env.OPENCODE_TEST_ONBOARDING}
+              preview={import.meta.env.UF0RS_TEST_ONBOARDING}
               onDrawEnd={() => setStartup("drawingReady", true)}
             />
           </div>

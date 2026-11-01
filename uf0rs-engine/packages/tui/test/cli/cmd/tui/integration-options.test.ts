@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { IntegrationInfo } from "@opencode/client"
+import type { IntegrationInfo } from "@uf0rs/client"
 import {
   connectionSummary,
   connectMethods,
@@ -21,10 +21,10 @@ describe("integrationOptions", () => {
         integration({ id: "openai", name: "OpenAI" }),
         integration({ id: "custom-z", name: "Zebra" }),
         integration({ id: "anthropic", name: "Anthropic" }),
-        integration({ id: "opencode", name: "OpenCode Zen" }),
-        integration({ id: "opencode-go", name: "OpenCode Go" }),
+        integration({ id: "uf0rs", name: "WOPPS Zen" }),
+        integration({ id: "uf0rs-go", name: "WOPPS Go" }),
       ]).map((item) => item.id),
-    ).toEqual(["opencode", "opencode-go", "openai", "anthropic", "mistral", "custom-z"])
+    ).toEqual(["uf0rs", "uf0rs-go", "openai", "anthropic", "mistral", "custom-z"])
   })
 })
 

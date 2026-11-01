@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
-import type { OpenCodeEvent } from "@opencode/client"
-import { createData, createSessionRetention } from "@opencode/client/solid"
+import type { WOPPSEvent } from "@uf0rs/client"
+import { createData, createSessionRetention } from "@uf0rs/client/solid"
 import { createGlobalEmitter } from "@solid-primitives/event-bus"
 import { createRoot, createSignal } from "solid-js"
 import { createApi, createFetch, directory, json } from "../fixture/tui-client"
@@ -8,7 +8,7 @@ import { createApi, createFetch, directory, json } from "../fixture/tui-client"
 function setup(options: { keep?: string[]; current?: string; limit?: number } = {}) {
   return createRoot((dispose) => {
     const events = createGlobalEmitter<{
-      [Type in OpenCodeEvent["type"]]: Extract<OpenCodeEvent, { type: Type }>
+      [Type in WOPPSEvent["type"]]: Extract<WOPPSEvent, { type: Type }>
     }>()
     const api = createApi(
       createFetch((url) => {

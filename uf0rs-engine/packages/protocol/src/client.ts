@@ -6,12 +6,12 @@ import { HttpApiMiddleware } from "effect/http-api"
 import type { EventGroup } from "./groups/event.js"
 
 class LocationMiddleware extends HttpApiMiddleware.Service<LocationMiddleware>()(
-  "@opencode/client/LocationMiddleware",
+  "@uf0rs/client/LocationMiddleware",
   { error: [LocationNotFoundError] },
 ) {}
 
 class SessionLocationMiddleware extends HttpApiMiddleware.Service<SessionLocationMiddleware>()(
-  "@opencode/client/SessionLocationMiddleware",
+  "@uf0rs/client/SessionLocationMiddleware",
   { error: [InvalidRequestError, SessionNotFoundError, LocationNotFoundError] },
 ) {}
 

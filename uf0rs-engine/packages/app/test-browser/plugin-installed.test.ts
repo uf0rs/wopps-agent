@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
 import { createRoot } from "solid-js"
-import type { Bridge, BridgeMessage, Installed } from "@opencode/plugin/gui/host"
+import type { Bridge, BridgeMessage, Installed } from "@uf0rs/plugin/gui/host"
 import { createInstalled } from "../src/runtime/plugin/installed"
 
 test("a list main pushes while the initial list is pending wins over the older reply", async () => {

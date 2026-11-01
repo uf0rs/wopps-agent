@@ -2,24 +2,24 @@
 title: "Config"
 ---
 
-Create `opencode.jsonc` in your project to configure OpenCode. Add the schema for editor validation, then set only the options you need.
+Create `uf0rs.jsonc` in your project to configure WOPPS. Add the schema for editor validation, then set only the options you need.
 
-```jsonc title="opencode.jsonc"
+```jsonc title="uf0rs.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://wopps.ai/config.json",
   "model": "anthropic/claude-sonnet-5-5",
 }
 ```
 
-You can also ask OpenCode to update this file for you.
+You can also ask WOPPS to update this file for you.
 
 ## Format
 
-OpenCode supports JSON and JSONC. Use JSONC when you want comments or trailing commas.
+WOPPS supports JSON and JSONC. Use JSONC when you want comments or trailing commas.
 
-```jsonc title="opencode.jsonc"
+```jsonc title="uf0rs.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://wopps.ai/config.json",
   // Use this model by default.
   "model": "anthropic/claude-sonnet-5-5",
 }
@@ -31,29 +31,29 @@ Put managed, machine-wide settings in the system configuration directory:
 
 | Platform | Directory                               |
 | -------- | --------------------------------------- |
-| macOS    | `/Library/Application Support/opencode` |
-| Linux    | `/etc/opencode`                         |
-| Windows  | `%ProgramData%\opencode`                |
+| macOS    | `/Library/Application Support/uf0rs` |
+| Linux    | `/etc/uf0rs`                         |
+| Windows  | `%ProgramData%\uf0rs`                |
 
 The system directory works like the global directory. Besides
-`opencode.json(c)`, it loads `agents/`, `commands/`, `skills/`, and `plugins/`
+`uf0rs.json(c)`, it loads `agents/`, `commands/`, `skills/`, and `plugins/`
 for every user on the machine:
 
 ```text
-/etc/opencode/
-├── opencode.json
+/etc/uf0rs/
+├── uf0rs.json
 ├── agents/review.md
 ├── commands/release.md
 └── skills/deploy/SKILL.md
 ```
 
-On macOS, OpenCode also reads managed preferences that MDM tools deploy for the
-`ai.opencode.managed` domain. A user-specific profile replaces the
+On macOS, WOPPS also reads managed preferences that MDM tools deploy for the
+`ai.uf0rs.managed` domain. A user-specific profile replaces the
 machine-wide one:
 
 ```text
-/Library/Managed Preferences/<user>/ai.opencode.managed.plist
-/Library/Managed Preferences/ai.opencode.managed.plist
+/Library/Managed Preferences/<user>/ai.uf0rs.managed.plist
+/Library/Managed Preferences/ai.uf0rs.managed.plist
 ```
 
 Managed settings have the highest precedence, so users and projects cannot
@@ -65,42 +65,42 @@ configuration to enforce restrictions.
 Put user settings for every project in the global configuration:
 
 ```text
-~/.config/opencode/opencode.json(c)
+~/.config/uf0rs/uf0rs.json(c)
 ```
 
 Put project settings in either of these files:
 
 ```text
-/home/user/projects/my-app/opencode.json(c)
-/home/user/projects/my-app/.opencode/opencode.json(c)
+/home/user/projects/my-app/uf0rs.json(c)
+/home/user/projects/my-app/.uf0rs/uf0rs.json(c)
 ```
 
-OpenCode searches from the current directory to the filesystem root. It first
-merges direct `opencode.json(c)` files from the farthest directory to the
-closest, then merges files inside `.opencode` directories in the same order.
-This means every discovered `.opencode` config overrides every direct config.
+WOPPS searches from the current directory to the filesystem root. It first
+merges direct `uf0rs.json(c)` files from the farthest directory to the
+closest, then merges files inside `.uf0rs` directories in the same order.
+This means every discovered `.uf0rs` config overrides every direct config.
 Use one form throughout a directory tree unless you need that behavior.
 
-For example, start OpenCode from `/home/user/projects/acme/packages/web`:
+For example, start WOPPS from `/home/user/projects/acme/packages/web`:
 
 ```text
-/etc/opencode/opencode.json
-~/.config/opencode/opencode.json
+/etc/uf0rs/uf0rs.json
+~/.config/uf0rs/uf0rs.json
 
 /home/user/projects/acme/
-├── opencode.json
+├── uf0rs.json
 └── packages/
     └── web/
-        ├── opencode.json
+        ├── uf0rs.json
         └── src/
 ```
 
-OpenCode applies these files from lowest to highest precedence:
+WOPPS applies these files from lowest to highest precedence:
 
-1. `~/.config/opencode/opencode.json`
-2. `/home/user/projects/acme/opencode.json`
-3. `/home/user/projects/acme/packages/web/opencode.json`
-4. `/etc/opencode/opencode.json`
+1. `~/.config/uf0rs/uf0rs.json`
+2. `/home/user/projects/acme/uf0rs.json`
+3. `/home/user/projects/acme/packages/web/uf0rs.json`
+4. `/etc/uf0rs/uf0rs.json`
 
 The package config overrides matching settings from the repository config,
 which overrides the global config. The system config overrides all of them.
@@ -110,15 +110,15 @@ policies outrank all of them.
 
 ## Schema
 
-The complete OpenCode configuration schema is available at
-[opencode.ai/config.json](https://opencode.ai/config.json).
+The complete WOPPS configuration schema is available at
+[wopps.ai/config.json](https://wopps.ai/config.json).
 
 Add the `$schema` field to your configuration file to enable validation and
 autocomplete in editors that support JSON Schema:
 
-```json title="opencode.json"
+```json title="uf0rs.json"
 {
-  "$schema": "https://opencode.ai/config.json"
+  "$schema": "https://wopps.ai/config.json"
 }
 ```
 
@@ -178,7 +178,7 @@ Project-level values are ignored.
 
 ### Username
 
-Set a username. OpenCode accepts this field but does not display it in
+Set a username. WOPPS accepts this field but does not display it in
 conversations.
 
 ```jsonc
@@ -317,7 +317,7 @@ Set the maximum number of lines and bytes retained from a tool result.
 
 ### Search
 
-Choose how OpenCode searches the web. Use `"random"` to select an available
+Choose how WOPPS searches the web. Use `"random"` to select an available
 provider automatically.
 
 ```jsonc
@@ -414,7 +414,7 @@ and cost considerations.
 
 ### Skills
 
-Add directories or URLs that OpenCode should search for agent skills.
+Add directories or URLs that WOPPS should search for agent skills.
 
 ```jsonc
 {
@@ -422,7 +422,7 @@ Add directories or URLs that OpenCode should search for agent skills.
 }
 ```
 
-See the [skills guide](/skills) for skill structure and automatic discovery under `.opencode/skills/`.
+See the [skills guide](/skills) for skill structure and automatic discovery under `.uf0rs/skills/`.
 
 ### Commands
 
@@ -443,7 +443,7 @@ See the [commands guide](/commands) for arguments, models, agents, and file-base
 
 ### Instructions
 
-Declare additional instruction files, globs, or HTTP(S) URLs. OpenCode loads
+Declare additional instruction files, globs, or HTTP(S) URLs. WOPPS loads
 them alongside discovered `AGENTS.md` files.
 
 ```jsonc
@@ -478,7 +478,7 @@ See the [references guide](/references) for shorthand, visibility, and path reso
 
 ### Worktrees
 
-Set the parent directory for new local worktrees. OpenCode appends the requested or generated worktree name.
+Set the parent directory for new local worktrees. WOPPS appends the requested or generated worktree name.
 
 ```jsonc
 {
@@ -518,7 +518,7 @@ accepts options.
 ```jsonc
 {
   "plugins": [
-    "opencode-example-plugin",
+    "uf0rs-example-plugin",
     {
       "package": "./plugins/local",
       "options": {
@@ -567,10 +567,10 @@ You can use variable substitution in your config files to reference environment 
 
 Use `{env:VARIABLE_NAME}` to substitute environment variables:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="uf0rs.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
-  "model": "{env:OPENCODE_MODEL}",
+  "$schema": "https://wopps.ai/config.json",
+  "model": "{env:UF0RS_MODEL}",
   "providers": {
     "anthropic": {
       "settings": {
@@ -587,9 +587,9 @@ If the environment variable is not set, it will be replaced with an empty string
 
 Use `{file:path/to/file}` to substitute the contents of a file:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="uf0rs.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://wopps.ai/config.json",
   "providers": {
     "openai": {
       "settings": {
@@ -621,9 +621,9 @@ These are useful for:
 
 All experimental settings live under the `experimental` key:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="uf0rs.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://wopps.ai/config.json",
   "experimental": {
     "todo": true,
     "subagent_depth": 2,
@@ -660,7 +660,7 @@ automatic compaction doesn't pause the session. Defaults to `false`. See
 ### Image generation
 
 `image_generate` sets the default model for the [`experimental_image_generate`](/tools#image-generate) tool, as
-`providerID/modelID`, optionally with `#variant`. When that model isn't available or can't handle a request, OpenCode
+`providerID/modelID`, optionally with `#variant`. When that model isn't available or can't handle a request, WOPPS
 picks another image model automatically.
 
 ```jsonc
@@ -675,7 +675,7 @@ picks another image model automatically.
 
 ### Location idle timeout
 
-`location_idle_timeout` controls how long a project location can go without session activity before OpenCode unloads
+`location_idle_timeout` controls how long a project location can go without session activity before WOPPS unloads
 its services. It takes a duration such as `"2 hours"` and defaults to `"60 minutes"`. Running sessions and background
 jobs keep a location loaded. Set it to `false` to never unload idle locations. Project config can override the global
 value.

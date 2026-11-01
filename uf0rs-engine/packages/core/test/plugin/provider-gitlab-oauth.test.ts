@@ -1,12 +1,12 @@
 import { describe, expect } from "bun:test"
 import { Clock, Effect, Schedule } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
-import { Credential } from "@opencode/core/credential"
-import { Integration } from "@opencode/core/integration"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { GitLabPlugin } from "@opencode/core/plugin/provider/gitlab"
-import { ProviderPlugins } from "@opencode/core/plugin/provider"
+import { Credential } from "@uf0rs/core/credential"
+import { Integration } from "@uf0rs/core/integration"
+import { Plugin } from "@uf0rs/core/plugin"
+import { PluginHost } from "@uf0rs/core/plugin/host"
+import { GitLabPlugin } from "@uf0rs/core/plugin/provider/gitlab"
+import { ProviderPlugins } from "@uf0rs/core/plugin/provider"
 import { withEnv } from "../fixture/env"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
@@ -285,7 +285,7 @@ describe("GitLabPlugin OAuth", () => {
     }),
   )
 
-  it.effect("refreshes credentials without a client ID with the opencode-gitlab-auth application", () =>
+  it.effect("refreshes credentials without a client ID with the uf0rs-gitlab-auth application", () =>
     withEnv({ GITLAB_OAUTH_CLIENT_ID: undefined }, () =>
       Effect.gen(function* () {
         const test = yield* fixture()

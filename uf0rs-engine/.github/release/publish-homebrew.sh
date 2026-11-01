@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# publish-homebrew.sh <sign-macos dir> <build-archives dir>: updates opencode-v2 in anomalyco/homebrew-tap over SSH
+# publish-homebrew.sh <sign-macos dir> <build-archives dir>: updates uf0rs-v2 in uf0rs/homebrew-tap over SSH
 # with its write deploy key (HOMEBREW_TAP_DEPLOY_KEY) and registers the homebrew update artifact.
 . "$(dirname "$0")/lib.sh"
 
@@ -12,6 +12,6 @@ if ! dry_run; then
   export GIT_SSH_COMMAND="ssh -i $ssh_dir/key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$ssh_dir/known_hosts"
 fi
 
-push_git "git@github.com:anomalyco/homebrew-tap.git" \
-  "chore: update opencode-v2 to $OPENCODE_VERSION" bash "$release_dir/render-homebrew.sh" "$1" "$2"
-publish_update cli homebrew '{"package": "anomalyco/tap/opencode-v2"}'
+push_git "git@github.com:uf0rs/homebrew-tap.git" \
+  "chore: update uf0rs-v2 to $UF0RS_VERSION" bash "$release_dir/render-homebrew.sh" "$1" "$2"
+publish_update cli homebrew '{"package": "uf0rs/tap/uf0rs-v2"}'

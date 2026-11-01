@@ -2,7 +2,7 @@ export * as ConvertClaudeStream from "./convert-claude-stream.js"
 
 import type { LanguageModelV3FunctionTool, LanguageModelV3StreamPart } from "@ai-sdk/provider"
 import type { SDKMessage } from "@anthropic-ai/claude-agent-sdk"
-import { Provider } from "@opencode/schema/provider"
+import { Provider } from "@uf0rs/schema/provider"
 import { ClaudeUsage } from "./usage.js"
 import { ToolNames } from "../tools/names.js"
 import { ClaudeAgentError } from "./claude-agent-error.js"
@@ -68,7 +68,7 @@ export function make(tools: readonly LanguageModelV3FunctionTool[]) {
           usage.update(messageID, event.usage)
           break
         case "message_stop":
-          // Must match ClaudeSession.readStep's tool boundary, or OpenCode's step ends without a finish event.
+          // Must match ClaudeSession.readStep's tool boundary, or WOPPS's step ends without a finish event.
           if (calledTools) {
             parts.push({
               type: "finish",

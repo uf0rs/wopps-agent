@@ -1,8 +1,8 @@
-import { Button } from "@opencode/ui/button"
+import { Button } from "@uf0rs/ui/button"
 import { DockPrompt } from "./dock-prompt"
 
 export default {
-  title: "OpenCode/Requests/Prompt frame",
+  title: "WOPPS/Requests/Prompt frame",
   id: "components-dock-prompt",
   component: DockPrompt,
   parameters: {

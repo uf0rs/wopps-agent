@@ -1,6 +1,6 @@
-import { useI18n } from "@opencode/ui/context/i18n"
-import { abort } from "@opencode/util/abort"
-import { checksum } from "@opencode/util/encode"
+import { useI18n } from "@uf0rs/ui/context/i18n"
+import { abort } from "@uf0rs/util/abort"
+import { checksum } from "@uf0rs/util/encode"
 import {
   type ComponentProps,
   createEffect,
@@ -12,9 +12,9 @@ import {
   splitProps,
 } from "solid-js"
 import { isServer, render } from "solid-js/web"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Tooltip } from "@opencode/ui/tooltip"
+import { Icon } from "@uf0rs/ui/icon"
+import { IconButton } from "@uf0rs/ui/icon-button"
+import { Tooltip } from "@uf0rs/ui/tooltip"
 import { canReusePendingBlock, completedProjection } from "./markdown-projection"
 import type { Block, Projection } from "./markdown-stream"
 import {

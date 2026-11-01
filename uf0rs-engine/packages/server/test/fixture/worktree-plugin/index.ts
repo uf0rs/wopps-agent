@@ -1,4 +1,4 @@
-import { Plugin, Worktree } from "@opencode/plugin"
+import { Plugin, Worktree } from "@uf0rs/plugin"
 
 export default Plugin.define({
   id: "test.worktree",

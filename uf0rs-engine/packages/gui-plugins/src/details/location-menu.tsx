@@ -1,10 +1,10 @@
-import { DiffChanges } from "@opencode/ui/diff-changes"
-import { Icon } from "@opencode/ui/icon"
-import { Menu } from "@opencode/ui/menu"
+import { DiffChanges } from "@uf0rs/ui/diff-changes"
+import { Icon } from "@uf0rs/ui/icon"
+import { Menu } from "@uf0rs/ui/menu"
 import { createMemo, onCleanup, Show } from "solid-js"
-import { createKeyed, usePlugin, type MountedSession, type SessionScreen } from "@opencode/plugin/gui"
+import { createKeyed, usePlugin, type MountedSession, type SessionScreen } from "@uf0rs/plugin/gui"
 import type Details from "./index"
-import { Changes } from "@opencode/plugin/gui/review"
+import { Changes } from "@uf0rs/plugin/gui/review"
 
 export default function SessionLocationMenu(props: { session: MountedSession; screen: SessionScreen; shown: boolean }) {
   const ctx = usePlugin<typeof Details>()

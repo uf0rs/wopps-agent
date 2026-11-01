@@ -19,7 +19,7 @@ Rename `plugin` to `plugins`. Replace a package-and-options tuple with an object
 // V1
 {
   "plugin": [
-    "opencode-example-plugin",
+    "uf0rs-example-plugin",
     ["./plugin/local.ts", { "enabled": true }]
   ]
 }
@@ -27,7 +27,7 @@ Rename `plugin` to `plugins`. Replace a package-and-options tuple with an object
 // V2
 {
   "plugins": [
-    "opencode-example-plugin",
+    "uf0rs-example-plugin",
     {
       "package": "./plugin/local",
       "options": { "enabled": true }
@@ -36,7 +36,7 @@ Rename `plugin` to `plugins`. Replace a package-and-options tuple with an object
 }
 ```
 
-V2 discovers local plugins from both `.opencode/plugin/` and `.opencode/plugins/`; use `.opencode/plugins/` for V2 files.
+V2 discovers local plugins from both `.uf0rs/plugin/` and `.uf0rs/plugins/`; use `.uf0rs/plugins/` for V2 files.
 Configured local paths must name directories. For the example above, move the ported implementation to
 `./plugin/local/index.ts`; a configured `./plugin/local.ts` file is skipped with a warning in the log.
 Keep supporting modules beside the plugin when moving it. Local plugins and package plugins use the same implementation
@@ -62,7 +62,7 @@ export const ExamplePlugin: Plugin = async ({ directory, project, client }) => {
 ```
 
 ```ts title="V2"
-import { Plugin } from "@opencode/plugin"
+import { Plugin } from "@uf0rs/plugin"
 
 export default Plugin.define({
   id: "example",
@@ -74,12 +74,12 @@ export default Plugin.define({
 ```
 
 Every V2 plugin needs a stable `id`. Plugin storage is scoped by this ID, and the ID also identifies the plugin in status
-and diagnostics. Published plugins should depend on a version of `@opencode/plugin` compatible with the OpenCode release
+and diagnostics. Published plugins should depend on a version of `@uf0rs/plugin` compatible with the WOPPS release
 they target.
 
 ## Migrate the context
 
-The V2 context is both an OpenCode client and the plugin API. Most operations are grouped by domain instead of
+The V2 context is both an WOPPS client and the plugin API. Most operations are grouped by domain instead of
 living on a separate `client` property.
 
 | V1                                      | V2                                                                  |
@@ -120,7 +120,7 @@ export const GuardPlugin: Plugin = async () => ({
 ```
 
 ```ts title="V2"
-import { Plugin } from "@opencode/plugin"
+import { Plugin } from "@uf0rs/plugin"
 
 export default Plugin.define({
   id: "company.guard",
@@ -200,7 +200,7 @@ export const RequestPlugin: Plugin = async () => ({
 ```
 
 ```ts title="V2"
-import { Plugin } from "@opencode/plugin"
+import { Plugin } from "@uf0rs/plugin"
 
 export default Plugin.define({
   id: "review-request",
@@ -244,7 +244,7 @@ export const ToolsPlugin = async () => ({
 ```
 
 ```ts title="V2"
-import { Plugin } from "@opencode/plugin"
+import { Plugin } from "@uf0rs/plugin"
 
 export default Plugin.define({
   id: "greeting",
@@ -298,7 +298,7 @@ V1's `event` callback becomes an async subscription to the public server event s
 returned by `setup`.
 
 ```ts title="V2"
-import { Plugin } from "@opencode/plugin"
+import { Plugin } from "@uf0rs/plugin"
 
 export default Plugin.define({
   id: "notifications",
@@ -336,7 +336,7 @@ A package can temporarily expose both implementations from one default export. V
 `setup()`. The APIs remain separate; this shape does not translate hooks automatically.
 
 ```ts title="src/index.ts"
-import { Plugin } from "@opencode/plugin"
+import { Plugin } from "@uf0rs/plugin"
 
 export default {
   ...Plugin.define({
@@ -357,7 +357,7 @@ export default {
 }
 ```
 
-V1 object entrypoints are supported in OpenCode `1.18.29` and newer. If you support older V1 releases, use separate
+V1 object entrypoints are supported in WOPPS `1.18.29` and newer. If you support older V1 releases, use separate
 package versions or entrypoints and test the oldest release you claim to support. Remove the V1 implementation after your
 support window ends.
 

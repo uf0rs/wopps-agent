@@ -5,16 +5,16 @@ import {
   registerCustomTheme,
   type SelectedLineRange,
 } from "@pierre/diffs"
-import { OpenCodeTheme } from "@opencode/ui/context/highlight-theme"
+import { WOPPSTheme } from "@uf0rs/ui/context/highlight-theme"
 import { ComponentProps } from "solid-js"
 import { lineCommentStyles } from "../components/line-comment-styles"
 import quoteHighlightStyles from "../components/quote-highlight.css?inline"
 
 // Pierre resolves themes on the main thread and hands them to its workers, so register before any viewer renders.
-registerCustomTheme(OpenCodeTheme.name, () => Promise.resolve(OpenCodeTheme), "zed")
+registerCustomTheme(WOPPSTheme.name, () => Promise.resolve(WOPPSTheme), "zed")
 
 // Viewers and worker pools must agree: the pool's options win whenever it renders.
-export const highlightOptions = { theme: OpenCodeTheme.name, preferredHighlighter: "highlights" } as const
+export const highlightOptions = { theme: WOPPSTheme.name, preferredHighlighter: "highlights" } as const
 
 export type DiffProps<T = {}> = FileDiffOptions<T, undefined> & {
   before: FileContents
@@ -30,7 +30,7 @@ export type DiffProps<T = {}> = FileDiffOptions<T, undefined> & {
 
 const unsafeCSS = `
 :host {
-  --diffs-bg: var(--opencode-diffs-bg, var(--color-background-stronger));
+  --diffs-bg: var(--uf0rs-diffs-bg, var(--color-background-stronger));
   /* Pierre mixes 15% in dark mode, which makes collapsed rows read as highlighted. */
   --diffs-bg-separator-override: light-dark(
     color-mix(in lab, var(--diffs-bg) 98%, var(--diffs-mixer)),
@@ -78,7 +78,7 @@ const unsafeCSS = `
     background-color: var(--timeline-quote-background);
   }
 
-  :host::highlight(opencode-find) {
+  :host::highlight(uf0rs-find) {
     background-color: rgb(from var(--surface-warning-base) r g b / 0.35);
   }
 
@@ -89,7 +89,7 @@ const unsafeCSS = `
     background-color: var(--timeline-quote-background);
   }
 
-  :host::highlight(opencode-find-current) {
+  :host::highlight(uf0rs-find-current) {
     background-color: rgb(from var(--surface-warning-strong) r g b / 0.55);
   }
 }
@@ -100,7 +100,7 @@ const unsafeCSS = `
     background-color: var(--timeline-quote-background);
   }
 
-  ::highlight(opencode-find) {
+  ::highlight(uf0rs-find) {
     background-color: rgb(from var(--surface-warning-base) r g b / 0.35);
   }
 
@@ -111,7 +111,7 @@ const unsafeCSS = `
     background-color: var(--timeline-quote-background);
   }
 
-  ::highlight(opencode-find-current) {
+  ::highlight(uf0rs-find-current) {
     background-color: rgb(from var(--surface-warning-strong) r g b / 0.55);
   }
 }
@@ -268,7 +268,7 @@ const unsafeCSS = `
 
 /* Pierre insets line numbers by 2ch to leave room for diff change bars; compact file viewers can tighten it. */
 [data-file]:not([data-disable-line-numbers]) :is([data-column-number], [data-gutter-buffer]) {
-  padding-left: var(--opencode-diffs-number-inset, 2ch);
+  padding-left: var(--uf0rs-diffs-number-inset, 2ch);
 }
 
 [data-diff-header],

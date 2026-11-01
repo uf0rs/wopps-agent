@@ -1,16 +1,16 @@
 ---
 title: "Commands"
-description: "Reference for the opencode command line."
+description: "Reference for the uf0rs command line."
 ---
 
-Every command accepts `--help` for its full flag list, for example `opencode run --help`. Some server-backed commands accept `--standalone` to run a private server or `--server <url>` to target a specific one; check the command's help for its supported flags.
+Every command accepts `--help` for its full flag list, for example `uf0rs run --help`. Some server-backed commands accept `--standalone` to run a private server or `--server <url>` to target a specific one; check the command's help for its supported flags.
 
 ## run
 
 Sends a message and prints the reply without opening the interactive interface.
 
 ```bash
-$ opencode run "Explain this repository"
+$ uf0rs run "Explain this repository"
 ```
 
 ### CI
@@ -18,7 +18,7 @@ $ opencode run "Explain this repository"
 In CI, pass a provider API key as a secret and use standalone mode so the private server receives it. For example, this GitHub Actions job reviews the checked-out repository:
 
 ```yaml
-name: OpenCode review
+name: WOPPS review
 on: [pull_request]
 
 jobs:
@@ -26,8 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm install --global @opencode/cli
-      - run: opencode run --standalone --model anthropic/claude-sonnet-5-5 "Review this repository for correctness and summarize any issues."
+      - run: npm install --global @uf0rs/cli
+      - run: uf0rs run --standalone --model anthropic/claude-sonnet-5-5 "Review this repository for correctness and summarize any issues."
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
@@ -35,49 +35,49 @@ jobs:
 Choose a model.
 
 ```bash
-$ opencode run --model anthropic/claude-sonnet-5-5 "Refactor parseToken"
+$ uf0rs run --model anthropic/claude-sonnet-5-5 "Refactor parseToken"
 ```
 
 Continue the last session.
 
 ```bash
-$ opencode run --continue "Now handle the expired case"
+$ uf0rs run --continue "Now handle the expired case"
 ```
 
 Emit newline-delimited JSON for scripts.
 
 ```bash
-$ opencode run --format json "List the TODO comments"
+$ uf0rs run --format json "List the TODO comments"
 ```
 
 Attach files to the message.
 
 ```bash
-$ opencode run --file src/server.ts --file src/client.ts "Review these for bugs"
+$ uf0rs run --file src/server.ts --file src/client.ts "Review these for bugs"
 ```
 
 Run with a specific agent.
 
 ```bash
-$ opencode run --agent build "Fix the failing test"
+$ uf0rs run --agent build "Fix the failing test"
 ```
 
 Continue a specific session.
 
 ```bash
-$ opencode run --session ses_4f2a1c "Check edge cases"
+$ uf0rs run --session ses_4f2a1c "Check edge cases"
 ```
 
 Auto-approve permissions that are not explicitly denied.
 
 ```bash
-$ opencode run --auto "Fix the failing test"
+$ uf0rs run --auto "Fix the failing test"
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode run --help
+$ uf0rs run --help
 ```
 
 ## mini
@@ -85,31 +85,31 @@ $ opencode run --help
 Starts the minimal interactive interface instead of the full-screen TUI.
 
 ```bash
-$ opencode mini
+$ uf0rs mini
 ```
 
 Continue the last session.
 
 ```bash
-$ opencode mini --continue
+$ uf0rs mini --continue
 ```
 
 Start with a model and an initial prompt.
 
 ```bash
-$ opencode mini --model anthropic/claude-sonnet-5-5 --prompt "Summarize this repository"
+$ uf0rs mini --model anthropic/claude-sonnet-5-5 --prompt "Summarize this repository"
 ```
 
 Continue a specific session.
 
 ```bash
-$ opencode mini --session ses_4f2a1c
+$ uf0rs mini --session ses_4f2a1c
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode mini --help
+$ uf0rs mini --help
 ```
 
 ## session
@@ -117,49 +117,49 @@ $ opencode mini --help
 Manages sessions.
 
 ```bash
-$ opencode session list
+$ uf0rs session list
 ```
 
 Limit the list and print JSON.
 
 ```bash
-$ opencode session list --max-count 20 --format json
+$ uf0rs session list --max-count 20 --format json
 ```
 
 Delete a session and its child sessions.
 
 ```bash
-$ opencode session delete ses_9c1b08
+$ uf0rs session delete ses_9c1b08
 ```
 
 Export session data as JSON.
 
 ```bash
-$ opencode session export ses_4f2a1c
+$ uf0rs session export ses_4f2a1c
 ```
 
 Redact sensitive transcript and file data when exporting.
 
 ```bash
-$ opencode session export ses_4f2a1c --sanitize
+$ uf0rs session export ses_4f2a1c --sanitize
 ```
 
 Import session data from a JSON file or URL.
 
 ```bash
-$ opencode session import session.json
+$ uf0rs session import session.json
 ```
 
 Import into a specific directory.
 
 ```bash
-$ opencode session import session.json --directory ~/code/project
+$ uf0rs session import session.json --directory ~/code/project
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode session --help
+$ uf0rs session --help
 ```
 
 ## auth
@@ -167,50 +167,50 @@ $ opencode session --help
 Manages AI providers and credentials.
 
 ```bash
-$ opencode auth list
+$ uf0rs auth list
 ```
 
 List them as JSON.
 
 ```bash
-$ opencode auth list --format json
+$ uf0rs auth list --format json
 ```
 
 Log in to a provider.
 
 ```bash
-$ opencode auth login anthropic
+$ uf0rs auth login anthropic
 ```
 
 Log in with a specific authentication method.
 
 ```bash
-$ opencode auth login anthropic --method key
+$ uf0rs auth login anthropic --method key
 ```
 
 Log out of a saved account.
 
 ```bash
-$ opencode auth logout anthropic work
+$ uf0rs auth logout anthropic work
 ```
 
 Switch the active account for an integration.
 
 ```bash
-$ opencode auth switch anthropic work
+$ uf0rs auth switch anthropic work
 ```
 
 Export saved credentials and import them on another machine. The file contains secrets.
 
 ```bash
-$ opencode auth export anthropic > credentials.json
-$ opencode auth import credentials.json
+$ uf0rs auth export anthropic > credentials.json
+$ uf0rs auth import credentials.json
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode auth --help
+$ uf0rs auth --help
 ```
 
 ## models
@@ -218,13 +218,13 @@ $ opencode auth --help
 Lists every available model.
 
 ```bash
-$ opencode models
+$ uf0rs models
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode models --help
+$ uf0rs models --help
 ```
 
 ## mcp
@@ -232,49 +232,49 @@ $ opencode models --help
 Manages MCP (Model Context Protocol) servers.
 
 ```bash
-$ opencode mcp list
+$ uf0rs mcp list
 ```
 
 Add a remote server.
 
 ```bash
-$ opencode mcp add context7 --url https://mcp.context7.com/mcp
+$ uf0rs mcp add context7 --url https://mcp.context7.com/mcp
 ```
 
 Add a local server to the global config.
 
 ```bash
-$ opencode mcp add everything --global -- npx -y @modelcontextprotocol/server-everything
+$ uf0rs mcp add everything --global -- npx -y @modelcontextprotocol/server-everything
 ```
 
 Add a local server with an environment variable.
 
 ```bash
-$ opencode mcp add everything --env LOG_LEVEL=debug -- npx -y @modelcontextprotocol/server-everything
+$ uf0rs mcp add everything --env LOG_LEVEL=debug -- npx -y @modelcontextprotocol/server-everything
 ```
 
 Add a remote server with a header.
 
 ```bash
-$ opencode mcp add context7 --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=secret
+$ uf0rs mcp add context7 --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=secret
 ```
 
 Authenticate with an OAuth-capable remote server.
 
 ```bash
-$ opencode mcp auth sentry
+$ uf0rs mcp auth sentry
 ```
 
 Remove stored OAuth credentials for a server.
 
 ```bash
-$ opencode mcp logout sentry
+$ uf0rs mcp logout sentry
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode mcp --help
+$ uf0rs mcp --help
 ```
 
 ## plugin
@@ -282,43 +282,43 @@ $ opencode mcp --help
 Manages plugins.
 
 ```bash
-$ opencode plugin list
+$ uf0rs plugin list
 ```
 
 Include built-in server plugins.
 
 ```bash
-$ opencode plugin list --builtin
+$ uf0rs plugin list --builtin
 ```
 
 Install a plugin and add it to the global configuration.
 
 ```bash
-$ opencode plugin add @example/opencode-tui
+$ uf0rs plugin add @example/uf0rs-tui
 ```
 
 Check package plugins for updates.
 
 ```bash
-$ opencode plugin check
+$ uf0rs plugin check
 ```
 
 Update package plugins.
 
 ```bash
-$ opencode plugin update
+$ uf0rs plugin update
 ```
 
 Remove a plugin from global configuration.
 
 ```bash
-$ opencode plugin remove @example/opencode-tui
+$ uf0rs plugin remove @example/uf0rs-tui
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode plugin --help
+$ uf0rs plugin --help
 ```
 
 ## stats
@@ -326,43 +326,43 @@ $ opencode plugin --help
 Shows shareable usage statistics.
 
 ```bash
-$ opencode stats
+$ uf0rs stats
 ```
 
 Show the last 7 days.
 
 ```bash
-$ opencode stats --days 7
+$ uf0rs stats --days 7
 ```
 
 Show model usage.
 
 ```bash
-$ opencode stats --models
+$ uf0rs stats --models
 ```
 
 Show cost and token details.
 
 ```bash
-$ opencode stats --cost
+$ uf0rs stats --cost
 ```
 
 Print JSON instead of a report.
 
 ```bash
-$ opencode stats --json
+$ uf0rs stats --json
 ```
 
 Show only the current project.
 
 ```bash
-$ opencode stats --project .
+$ uf0rs stats --project .
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode stats --help
+$ uf0rs stats --help
 ```
 
 ## serve
@@ -370,25 +370,25 @@ $ opencode stats --help
 Starts the API and web server. See [Web](/cli/web).
 
 ```bash
-$ opencode serve
+$ uf0rs serve
 ```
 
 Bind to all interfaces on a fixed port.
 
 ```bash
-$ opencode serve --hostname 0.0.0.0 --port 4096
+$ uf0rs serve --hostname 0.0.0.0 --port 4096
 ```
 
 Allow a browser client from another origin.
 
 ```bash
-$ opencode serve --cors https://app.example.com
+$ uf0rs serve --cors https://app.example.com
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode serve --help
+$ uf0rs serve --help
 ```
 
 ## pair
@@ -397,13 +397,13 @@ Prints one-time links, plus a QR code of the first one, that sign a browser or
 app in to the server. Links expire after 5 minutes and work once.
 
 ```bash
-$ opencode pair
+$ uf0rs pair
 ```
 
 Use an external URL in the links.
 
 ```bash
-$ opencode pair --url https://dev.example.com
+$ uf0rs pair --url https://dev.example.com
 ```
 
 Pair from anywhere through an OpenTunnel remote address. This exposes the
@@ -411,19 +411,19 @@ server to the internet, so the first time it enables remote access it explains
 this and asks you to accept. See [Remote access](/cli/web#remote-access).
 
 ```bash
-$ opencode pair --remote
+$ uf0rs pair --remote
 ```
 
 Accept without a prompt, for example in a script without a terminal.
 
 ```bash
-$ opencode pair --remote --yes
+$ uf0rs pair --remote --yes
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode pair --help
+$ uf0rs pair --help
 ```
 
 ## service
@@ -431,61 +431,61 @@ $ opencode pair --help
 Manages the background server. See [Web](/cli/web).
 
 ```bash
-$ opencode service start
+$ uf0rs service start
 ```
 
 Restart it.
 
 ```bash
-$ opencode service restart
+$ uf0rs service restart
 ```
 
 Show its status.
 
 ```bash
-$ opencode service status
+$ uf0rs service status
 ```
 
 Stop it.
 
 ```bash
-$ opencode service stop
+$ uf0rs service stop
 ```
 
 Read a setting.
 
 ```bash
-$ opencode service get hostname
+$ uf0rs service get hostname
 ```
 
 Set a setting.
 
 ```bash
-$ opencode service set hostname 0.0.0.0
+$ uf0rs service set hostname 0.0.0.0
 ```
 
 Allow an extra CORS origin.
 
 ```bash
-$ opencode service set cors https://app.example.com
+$ uf0rs service set cors https://app.example.com
 ```
 
 Pass an environment variable to the server process.
 
 ```bash
-$ opencode service set env OPENCODE_LOG_LEVEL DEBUG
+$ uf0rs service set env UF0RS_LOG_LEVEL DEBUG
 ```
 
 Reset a setting to its default.
 
 ```bash
-$ opencode service unset hostname
+$ uf0rs service unset hostname
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode service --help
+$ uf0rs service --help
 ```
 
 ## reload
@@ -493,7 +493,7 @@ $ opencode service --help
 Reloads configuration without restarting the server. Running sessions continue with fresh services at the next step boundary.
 
 ```bash
-$ opencode reload
+$ uf0rs reload
 ```
 
 ## api
@@ -501,31 +501,31 @@ $ opencode reload
 Makes a request to the running server.
 
 ```bash
-$ opencode api GET /api/session
+$ uf0rs api GET /api/session
 ```
 
 Call an operation ID with a query parameter.
 
 ```bash
-$ opencode api session.list --param limit=10
+$ uf0rs api session.list --param limit=10
 ```
 
 Send a JSON body.
 
 ```bash
-$ opencode api session.create --data '{"title": "New session"}'
+$ uf0rs api session.create --data '{"title": "New session"}'
 ```
 
 Add a request header.
 
 ```bash
-$ opencode api GET /api/session -H "accept: application/json"
+$ uf0rs api GET /api/session -H "accept: application/json"
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode api --help
+$ uf0rs api --help
 ```
 
 ## acp
@@ -533,13 +533,13 @@ $ opencode api --help
 Starts an Agent Client Protocol server over stdin and stdout for editor integrations. It runs until the client closes the connection.
 
 ```bash
-$ opencode acp
+$ uf0rs acp
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode acp --help
+$ uf0rs acp --help
 ```
 
 ## debug
@@ -547,82 +547,82 @@ $ opencode acp --help
 Provides debugging and troubleshooting tools.
 
 ```bash
-$ opencode debug agents
+$ uf0rs debug agents
 ```
 
 List configuration sources.
 
 ```bash
-$ opencode debug config
+$ uf0rs debug config
 ```
 
 Write a heap snapshot of the running background server and print its path.
 
 ```bash
-$ opencode debug heap-dump
+$ uf0rs debug heap-dump
 ```
 
 Write the snapshot into a directory of your choice.
 
 ```bash
-$ opencode debug heap-dump --directory ./snapshots
+$ uf0rs debug heap-dump --directory ./snapshots
 ```
 
 Show global paths.
 
 ```bash
-$ opencode debug paths
+$ uf0rs debug paths
 ```
 
 Print a single path.
 
 ```bash
-$ opencode debug paths db
+$ uf0rs debug paths db
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode debug --help
+$ uf0rs debug --help
 ```
 
 ## upgrade
 
-Upgrades OpenCode to the latest or a specific version. Alias: `update`.
+Upgrades WOPPS to the latest or a specific version. Alias: `update`.
 
 ```bash
-$ opencode upgrade
+$ uf0rs upgrade
 ```
 
 Upgrade to a specific version with a specific package manager.
 
 ```bash
-$ opencode upgrade 2.0.21 --method bun
+$ uf0rs upgrade 2.0.21 --method bun
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode upgrade --help
+$ uf0rs upgrade --help
 ```
 
 ## uninstall
 
-Stops background services, removes the global cache, and uninstalls OpenCode. Session data, configuration, and
+Stops background services, removes the global cache, and uninstalls WOPPS. Session data, configuration, and
 state are not removed.
 
 ```bash
-$ opencode uninstall
+$ uf0rs uninstall
 ```
 
 Preview what would be removed.
 
 ```bash
-$ opencode uninstall --dry-run
+$ uf0rs uninstall --dry-run
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ opencode uninstall --help
+$ uf0rs uninstall --help
 ```

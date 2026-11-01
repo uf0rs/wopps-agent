@@ -1,12 +1,12 @@
 {
-  "name": "@opencode/pty",
+  "name": "@uf0rs/pty",
   "version": "0.4.0",
-  "description": "Persistent PTY service for OpenCode",
+  "description": "Persistent PTY service for WOPPS",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/uf0rs/wopps-ai.git",
     "directory": "packages/process-daemon/npm"
   },
   "exports": {
@@ -17,7 +17,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "opencode-pty": "./bin/opencode-pty.js"
+    "uf0rs-pty": "./bin/uf0rs-pty.js"
   },
   "files": [
     "bin",
@@ -25,14 +25,14 @@
     "index.js"
   ],
   "optionalDependencies": {
-    "@opencode/pty-darwin-arm64": "0.4.0",
-    "@opencode/pty-darwin-x64": "0.4.0",
-    "@opencode/pty-linux-arm64-gnu": "0.4.0",
-    "@opencode/pty-linux-arm64-musl": "0.4.0",
-    "@opencode/pty-linux-x64-gnu": "0.4.0",
-    "@opencode/pty-linux-x64-musl": "0.4.0",
-    "@opencode/pty-win32-arm64": "0.4.0",
-    "@opencode/pty-win32-x64": "0.4.0"
+    "@uf0rs/pty-darwin-arm64": "0.4.0",
+    "@uf0rs/pty-darwin-x64": "0.4.0",
+    "@uf0rs/pty-linux-arm64-gnu": "0.4.0",
+    "@uf0rs/pty-linux-arm64-musl": "0.4.0",
+    "@uf0rs/pty-linux-x64-gnu": "0.4.0",
+    "@uf0rs/pty-linux-x64-musl": "0.4.0",
+    "@uf0rs/pty-win32-arm64": "0.4.0",
+    "@uf0rs/pty-win32-x64": "0.4.0"
   },
   "publishConfig": {
     "access": "public"

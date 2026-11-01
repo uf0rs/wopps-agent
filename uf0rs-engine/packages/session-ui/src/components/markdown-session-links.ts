@@ -1,4 +1,4 @@
-import { parseSessionMention, sessionMentions, type SessionMention } from "@opencode/util/session-mention"
+import { parseSessionMention, sessionMentions, type SessionMention } from "@uf0rs/util/session-mention"
 
 export type SessionTitle = (id: string) => string | undefined
 

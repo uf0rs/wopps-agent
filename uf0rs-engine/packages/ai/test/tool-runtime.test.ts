@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { Content } from "@opencode/schema/tool"
+import { Content } from "@uf0rs/schema/tool"
 import { Effect, Schema, Stream } from "effect"
 import {
   ai,

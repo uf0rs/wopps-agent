@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, setSystemTime, test } from "bun:test"
-import type { UsageLimitsBudget, UsageLimitsInfo } from "@opencode/client"
+import type { UsageLimitsBudget, UsageLimitsInfo } from "@uf0rs/client"
 import {
   formatDollars,
   formatReset,
@@ -26,13 +26,13 @@ const budget = (input: Partial<UsageLimitsBudget> & Pick<UsageLimitsBudget, "id"
 })
 
 const info = (...budgets: UsageLimitsBudget[]): UsageLimitsInfo => ({
-  workspace: { id: "wrk_1", name: "Acme", usageURL: "https://opencode.ai/wrk_1/activity/overview" },
+  workspace: { id: "wrk_1", name: "Acme", usageURL: "https://wopps.ai/wrk_1/activity/overview" },
   budgets,
 })
 
 // One request that fills Sol's context costs $4, so $12 covers three.
-const sol = { id: "gpt-5.6-sol", providerID: "opencode", cost: [{ input: 4 }], limit: { context: 1_000_000 } }
-const served = { id: "opencode", integrationID: "opencode" }
+const sol = { id: "gpt-5.6-sol", providerID: "uf0rs", cost: [{ input: 4 }], limit: { context: 1_000_000 } }
+const served = { id: "uf0rs", integrationID: "uf0rs" }
 
 afterEach(() => setSystemTime())
 
@@ -47,8 +47,8 @@ describe("util.usage-limits", () => {
         limit: 50,
         spent: 50,
         models: [
-          { providerID: "opencode", modelID: "gpt-5.6-sol", name: "GPT 5.6 Sol", spent: 20 },
-          { providerID: "opencode", modelID: "claude-opus-5", name: "Claude Opus 5", spent: 50 },
+          { providerID: "uf0rs", modelID: "gpt-5.6-sol", name: "GPT 5.6 Sol", spent: 20 },
+          { providerID: "uf0rs", modelID: "claude-opus-5", name: "Claude Opus 5", spent: 50 },
         ],
       }),
     )
@@ -63,9 +63,9 @@ describe("util.usage-limits", () => {
       ],
     })
     expect(modelUsage(limits, { ...sol, id: "claude-opus-5" }, served)).toMatchObject({ left: 0, reached: true })
-    // Spend on all models covers what OpenCode Console serves, but not OpenCode Go, a direct provider or a free model.
+    // Spend on all models covers what WOPPS Console serves, but not WOPPS Go, a direct provider or a free model.
     expect(
-      modelUsage(limits, { ...sol, providerID: "opencode-go" }, { id: "opencode-go", integrationID: "opencode" }),
+      modelUsage(limits, { ...sol, providerID: "uf0rs-go" }, { id: "uf0rs-go", integrationID: "uf0rs" }),
     ).toBeUndefined()
     expect(modelUsage(limits, { ...sol, providerID: "openai" }, { id: "openai" })).toBeUndefined()
     expect(modelUsage(limits, { ...sol, cost: [{ input: 0 }] }, served)).toBeUndefined()
@@ -105,7 +105,7 @@ describe("util.usage-limits", () => {
           id: "d",
           coverage: "models",
           picked: true,
-          models: ["A", "B", "C", "D"].map((name) => ({ providerID: "opencode", modelID: name, name })),
+          models: ["A", "B", "C", "D"].map((name) => ({ providerID: "uf0rs", modelID: name, name })),
         }),
         "Acme",
       ),

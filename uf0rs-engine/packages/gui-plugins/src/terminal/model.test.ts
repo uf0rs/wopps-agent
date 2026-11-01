@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
 import { createStore, produce } from "solid-js/store"
-import { ClientError, type PersistentPtyInfo } from "@opencode/client"
-import type { Layout, ServerRef, SessionRef, Storage, ToastOptions } from "@opencode/plugin/gui"
-import { PtyFeatureUnsupportedError, ServiceUnavailableError } from "@opencode/protocol/errors"
+import { ClientError, type PersistentPtyInfo } from "@uf0rs/client"
+import type { Layout, ServerRef, SessionRef, Storage, ToastOptions } from "@uf0rs/plugin/gui"
+import { PtyFeatureUnsupportedError, ServiceUnavailableError } from "@uf0rs/protocol/errors"
 import { createTerminalModel } from "./model"
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0))
@@ -281,8 +281,8 @@ describe("terminal model", () => {
   test("treats a server whose terminal daemon is unavailable like one without terminal support", async () => {
     const server = fakeServer()
     server.state.listError = new ServiceUnavailableError({
-      message: "opencode-pty is not available",
-      service: "opencode-pty",
+      message: "uf0rs-pty is not available",
+      service: "uf0rs-pty",
     })
     const { model, session } = setup(server)
 

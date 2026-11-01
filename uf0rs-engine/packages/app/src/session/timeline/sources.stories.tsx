@@ -1,15 +1,15 @@
-import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@opencode/client/promise"
-import { SourcesProvider } from "@opencode/session-ui/context/sources"
-import type { SessionDocument } from "@opencode/session-ui/document"
-import { turnMessages, turnSources } from "@opencode/session-ui/sources"
-import type { SiteIconMode } from "@opencode/session-ui/sources/experiment"
-import { SourcesPanel } from "@opencode/session-ui/sources/panel"
-import { SourcesTitle } from "@opencode/session-ui/sources/title"
-import { CURRENT_SESSION_ID, STORY_MODEL, STORY_TIME } from "@opencode/session-ui/storybook"
-import { timelinePresets } from "@opencode/session-ui/timeline/detail"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Tabs } from "@opencode/ui/tabs"
+import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@uf0rs/client/promise"
+import { SourcesProvider } from "@uf0rs/session-ui/context/sources"
+import type { SessionDocument } from "@uf0rs/session-ui/document"
+import { turnMessages, turnSources } from "@uf0rs/session-ui/sources"
+import type { SiteIconMode } from "@uf0rs/session-ui/sources/experiment"
+import { SourcesPanel } from "@uf0rs/session-ui/sources/panel"
+import { SourcesTitle } from "@uf0rs/session-ui/sources/title"
+import { CURRENT_SESSION_ID, STORY_MODEL, STORY_TIME } from "@uf0rs/session-ui/storybook"
+import { timelinePresets } from "@uf0rs/session-ui/timeline/detail"
+import { Icon } from "@uf0rs/ui/icon"
+import { IconButton } from "@uf0rs/ui/icon-button"
+import { Tabs } from "@uf0rs/ui/tabs"
 import { createEffect, createMemo, on, onMount, Show, type ParentProps } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useLanguage } from "@/runtime/i18n/language"
@@ -247,7 +247,7 @@ function Sources(props: SourcesArgs) {
     <SourcesProvider enabled icons={props.icons} onOpen={() => setState("panel", true)}>
       <SessionPreview
         title="Who makes the 10,000 checkboxes thing?"
-        description="opencode · sources"
+        description="uf0rs · sources"
         document={value()}
         timelineDetail={timelineDetail}
         side={
@@ -306,7 +306,7 @@ function Side(props: ParentProps<{ expand: boolean; count: number; onClose: () =
 }
 
 export default {
-  title: "OpenCode/Session/Sources",
+  title: "WOPPS/Session/Sources",
   id: "session-sources",
   render: (args: SourcesArgs) => <Sources {...args} />,
   args: { turn: "three", icons: "letters", panel: false, expand: false },

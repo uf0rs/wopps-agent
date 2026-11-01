@@ -1,5 +1,5 @@
-import type { OpenCodeEvent } from "@opencode/client/promise"
-import { createClientConnection, type ClientConnectionStatus } from "@opencode/client/solid"
+import type { WOPPSEvent } from "@uf0rs/client/promise"
+import { createClientConnection, type ClientConnectionStatus } from "@uf0rs/client/solid"
 import { createGlobalEmitter } from "@solid-primitives/event-bus"
 import { type Accessor, createEffect, on, onCleanup } from "solid-js"
 import { createApiForServer, type ServerApi } from "@/runtime/server/api"
@@ -12,21 +12,21 @@ import { createRequestQueue } from "@/runtime/server/request-queue"
 import { ServerScope } from "@/runtime/server/scope"
 import { useServer } from "./current"
 
-type OpenCodeEventMap = { [Type in OpenCodeEvent["type"]]: Extract<OpenCodeEvent, { type: Type }> }
+type WOPPSEventMap = { [Type in WOPPSEvent["type"]]: Extract<WOPPSEvent, { type: Type }> }
 
-export type OpenCodeEventStream = {
-  on<Type extends OpenCodeEvent["type"]>(type: Type, handler: (event: OpenCodeEventMap[Type]) => void): VoidFunction
-  listen(handler: (event: OpenCodeEvent) => void): VoidFunction
+export type WOPPSEventStream = {
+  on<Type extends WOPPSEvent["type"]>(type: Type, handler: (event: WOPPSEventMap[Type]) => void): VoidFunction
+  listen(handler: (event: WOPPSEvent) => void): VoidFunction
 }
 
-type OpenCodeEventSource = OpenCodeEventStream & {
-  location(directory: string): OpenCodeEventStream
+type WOPPSEventSource = WOPPSEventStream & {
+  location(directory: string): WOPPSEventStream
 }
 
-export function createOpenCodeEventSource() {
-  const emitter = createGlobalEmitter<OpenCodeEventMap>()
+export function createWOPPSEventSource() {
+  const emitter = createGlobalEmitter<WOPPSEventMap>()
 
-  function stream(directory?: string): OpenCodeEventStream {
+  function stream(directory?: string): WOPPSEventStream {
     return {
       on(type, handler) {
         return emitter.on(type, (event) => {
@@ -43,7 +43,7 @@ export function createOpenCodeEventSource() {
     }
   }
 
-  const event: OpenCodeEventSource = {
+  const event: WOPPSEventSource = {
     ...stream(),
     location: (directory) => stream(directory),
   }
@@ -52,7 +52,7 @@ export function createOpenCodeEventSource() {
 
   return {
     event,
-    publish(event: OpenCodeEvent) {
+    publish(event: WOPPSEvent) {
       emitter.emit(event.type, event)
     },
   }
@@ -73,7 +73,7 @@ type ServerSDKBase = {
     attempt: Accessor<number>
     error: Accessor<string | undefined>
   }
-  event: OpenCodeEventSource
+  event: WOPPSEventSource
 }
 
 function createServerSdkContextBase(server: ServerConnection.Any, scope: ServerScope): ServerSDKBase {
@@ -87,7 +87,7 @@ function createServerSdkContextBase(server: ServerConnection.Any, scope: ServerS
     media.dispose()
   })
 
-  const events = createOpenCodeEventSource()
+  const events = createWOPPSEventSource()
   const reconnect = resolveEndpoint(server)
 
   const connection = createClientConnection(transport.api, {
@@ -226,7 +226,7 @@ export const useServerSDK = () => {
 
 export type LocationContext = {
   directory: string
-  event: OpenCodeEventStream
+  event: WOPPSEventStream
 }
 
 function createDirSdkContext(directory: string, serverSDK: ServerSDKBase): LocationContext {

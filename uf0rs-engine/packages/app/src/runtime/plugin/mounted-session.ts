@@ -20,7 +20,7 @@ import type {
   ServerRef,
   MountedSession,
   SessionScreen,
-} from "@opencode/plugin/gui"
+} from "@uf0rs/plugin/gui"
 import { useComments } from "@/composer/comments"
 import { createComposerEditorActions } from "@/composer/editor/actions"
 import { useComposerState } from "@/composer/persistence"

@@ -1,10 +1,10 @@
-import { createSimpleContext } from "@opencode/ui/context"
+import { createSimpleContext } from "@uf0rs/ui/context"
 import { useLanguage } from "@/runtime/i18n/language"
 import { batch, createMemo } from "solid-js"
 import { reconcile, type SetStoreFunction, type Store } from "solid-js/store"
 import { Persist, persisted } from "@/runtime/persistence/storage"
 import { ServerScope } from "@/runtime/server/scope"
-import type { ServerEntry } from "@opencode/plugin/gui"
+import type { ServerEntry } from "@uf0rs/plugin/gui"
 import { ServerHttp, ServerHttpBase, ServerKey, ServerState } from "./persistence"
 
 type StoredState = typeof ServerState.Type

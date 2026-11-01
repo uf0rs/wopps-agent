@@ -1,8 +1,8 @@
 import { expect } from "bun:test"
 import { Deferred, Effect, Fiber } from "effect"
-import { Credential } from "@opencode/core/credential"
-import { Integration } from "@opencode/schema/integration"
-import { LayerNode } from "@opencode/util/effect/layer-node"
+import { Credential } from "@uf0rs/core/credential"
+import { Integration } from "@uf0rs/schema/integration"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(LayerNode.compile(Credential.node))

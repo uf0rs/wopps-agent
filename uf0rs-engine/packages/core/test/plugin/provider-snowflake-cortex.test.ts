@@ -1,19 +1,19 @@
-import { Message } from "@opencode/ai/effect"
-import { LLMClient, RequestExecutor } from "@opencode/ai/route"
-import { Agent } from "@opencode/core/agent"
-import { Credential } from "@opencode/core/credential"
-import { Integration } from "@opencode/core/integration"
-import { Location } from "@opencode/core/location"
-import { Model } from "@opencode/core/model"
-import { ModelResolver } from "@opencode/core/model-resolver"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { SnowflakeCortexPlugin } from "@opencode/core/plugin/provider/snowflake-cortex"
-import { Provider } from "@opencode/core/provider"
-import { Session } from "@opencode/core/session"
-import { SessionModelRequest } from "@opencode/core/session/model-request"
-import { SessionModelTransport } from "@opencode/core/session/model-transport"
+import { Message } from "@uf0rs/ai/effect"
+import { LLMClient, RequestExecutor } from "@uf0rs/ai/route"
+import { Agent } from "@uf0rs/core/agent"
+import { Credential } from "@uf0rs/core/credential"
+import { Integration } from "@uf0rs/core/integration"
+import { Location } from "@uf0rs/core/location"
+import { Model } from "@uf0rs/core/model"
+import { ModelResolver } from "@uf0rs/core/model-resolver"
+import { Plugin } from "@uf0rs/core/plugin"
+import { PluginHost } from "@uf0rs/core/plugin/host"
+import { PluginHooks } from "@uf0rs/core/plugin/hooks"
+import { SnowflakeCortexPlugin } from "@uf0rs/core/plugin/provider/snowflake-cortex"
+import { Provider } from "@uf0rs/core/provider"
+import { Session } from "@uf0rs/core/session"
+import { SessionModelRequest } from "@uf0rs/core/session/model-request"
+import { SessionModelTransport } from "@uf0rs/core/session/model-transport"
 import { expect } from "bun:test"
 import { Effect, Layer, Schedule, Stream } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
@@ -56,7 +56,7 @@ const fixture = Effect.fn(function* () {
   const host = yield* PluginHost.make(plugin)
   yield* providers.transform((editor) => {
     editor.update(providerID, (provider) => {
-      provider.package = "@opencode/ai/providers/openai-compatible"
+      provider.package = "@uf0rs/ai/providers/openai-compatible"
       provider.settings = { baseURL: "https://${SNOWFLAKE_ACCOUNT}.snowflakecomputing.com/api/v2/cortex/v1" }
     })
     editor.models.update(providerID, modelID, () => {})
@@ -228,7 +228,7 @@ it.live("uses environment tokens rather than the account identifier and bypasses
           name: "SNOWFLAKE_CORTEX_TOKEN",
         })
         expect((yield* test.providers.get(providerID))?.package).toBe(
-          "@opencode/ai/providers/openai-compatible",
+          "@uf0rs/ai/providers/openai-compatible",
         )
         expect(yield* test.hooks.has("aisdk", "sdk", providerID)).toBe(false)
 

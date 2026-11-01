@@ -1,7 +1,7 @@
-import { PersistentPty } from "@opencode/schema/persistent-pty"
-import { Pty } from "@opencode/schema/pty"
-import { PtyTicket } from "@opencode/schema/pty-ticket"
-import { Session } from "@opencode/schema/session"
+import { PersistentPty } from "@uf0rs/schema/persistent-pty"
+import { Pty } from "@uf0rs/schema/pty"
+import { PtyTicket } from "@uf0rs/schema/pty-ticket"
+import { Session } from "@uf0rs/schema/session"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema, OpenApi } from "effect/http-api"
 import {
@@ -123,7 +123,7 @@ export const PersistentPtyGroup = HttpApiGroup.make("server.experimental")
       OpenApi.annotations({
         identifier: "experimental.persistentPty.connect",
         summary: "Connect to a persistent PTY",
-        description: "Stream persistent PTY output through the OpenCode server.",
+        description: "Stream persistent PTY output through the WOPPS server.",
         transform: (operation) => ({
           ...operation,
           "x-websocket": true,

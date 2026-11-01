@@ -1,8 +1,8 @@
 import { expect, test, type Page } from "@playwright/test"
-import type { OpenCodeEvent, SessionInboxInfo, SessionMessageInfo, ShellInfo } from "@opencode/client/promise"
-import { PromptInput } from "@opencode/schema/prompt-input"
-import { SessionInbox } from "@opencode/schema/session-inbox"
-import { SessionMessage } from "@opencode/schema/session-message"
+import type { WOPPSEvent, SessionInboxInfo, SessionMessageInfo, ShellInfo } from "@uf0rs/client/promise"
+import { PromptInput } from "@uf0rs/schema/prompt-input"
+import { SessionInbox } from "@uf0rs/schema/session-inbox"
+import { SessionMessage } from "@uf0rs/schema/session-message"
 import { Schema } from "effect"
 import { holdRoute, provider } from "../utils/app"
 import type { MockServerConfig } from "../utils/mock-server"
@@ -60,7 +60,7 @@ function createQueueMock(seed: string[], messages: SessionMessageInfo[] = []) {
     delivery: "queue",
   }))
 
-  const events: OpenCodeEvent[] = []
+  const events: WOPPSEvent[] = []
   const prompts: (typeof PromptBody.Type)[] = []
   const compactions: SessionInboxInfo[] = []
   const changes: { inboxID: string; action: "cancel" | "steer" | "queue" }[] = []
@@ -69,19 +69,19 @@ function createQueueMock(seed: string[], messages: SessionMessageInfo[] = []) {
   const shells: ShellInfo[] = []
   let sequence = 0
 
-  const emit = <Type extends OpenCodeEvent["type"]>(
+  const emit = <Type extends WOPPSEvent["type"]>(
     type: Type,
-    data: Extract<OpenCodeEvent, { type: Type }>["data"],
+    data: Extract<WOPPSEvent, { type: Type }>["data"],
   ) => {
     sequence += 1
-    // SAFETY: `type` selects `data` from the same OpenCodeEvent member, so the pair is that member.
+    // SAFETY: `type` selects `data` from the same WOPPSEvent member, so the pair is that member.
     events.push({
       id: `evt_queue_${sequence}`,
       type,
       created: Date.now(),
       durable: { aggregateID: sessionID, seq: sequence, version: type === "session.tool.success" ? 2 : 1 },
       data,
-    } as OpenCodeEvent)
+    } as WOPPSEvent)
   }
 
   return {
@@ -175,7 +175,7 @@ async function openQueue(
       {
         id: sessionID,
         title: "Session queue regression",
-        model: { id: model.id, providerID: "opencode" },
+        model: { id: model.id, providerID: "uf0rs" },
         revert: revert ? { messageID: revert } : undefined,
       },
     ],
@@ -273,7 +273,7 @@ test("a steer into an idle session leaves the finished turn finished until deliv
         id: "msg_queue_finished_assistant",
         type: "assistant",
         agent: "build",
-        model: { id: "queue-model", providerID: "opencode" },
+        model: { id: "queue-model", providerID: "uf0rs" },
         content: [{ type: "text", text: "The queue is fine." }],
         finish: "stop",
         time: { created: 1700000000001, completed: 1700000000002 },
@@ -979,7 +979,7 @@ test("/compact runs with the composer model and shows a queued compaction, as in
   await expect(page.locator('[data-timeline-row="CompactionQueued"]')).toHaveText("Session compaction queued")
   // The row is optimistic; the model switch still precedes the admission.
   await expect.poll(() => mock.log).toEqual(["model", "compact"])
-  expect(models).toMatchObject([{ model: { id: "queue-model", providerID: "opencode" } }])
+  expect(models).toMatchObject([{ model: { id: "queue-model", providerID: "uf0rs" } }])
 })
 
 for (const [action, status] of [
@@ -1095,7 +1095,7 @@ for (const delivery of ["steer", "queue"] as const) {
   test(`keeps finished tools above a pending ${delivery === "queue" ? "queue-to-steer" : "steer"} follow-up`, async ({
     page,
   }, testInfo) => {
-    const model = { id: "queue-model", providerID: "opencode" }
+    const model = { id: "queue-model", providerID: "uf0rs" }
     const userID = "msg_queue_initial_user"
     const assistantID = "msg_queue_continued_assistant"
     const followUp = "U2: Also check the retry path."
@@ -1302,7 +1302,7 @@ for (const delivery of ["steer", "queue"] as const) {
 test("a steer moves a blocking shell to the background after its admission, so the next step reads it", async ({
   page,
 }, testInfo) => {
-  const model = { id: "alpha", providerID: "opencode" }
+  const model = { id: "alpha", providerID: "uf0rs" }
   const assistantID = "msg_steer_background_assistant"
   const shell = { sessionID, assistantMessageID: assistantID, id: "prt_steer_background_shell" }
   const steer = "Skip the slow suites and run only the queue tests."
@@ -1344,7 +1344,7 @@ test("a steer moves a blocking shell to the background after its admission, so t
     id: "sh_steer_background",
     status: "running",
     command: "bun test --timeout 600000",
-    cwd: "C:/OpenCode/SessionQueueRegression",
+    cwd: "C:/WOPPS/SessionQueueRegression",
     shell: "bash",
     file: "/tmp/steer-background.out",
     metadata: { sessionID },

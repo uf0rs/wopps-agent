@@ -10,33 +10,33 @@ import {
   Server,
   WebStandardStreamableHTTPServerTransport,
 } from "@modelcontextprotocol/server"
-import { Document, Event, Info } from "@opencode/schema/config"
-import { ConfigMCP } from "@opencode/schema/config/mcp"
-import { McpEvent } from "@opencode/schema/mcp-event"
-import { ConfigPolicy } from "@opencode/schema/config/policy"
-import { Config } from "@opencode/core/config"
-import { ConfigMcpPlugin } from "@opencode/core/config/plugin/mcp"
-import { Credential } from "@opencode/core/credential"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { ID, type Payload } from "@opencode/schema/event"
-import { Form } from "@opencode/core/form"
-import { Integration } from "@opencode/core/integration"
-import { Environment } from "@opencode/core/environment/index"
-import { EnvironmentUnavailable } from "@opencode/core/environment/unavailable"
-import { Location } from "@opencode/core/location"
-import { Mcp } from "@opencode/core/mcp/index"
-import { McpClient } from "@opencode/core/mcp/client"
-import { McpStdio } from "@opencode/core/mcp/stdio"
-import { Permission } from "@opencode/core/permission"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { State } from "@opencode/core/state"
-import { McpTool } from "@opencode/core/tool/mcp"
-import { McpResourceTools } from "@opencode/core/tool/plugin/mcp-resource"
-import { Tool } from "@opencode/core/tool"
-import { ToolOutput } from "@opencode/core/tool-output"
+import { Document, Event, Info } from "@uf0rs/schema/config"
+import { ConfigMCP } from "@uf0rs/schema/config/mcp"
+import { McpEvent } from "@uf0rs/schema/mcp-event"
+import { ConfigPolicy } from "@uf0rs/schema/config/policy"
+import { Config } from "@uf0rs/core/config"
+import { ConfigMcpPlugin } from "@uf0rs/core/config/plugin/mcp"
+import { Credential } from "@uf0rs/core/credential"
+import { AppNodeBuilder } from "@uf0rs/core/effect/app-node-builder"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
+import { Bus } from "@uf0rs/core/bus"
+import { ID, type Payload } from "@uf0rs/schema/event"
+import { Form } from "@uf0rs/core/form"
+import { Integration } from "@uf0rs/core/integration"
+import { Environment } from "@uf0rs/core/environment/index"
+import { EnvironmentUnavailable } from "@uf0rs/core/environment/unavailable"
+import { Location } from "@uf0rs/core/location"
+import { Mcp } from "@uf0rs/core/mcp/index"
+import { McpClient } from "@uf0rs/core/mcp/client"
+import { McpStdio } from "@uf0rs/core/mcp/stdio"
+import { Permission } from "@uf0rs/core/permission"
+import { AbsolutePath } from "@uf0rs/core/schema"
+import { Session } from "@uf0rs/core/session"
+import { State } from "@uf0rs/core/state"
+import { McpTool } from "@uf0rs/core/tool/mcp"
+import { McpResourceTools } from "@uf0rs/core/tool/plugin/mcp-resource"
+import { Tool } from "@uf0rs/core/tool"
+import { ToolOutput } from "@uf0rs/core/tool-output"
 import {
   Context,
   Deferred,
@@ -56,8 +56,8 @@ import {
 import { TestClock } from "effect/testing"
 import { ChildProcess, ChildProcessSpawner } from "effect/process"
 import { ExitCode, makeHandle, ProcessId } from "effect/process/ChildProcessSpawner"
-import { Image } from "@opencode/core/image"
-import { Global } from "@opencode/util/global"
+import { Image } from "@uf0rs/core/image"
+import { Global } from "@uf0rs/util/global"
 import { advance, drain } from "./lib/clock"
 import { testEffect } from "./lib/effect"
 import { registerIntegrationPolicy, setOrganizationPolicy } from "./fixture/policy"
@@ -213,7 +213,7 @@ function resourceServer(
             state.toolCalls.push({
               name: request.params.name,
               arguments: request.params.arguments,
-              sessionID: request.params._meta?.["ai.opencode/sessionID"],
+              sessionID: request.params._meta?.["ai.uf0rs/sessionID"],
               progressToken: request.params._meta?.progressToken,
             })
             return Promise.resolve({ content: [] })
@@ -556,7 +556,7 @@ const permissions = Layer.mock(Permission.Service, {
     }),
 })
 const events = Layer.mock(Bus.Service, { subscribe: () => Stream.never })
-const outputData = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-mcp-output-"))
+const outputData = await fs.mkdtemp(path.join(os.tmpdir(), "uf0rs-mcp-output-"))
 const it = testEffect(
   AppNodeBuilder.build(LayerNode.group([Tool.node, McpTool.node]), [
     Mcp.node.replace(mcp),
@@ -1523,7 +1523,7 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
         })
 
       // The SDK walks every page, so one call returns the full catalog.
-      const listed = yield* run('return await tools.opencode.list_mcp_resources({ server: "resources" })')
+      const listed = yield* run('return await tools.uf0rs.list_mcp_resources({ server: "resources" })')
       expect(JSON.parse(listed.output.output)).toEqual({
         resources: [
           { server: "resources", name: "Guide", uri: "docs://guide" },
@@ -1538,9 +1538,9 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
 
       // Omitting the server lists every server, so the model can find which one owns a URI.
       assertion = yield* Deferred.make<Permission.AssertInput>()
-      const everywhere = yield* run("return await tools.opencode.list_mcp_resources({})")
+      const everywhere = yield* run("return await tools.uf0rs.list_mcp_resources({})")
       expect(yield* Deferred.await(assertion)).toMatchObject({
-        action: "opencode_list_mcp_resources",
+        action: "uf0rs_list_mcp_resources",
         resources: ["resources"],
         save: ["resources"],
       })
@@ -1557,7 +1557,7 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
 
       // A server may declare resources without implementing template listing.
       server.state.templatesUnsupported = true
-      const untemplated = yield* run('return await tools.opencode.list_mcp_resources({ server: "resources" })')
+      const untemplated = yield* run('return await tools.uf0rs.list_mcp_resources({ server: "resources" })')
       expect(JSON.parse(untemplated.output.output)).toEqual({
         resources: [
           { server: "resources", name: "Guide", uri: "docs://guide" },
@@ -1569,7 +1569,7 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
 
       assertion = yield* Deferred.make<Permission.AssertInput>()
       const read = yield* run(
-        'const resource = await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://readme" }); return resource.contents.filter(part => part.type === "text").map(part => part.text).join("\\n")',
+        'const resource = await tools.uf0rs.read_mcp_resource({ server: "resources", uri: "docs://readme" }); return resource.contents.filter(part => part.type === "text").map(part => part.text).join("\\n")',
       )
       expect(read.content).toEqual([
         { type: "text", text: "hello" },
@@ -1577,14 +1577,14 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
       ])
       expect(read.metadata?.toolCalls).toMatchObject([
         {
-          tool: "opencode.read_mcp_resource",
+          tool: "uf0rs.read_mcp_resource",
           status: "completed",
           input: { server: "resources", uri: "docs://readme" },
         },
       ])
       expect(server.state.resourceReads).toEqual(["docs://readme"])
       expect(yield* Deferred.await(assertion)).toEqual({
-        action: "opencode_read_mcp_resource",
+        action: "uf0rs_read_mcp_resource",
         resources: ["resources:docs://readme"],
         save: ["resources:*"],
         metadata: { server: "resources", uri: "docs://readme" },
@@ -1595,7 +1595,7 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
 
       server.state.contents = [{ uri: "docs://readme", text: "line\n".repeat(20_000), mimeType: "text/plain" }]
       const large = yield* run(
-        'const resource = await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://readme" }); return resource.contents[0].text',
+        'const resource = await tools.uf0rs.read_mcp_resource({ server: "resources", uri: "docs://readme" }); return resource.contents[0].text',
       )
       const bounded = yield* ToolOutput.Service.use((output) => output.truncate(large)).pipe(
         Effect.provide(AppNodeBuilder.build(ToolOutput.node)),
@@ -1610,28 +1610,28 @@ it.live("discovers and reads MCP resources through Code Mode", () =>
       // An empty contents array means the resource exists without content, not that it is missing.
       server.state.contents = []
       const empty = yield* run(
-        'return await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://empty" })',
+        'return await tools.uf0rs.read_mcp_resource({ server: "resources", uri: "docs://empty" })',
       )
       expect(empty.metadata?.error).toBeUndefined()
       expect(JSON.parse(empty.output.output)).toEqual({ server: "resources", uri: "docs://empty", contents: [] })
       server.state.missing = ["docs://gone"]
       const gone = yield* run(
-        'return await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://gone" })',
+        'return await tools.uf0rs.read_mcp_resource({ server: "resources", uri: "docs://gone" })',
       )
       expect(gone.metadata?.error).toBe(true)
       expect(gone.output.output).toContain("Resource not found")
       const missing = yield* run(
-        'return await tools.opencode.read_mcp_resource({ server: "missing", uri: "docs://readme" })',
+        'return await tools.uf0rs.read_mcp_resource({ server: "missing", uri: "docs://readme" })',
       )
       expect(missing.metadata?.error).toBe(true)
       expect(missing.output.output).toContain("MCP server not found: missing")
 
       const reads = server.state.resourceReads.length
       decision = Effect.fail(
-        new Permission.BlockedError({ rules: [], permission: "opencode_read_mcp_resource", resources: ["*"] }),
+        new Permission.BlockedError({ rules: [], permission: "uf0rs_read_mcp_resource", resources: ["*"] }),
       )
       const denied = yield* run(
-        'return await tools.opencode.read_mcp_resource({ server: "resources", uri: "docs://denied" })',
+        'return await tools.uf0rs.read_mcp_resource({ server: "resources", uri: "docs://denied" })',
       )
       expect(denied.metadata?.error).toBe(true)
       expect(server.state.resourceReads).toHaveLength(reads)

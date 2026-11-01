@@ -1,5 +1,5 @@
-import type { Data } from "@opencode/client/solid"
-import type { LocationRef, OpenCodeClient, ProjectListOutput, WorktreeDirectory } from "@opencode/client/promise"
+import type { Data } from "@uf0rs/client/solid"
+import type { LocationRef, WOPPSClient, ProjectListOutput, WorktreeDirectory } from "@uf0rs/client/promise"
 import type { Schema } from "effect"
 import type { JSX } from "solid-js"
 import type { Store } from "solid-js/store"
@@ -20,7 +20,7 @@ export interface ServerRef {
   /** The HTTP basic password the user configured; undefined when there is none. */
   readonly password?: string
   /** The server's API client. */
-  readonly client: OpenCodeClient
+  readonly client: WOPPSClient
   /** The server's synced data (sessions, projects, …). Reactive. */
   readonly data: Data
   /** The app's own local server, or a loopback http connection to its port. */

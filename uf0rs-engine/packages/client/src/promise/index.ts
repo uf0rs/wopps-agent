@@ -1,7 +1,7 @@
-import type { OpenCode } from "./client.js"
+import type { WOPPS } from "./client.js"
 
 export * from "./generated/index.js"
-export { OpenCode } from "./client.js"
+export { WOPPS } from "./client.js"
 export { mediaHashFromUri, withMediaRefs, type MediaRequestOptions } from "./media.js"
 export type {
   AgentApi,
@@ -21,9 +21,9 @@ export type {
   SessionApi,
   SkillApi,
 } from "./api.js"
-export type { EventSubscribeOutput as OpenCodeEvent } from "./generated/types.js"
+export type { EventSubscribeOutput as WOPPSEvent } from "./generated/types.js"
 export type {
   MediaFileAttachment as PromptMediaFileAttachment,
   Attachment as PromptAttachment,
-} from "@opencode/schema/prompt"
-export type OpenCodeClient = ReturnType<typeof OpenCode.make>
+} from "@uf0rs/schema/prompt"
+export type WOPPSClient = ReturnType<typeof WOPPS.make>

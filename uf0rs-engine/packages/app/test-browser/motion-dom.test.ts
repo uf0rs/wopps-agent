@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from "bun:test"
 import { createRoot, createSignal } from "solid-js"
-import { enter, frameLoop, prefersReducedMotion, slideFrom } from "@opencode/ui/motion"
-import { numberTween, slidingHighlight, springStyle, widthMorph } from "@opencode/ui/motion/solid"
+import { enter, frameLoop, prefersReducedMotion, slideFrom } from "@uf0rs/ui/motion"
+import { numberTween, slidingHighlight, springStyle, widthMorph } from "@uf0rs/ui/motion/solid"
 
 let frames: Map<number, FrameRequestCallback>
 

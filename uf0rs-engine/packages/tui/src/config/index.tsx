@@ -1,7 +1,7 @@
 export * as Config from "."
 
 import { createBindingLookup } from "@opentui/keymap/extras"
-import { Vcs } from "@opencode/schema/vcs"
+import { Vcs } from "@uf0rs/schema/vcs"
 import { Schema } from "effect"
 import { createContext, createMemo, onCleanup, type JSX, useContext } from "solid-js"
 import { createStore, reconcile } from "solid-js/store"
@@ -307,7 +307,7 @@ export function resolve(
       notifications: input.attention?.notifications ?? false,
       sound: input.attention?.sound ?? false,
       volume: input.attention?.volume ?? 0.4,
-      sound_pack: input.attention?.sound_pack ?? "opencode.default",
+      sound_pack: input.attention?.sound_pack ?? "uf0rs.default",
       sounds: input.attention?.sounds ?? {},
     },
     keybinds: createBindingLookup(TuiKeybind.toBindingConfig(TuiKeybind.parse(keybinds)), {

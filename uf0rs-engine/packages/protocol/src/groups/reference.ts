@@ -1,5 +1,5 @@
-import { Location } from "@opencode/schema/location"
-import { Reference } from "@opencode/schema/reference"
+import { Location } from "@uf0rs/schema/location"
+import { Reference } from "@uf0rs/schema/reference"
 import { Schema, Struct } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { LocationQuery, locationQueryOpenApi } from "./location.js"

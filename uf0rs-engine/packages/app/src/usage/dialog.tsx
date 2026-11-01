@@ -1,8 +1,8 @@
-import type { LocationRef, UsageLimitsInfo } from "@opencode/client/promise"
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { Loader } from "@opencode/ui/loader"
+import type { LocationRef, UsageLimitsInfo } from "@uf0rs/client/promise"
+import { Button } from "@uf0rs/ui/button"
+import { useDialog } from "@uf0rs/ui/context/dialog"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@uf0rs/ui/dialog"
+import { Loader } from "@uf0rs/ui/loader"
 import { createStore } from "solid-js/store"
 import { For, type JSX, Match, onMount, Show, Switch } from "solid-js"
 import { useLanguage } from "@/runtime/i18n/language"
@@ -21,7 +21,7 @@ import {
 } from "./limits"
 import "./dialog.css"
 
-/** The Usage dialog: the location's OpenCode Go allowance and Console budgets, refreshed when it opens. */
+/** The Usage dialog: the location's WOPPS Go allowance and Console budgets, refreshed when it opens. */
 export function DialogUsage(props: {
   location: LocationRef
   /** The model in use, so a per-model budget shows this model's counter. */

@@ -1,5 +1,5 @@
-import type { SessionInfo, SessionMessageInfo } from "@opencode/client/promise"
-import { SessionMessage } from "@opencode/schema/session-message"
+import type { SessionInfo, SessionMessageInfo } from "@uf0rs/client/promise"
+import { SessionMessage } from "@uf0rs/schema/session-message"
 import type { ServerCtx } from "@/runtime/server/runtime"
 import { decodeArguments, type ToolCall } from "./protocol"
 import { ReplyWatch } from "./replies"

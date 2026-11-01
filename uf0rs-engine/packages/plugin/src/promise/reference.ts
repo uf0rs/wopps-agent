@@ -1,5 +1,5 @@
-import type { ReferenceApi } from "@opencode/client/promise/api"
-import type { ReferenceGitSource, ReferenceLocalSource } from "@opencode/client"
+import type { ReferenceApi } from "@uf0rs/client/promise/api"
+import type { ReferenceGitSource, ReferenceLocalSource } from "@uf0rs/client"
 import type { Transform } from "./registration.js"
 
 export interface ReferenceEditor {

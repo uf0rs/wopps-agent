@@ -6,10 +6,10 @@ import {
   themeModes,
   type ResolvedTheme,
   type SurfaceName,
-} from "@opencode/theme/tui"
+} from "@uf0rs/theme/tui"
 import {
   allThemes,
-  getOpenCode2Theme,
+  getWOPPS2Theme,
   hasTheme,
   parseTheme,
   setCustomThemes,
@@ -290,7 +290,7 @@ const themeContext = createSimpleContext({
 
     const available = createMemo(
       (): Record<string, ThemeDocumentSource> =>
-        newDesigns() ? { opencode2: getOpenCode2Theme(), ...themeSources() } : themeSources(),
+        newDesigns() ? { uf0rs2: getWOPPS2Theme(), ...themeSources() } : themeSources(),
     )
     const has = (name: string) => Boolean(name) && available()[name] !== undefined
 

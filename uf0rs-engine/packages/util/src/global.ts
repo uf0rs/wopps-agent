@@ -14,7 +14,7 @@ const { data, cache, config, state, tmp } = roots(app)
 
 const paths = {
   get home() {
-    return process.env.OPENCODE_TEST_HOME ?? os.homedir()
+    return process.env.UF0RS_TEST_HOME ?? os.homedir()
   },
   data,
   bin: path.join(cache, "bin"),
@@ -30,7 +30,7 @@ export const Path = paths
 
 Flock.setGlobal({ state })
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Global") {}
+export class Service extends Context.Service<Service, Interface>()("@uf0rs/Global") {}
 
 export interface Interface {
   readonly home: string
@@ -76,7 +76,7 @@ const acquire = (input: Partial<Interface>) =>
 
 const layer = Layer.effect(
   Service,
-  Effect.suspend(() => acquire({ config: process.env.OPENCODE_CONFIG_DIR ?? Path.config })),
+  Effect.suspend(() => acquire({ config: process.env.UF0RS_CONFIG_DIR ?? Path.config })),
 )
 
 export const node = makeGlobalNode({ service: Service, layer: layer, deps: [] })

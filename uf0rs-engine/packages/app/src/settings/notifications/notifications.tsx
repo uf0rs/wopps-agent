@@ -1,6 +1,6 @@
 import { Component } from "solid-js"
-import { Select } from "@opencode/ui/select"
-import { Switch } from "@opencode/ui/switch"
+import { Select } from "@uf0rs/ui/select"
+import { Switch } from "@uf0rs/ui/switch"
 import { useLanguage } from "@/runtime/i18n/language"
 import { useSettings } from "@/settings/model"
 import { SettingsList } from "@/settings/list"

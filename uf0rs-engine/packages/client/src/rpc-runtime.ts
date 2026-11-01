@@ -1,11 +1,11 @@
 export * as RpcRuntime from "./rpc-runtime.js"
 
-import type { Rpc } from "@opencode/schema/rpc"
-import type { OpenCodeEvent } from "@opencode/protocol/groups/event"
-import { RpcError, RpcInternalError } from "@opencode/protocol/errors"
+import type { Rpc } from "@uf0rs/schema/rpc"
+import type { WOPPSEvent } from "@uf0rs/protocol/groups/event"
+import { RpcError, RpcInternalError } from "@uf0rs/protocol/errors"
 import { Effect, Schema } from "effect"
 
-type RpcEvent = Extract<OpenCodeEvent, { type: `rpc.${string}` }>
+type RpcEvent = Extract<WOPPSEvent, { type: `rpc.${string}` }>
 
 export function read(schema: Rpc.Method["output"], value: unknown) {
   // Standard Schema results have already been parsed by the server.

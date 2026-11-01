@@ -24,7 +24,7 @@ pub(super) fn stale_runtimes(directory: &Path) {
         }
         if let Err(error) = runtime(&candidate, SystemTime::now()) {
             eprintln!(
-                "opencode-pty could not remove stale runtime {}: {error:#}",
+                "uf0rs-pty could not remove stale runtime {}: {error:#}",
                 candidate.display()
             );
         }
@@ -117,7 +117,7 @@ mod tests {
     impl Root {
         fn new() -> Self {
             let root =
-                std::env::temp_dir().join(format!("opencode-pty-sweep-test-{}", random_id()));
+                std::env::temp_dir().join(format!("uf0rs-pty-sweep-test-{}", random_id()));
             fs::create_dir_all(&root).unwrap();
             Self(root)
         }

@@ -1,8 +1,8 @@
 export * as WarmingPlugin from "./warming.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import type { Session } from "@opencode/schema/session"
+import { define } from "@uf0rs/plugin/effect/plugin"
+import type { SessionHooks } from "@uf0rs/plugin/effect/session"
+import type { Session } from "@uf0rs/schema/session"
 import { Clock, Duration, Effect, Scope, Stream } from "effect"
 import { Config } from "../config.js"
 
@@ -13,7 +13,7 @@ const defaults = {
 }
 
 export const Plugin = define({
-  id: "opencode.warming",
+  id: "uf0rs.warming",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const loadSettings = Effect.fn("WarmingPlugin.loadSettings")(function* () {

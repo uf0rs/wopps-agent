@@ -1,4 +1,4 @@
-# opencode-pty
+# uf0rs-pty
 
 ## Objective
 
@@ -15,7 +15,7 @@ bounded raw replay tail, and exposes thread-safe terminal operations.
 - Bound raw output, input, and actor queues.
 - Make libghostty authoritative for terminal-generated PTY responses.
 - Provide an interactive local CLI for exercising multiple terminals.
-- Do not add OpenCode IPC integration yet.
+- Do not add WOPPS IPC integration yet.
 - Do not implement descriptor passing or live service replacement.
 
 ## Engineering Rules

@@ -1,9 +1,9 @@
 import { cancel, confirm, isCancel, log } from "@clack/prompts"
 import { EOL } from "os"
 import { Effect, Option, Schedule } from "effect"
-import { Service } from "@opencode/client/effect/service"
-import { OpenCode } from "@opencode/client/promise"
-import { renderUnicodeCompact } from "@opencode/util/qr"
+import { Service } from "@uf0rs/client/effect/service"
+import { WOPPS } from "@uf0rs/client/promise"
+import { renderUnicodeCompact } from "@uf0rs/util/qr"
 import { Commands } from "../commands"
 import { Runtime } from "../../framework/runtime"
 import { RemoteTunnel } from "../../services/remote-tunnel"
@@ -25,7 +25,7 @@ export default Runtime.handler(
       yield* ServiceConfig.set("remote", "true")
     }
     const endpoint = yield* Service.ensure(yield* ServiceConfig.options())
-    const client = OpenCode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+    const client = WOPPS.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
     const urls = yield* pairingURLs(client, input)
     const pairing = yield* Effect.tryPromise(() => client.server.pair())
     const links = urls.map((url) => new URL(`/auth/connect/${pairing.code}`, url).href)
@@ -70,7 +70,7 @@ export default Runtime.handler(
 )
 
 export const remoteWarning = [
-  "This will expose your OpenCode server to the internet.",
+  "This will expose your WOPPS server to the internet.",
   "Traffic is end-to-end encrypted, and access requires your server password.",
   "To pair locally instead, run `uf0rs pair` without the --remote flag.",
 ].join(EOL)
@@ -116,7 +116,7 @@ export const remoteConsent = Effect.fn("cli.pair.remote-consent")(function* (
 })
 
 const pairingURLs = Effect.fnUntraced(function* (
-  client: ReturnType<typeof OpenCode.make>,
+  client: ReturnType<typeof WOPPS.make>,
   input: Runtime.Input<typeof Commands.commands.pair>,
 ) {
   if (input.remote) return [yield* remoteURL(client)]
@@ -125,7 +125,7 @@ const pairingURLs = Effect.fnUntraced(function* (
 })
 
 // The service attaches the tunnel in the background, so wait for its URL to appear in server info.
-const remoteURL = Effect.fnUntraced(function* (client: ReturnType<typeof OpenCode.make>) {
+const remoteURL = Effect.fnUntraced(function* (client: ReturnType<typeof WOPPS.make>) {
   const tunnelURL = Effect.gen(function* () {
     const route = (yield* ServiceConfig.read()).remote?.route
     const hostname = route === undefined ? undefined : yield* RemoteTunnel.hostname(route)

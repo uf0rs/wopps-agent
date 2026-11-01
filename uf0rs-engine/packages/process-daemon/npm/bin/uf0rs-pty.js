@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process"
 import { binaryPath } from "../index.js"
 
 if (!binaryPath) {
-  console.error(`opencode-pty is unavailable for ${process.platform}-${process.arch}`)
+  console.error(`uf0rs-pty is unavailable for ${process.platform}-${process.arch}`)
   process.exit(1)
 }
 

@@ -1,6 +1,6 @@
-import type { PluginInfo, SessionMessageInfo } from "@opencode/client/promise"
-import { DialogProvider } from "@opencode/ui/context/dialog"
-import { Toast } from "@opencode/ui/toast"
+import type { PluginInfo, SessionMessageInfo } from "@uf0rs/client/promise"
+import { DialogProvider } from "@uf0rs/ui/context/dialog"
+import { Toast } from "@uf0rs/ui/toast"
 import {
   Panel,
   type Appearance,
@@ -17,8 +17,8 @@ import {
   type Storage,
   type StoreOptions,
   type Workspaces,
-} from "@opencode/plugin/gui"
-import type { BuiltinLayout, BuiltinLocale } from "@opencode/plugin/gui/builtin"
+} from "@uf0rs/plugin/gui"
+import type { BuiltinLayout, BuiltinLocale } from "@uf0rs/plugin/gui/builtin"
 import {
   createComponent,
   createMemo,
@@ -38,7 +38,7 @@ import { ServerScope } from "@/runtime/server/scope"
 import { PluginHostProvider, usePluginHost, type HostApiFactories } from "../src/runtime/plugin/host"
 import { createHostApis } from "../src/runtime/plugin/host-apis"
 import { createInstalled } from "../src/runtime/plugin/installed"
-import { pluginEnabled, type Entry } from "@opencode/plugin/gui/host"
+import { pluginEnabled, type Entry } from "@uf0rs/plugin/gui/host"
 import { createRegion, RegionContent } from "../src/runtime/plugin/panels"
 import { createClosedTabs } from "../src/runtime/plugin/closed-tabs"
 import { PluginSlot } from "../src/runtime/plugin/render"
@@ -58,7 +58,7 @@ export {
   Panel,
   Slot,
   Store,
-} from "@opencode/plugin/gui"
+} from "@uf0rs/plugin/gui"
 
 export { Schema }
 
@@ -93,7 +93,7 @@ const layout: BuiltinLayout = {
   command() {},
 }
 
-const about: App = { name: "opencode", version: "", channel: "dev", platform: "desktop", packaged: false }
+const about: App = { name: "uf0rs", version: "", channel: "dev", platform: "desktop", packaged: false }
 
 const locale: BuiltinLocale = { locale: () => "en", direction: () => "ltr", setDirection() {} }
 

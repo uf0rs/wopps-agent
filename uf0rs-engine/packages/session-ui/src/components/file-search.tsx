@@ -1,6 +1,6 @@
 import { Portal } from "solid-js/web"
-import { useI18n } from "@opencode/ui/context/i18n"
-import { Icon } from "@opencode/ui/icon"
+import { useI18n } from "@uf0rs/ui/context/i18n"
+import { Icon } from "@uf0rs/ui/icon"
 
 export function FileSearchBar(props: {
   pos: { top: number; right: number }

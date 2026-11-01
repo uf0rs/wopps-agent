@@ -128,7 +128,7 @@ impl Wake {
                 Ok(_) => return,
                 Err(error) if error.kind() == io::ErrorKind::WouldBlock => return,
                 Err(error) => {
-                    eprintln!("opencode-pty wake failed: {error}");
+                    eprintln!("uf0rs-pty wake failed: {error}");
                     return;
                 }
             }
@@ -146,7 +146,7 @@ impl Wake {
                 Err(error) if error.kind() == io::ErrorKind::Interrupted => {}
                 Err(error) if error.kind() == io::ErrorKind::WouldBlock => return woken,
                 Err(error) => {
-                    eprintln!("opencode-pty wake drain failed: {error}");
+                    eprintln!("uf0rs-pty wake drain failed: {error}");
                     return woken;
                 }
             }

@@ -1,8 +1,8 @@
 export * as EventFeed from "./event-feed"
 
-import { Bus } from "@opencode/core/bus"
-import { Event } from "@opencode/schema/event"
-import { isOpenCodeEvent, type OpenCodeEvent } from "@opencode/protocol/groups/event"
+import { Bus } from "@uf0rs/core/bus"
+import { Event } from "@uf0rs/schema/event"
+import { isWOPPSEvent, type WOPPSEvent } from "@uf0rs/protocol/groups/event"
 import { Cause, Context, Effect, Layer, Queue, Schema, Scope, Stream } from "effect"
 
 export const SubscriberCapacity = 4_096
@@ -24,15 +24,15 @@ export interface Interface {
   readonly subscribe: (types?: ReadonlyArray<string>) => Effect.Effect<Stream.Stream<string, Error>, never, Scope.Scope>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/server/EventFeed") {}
+export class Service extends Context.Service<Service, Interface>()("@uf0rs/server/EventFeed") {}
 
-export function frame(event: OpenCodeEvent) {
+export function frame(event: WOPPSEvent) {
   return `data: ${JSON.stringify(event)}\n\n`
 }
 
 export const make = Effect.fn("EventFeed.make")(function* (
   observe: (subscriber: Bus.Subscriber) => Effect.Effect<Bus.Unsubscribe>,
-  options?: { readonly capacity?: number; readonly encode?: (event: OpenCodeEvent) => string },
+  options?: { readonly capacity?: number; readonly encode?: (event: WOPPSEvent) => string },
 ) {
   const capacity = options?.capacity ?? SubscriberCapacity
   const render = options?.encode ?? frame
@@ -46,7 +46,7 @@ export const make = Effect.fn("EventFeed.make")(function* (
     })
 
   const publish = Effect.fnUntraced(function* (event: Event.Payload) {
-    if (!isOpenCodeEvent(event)) return
+    if (!isWOPPSEvent(event)) return
     let encoded: string | undefined
     for (const [subscriber, types] of subscribers) {
       if (types && !types.has(event.type)) continue

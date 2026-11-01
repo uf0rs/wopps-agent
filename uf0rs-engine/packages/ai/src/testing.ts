@@ -38,7 +38,7 @@ export type Responder = (request: LLMRequest) => Response
 
 export interface TestInterface extends ClientInterface, TestScript.Controls<LLMRequest, Response> {}
 
-export class Test extends Context.Service<Test, TestInterface>()("@opencode/ai/TestLLM/Test") {}
+export class Test extends Context.Service<Test, TestInterface>()("@uf0rs/ai/TestLLM/Test") {}
 
 export type LayerOptions = TestScript.Options<LLMRequest, Response>
 

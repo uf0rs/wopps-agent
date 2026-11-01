@@ -4,8 +4,8 @@ import {
   inertModule,
   pluginWindowModules,
   type pluginSharedModules,
-} from "@opencode/plugin/gui/host"
-import type { Plugin } from "@opencode/plugin/gui/main"
+} from "@uf0rs/plugin/gui/host"
+import type { Plugin } from "@uf0rs/plugin/gui/main"
 
 const native = createRequire(import.meta.url)
 
@@ -13,12 +13,12 @@ const native = createRequire(import.meta.url)
 // checks against. In main, the window SDK's name resolves to the main SDK.
 const shared = {
   effect: () => import("effect"),
-  "@opencode/plugin/gui": () => import("@opencode/plugin/gui/main"),
-  "@opencode/plugin/gui/main": () => import("@opencode/plugin/gui/main"),
-  "@opencode/plugin/rpc": () => import("@opencode/plugin/rpc"),
-  "@opencode/schema/rpc": () => import("@opencode/schema/rpc"),
-  "@opencode/client": () => import("@opencode/client"),
-  "@opencode/client/effect": () => import("@opencode/client/effect"),
+  "@uf0rs/plugin/gui": () => import("@uf0rs/plugin/gui/main"),
+  "@uf0rs/plugin/gui/main": () => import("@uf0rs/plugin/gui/main"),
+  "@uf0rs/plugin/rpc": () => import("@uf0rs/plugin/rpc"),
+  "@uf0rs/schema/rpc": () => import("@uf0rs/schema/rpc"),
+  "@uf0rs/client": () => import("@uf0rs/client"),
+  "@uf0rs/client/effect": () => import("@uf0rs/client/effect"),
 } satisfies Record<(typeof pluginSharedModules)[number], () => Promise<object>>
 
 const windowOnly = new Set<string>(pluginWindowModules)

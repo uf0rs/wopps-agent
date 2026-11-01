@@ -1,8 +1,8 @@
 import { createMemo, createSignal, createUniqueId, For, onCleanup, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
-import { Loader } from "@opencode/ui/loader"
-import { showToast } from "@opencode/ui/toast"
+import { Loader } from "@uf0rs/ui/loader"
+import { showToast } from "@uf0rs/ui/toast"
 import {
   cellAtPoint,
   extendTo,
@@ -20,8 +20,8 @@ import {
   type Selection,
   type SelectionLimits,
 } from "@betteroffice/xlsx/headless"
-import { createKeyed, createLatest, usePlugin } from "@opencode/plugin/gui"
-import type { FileViewerProps } from "@opencode/plugin/gui/file"
+import { createKeyed, createLatest, usePlugin } from "@uf0rs/plugin/gui"
+import type { FileViewerProps } from "@uf0rs/plugin/gui/file"
 import { externalUrl } from "./links"
 import { paper } from "./paper"
 import { columnName, contains, coverMerges, hiddenAt, lastCell, settleMerges, skipHidden } from "./sheet-cells"

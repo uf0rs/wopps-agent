@@ -2,7 +2,7 @@ export * as Job from "./job.js"
 
 import { asc, eq, or } from "drizzle-orm"
 import { Array, Cause, Clock, Context, Deferred, Effect, Exit, Layer, Schema, Scope, SynchronizedRef } from "effect"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
+import { makeGlobalNode } from "@uf0rs/util/effect/app-node"
 import { Database } from "./database/database.js"
 import { JobTable } from "./job/sql.js"
 import { SessionMessage } from "./session/message.js"
@@ -145,7 +145,7 @@ export interface Interface {
   readonly completeBackground: (notificationID: SessionMessage.ID) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Job") {}
+export class Service extends Context.Service<Service, Interface>()("@uf0rs/Job") {}
 
 function snapshot(job: Active): Info {
   return {

@@ -1,8 +1,8 @@
-import type { ConnectionInfo } from "@opencode/client"
-import type { IntegrationApi } from "@opencode/client/effect/api"
-import { Connection } from "@opencode/schema/connection"
-import { Credential } from "@opencode/schema/credential"
-import { Form } from "@opencode/schema/form"
+import type { ConnectionInfo } from "@uf0rs/client"
+import type { IntegrationApi } from "@uf0rs/client/effect/api"
+import { Connection } from "@uf0rs/schema/connection"
+import { Credential } from "@uf0rs/schema/credential"
+import { Form } from "@uf0rs/schema/form"
 import type { Effect, Scope } from "effect"
 import type { Transform } from "./registration.js"
 

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test } from "bun:test"
 import { Effect, Exit, Scope } from "effect"
-import type { UpdaterState } from "@opencode/plugin/gui/updater"
+import type { UpdaterState } from "@uf0rs/plugin/gui/updater"
 import { make, type Dependencies } from "./machine"
 
 const scopes: Scope.Closeable[] = []

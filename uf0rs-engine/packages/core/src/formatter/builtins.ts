@@ -1,9 +1,9 @@
 import { Effect } from "effect"
 import { ChildProcess } from "effect/process"
-import { isRecord } from "@opencode/util/record"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Npm } from "@opencode/util/npm"
-import { AppProcess } from "@opencode/util/process"
+import { isRecord } from "@uf0rs/util/record"
+import { FSUtil } from "@uf0rs/util/fs-util"
+import { Npm } from "@uf0rs/util/npm"
+import { AppProcess } from "@uf0rs/util/process"
 import { which } from "../util/which.js"
 
 export interface Info {

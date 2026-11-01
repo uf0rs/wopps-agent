@@ -105,7 +105,7 @@ describe("OpenAI Chat route", () => {
       )
       const azure = yield* compileRequest(
         ai.request({
-          model: Azure.configure({ baseURL: "https://opencode-test.openai.azure.com/openai/", apiKey: "test" }).chat(
+          model: Azure.configure({ baseURL: "https://uf0rs-test.openai.azure.com/openai/", apiKey: "test" }).chat(
             "gpt-4o-mini",
           ),
           prompt: "Hello",
@@ -499,7 +499,7 @@ describe("OpenAI Chat route", () => {
     LLMClient.generate(
       LLMRequest.update(request, {
         model: Azure.configure({
-          baseURL: "https://opencode-test.openai.azure.com/openai/",
+          baseURL: "https://uf0rs-test.openai.azure.com/openai/",
           apiKey: "azure-key",
           headers: { authorization: "Bearer stale" },
         }).chat("gpt-4o-mini"),
@@ -509,7 +509,7 @@ describe("OpenAI Chat route", () => {
         dynamicResponse((input) =>
           Effect.gen(function* () {
             const web = yield* HttpClientRequest.toWeb(input.request).pipe(Effect.orDie)
-            expect(web.url).toBe("https://opencode-test.openai.azure.com/openai/v1/chat/completions?api-version=v1")
+            expect(web.url).toBe("https://uf0rs-test.openai.azure.com/openai/v1/chat/completions?api-version=v1")
             expect(web.headers.get("api-key")).toBe("azure-key")
             expect(web.headers.get("authorization")).toBeNull()
             return input.respond(sseEvents(deltaChunk({}, "stop")), {
@@ -638,7 +638,7 @@ describe("OpenAI Chat route", () => {
       const id = `call_${"a".repeat(48)}`
       const models = [
         model,
-        Azure.configure({ baseURL: "https://opencode-test.openai.azure.com/openai/", apiKey: "test" }).chat("gpt-4o"),
+        Azure.configure({ baseURL: "https://uf0rs-test.openai.azure.com/openai/", apiKey: "test" }).chat("gpt-4o"),
       ]
 
       yield* Effect.forEach(models, (selected) =>
@@ -1258,7 +1258,7 @@ describe("OpenAI Chat route", () => {
           fixedResponse(
             sseEvents(
               deltaChunk({ content: "Hello" }, "stop"),
-              usageChunk({ prompt_tokens: 5, completion_tokens: 2, cost: 0, opencode: { allowance: 0.0042 } }),
+              usageChunk({ prompt_tokens: 5, completion_tokens: 2, cost: 0, uf0rs: { allowance: 0.0042 } }),
             ),
           ),
         ),
@@ -1275,7 +1275,7 @@ describe("OpenAI Chat route", () => {
           fixedResponse(
             sseEvents(
               deltaChunk({ content: "Hello" }, "stop"),
-              usageChunk({ prompt_tokens: 5, completion_tokens: 2, cost: -1, opencode: { allowance: "lots" } }),
+              usageChunk({ prompt_tokens: 5, completion_tokens: 2, cost: -1, uf0rs: { allowance: "lots" } }),
             ),
           ),
         ),

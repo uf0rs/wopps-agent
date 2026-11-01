@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { createSignal } from "solid-js"
 import { Field } from "./field"
-import { InlineInput } from "@opencode/ui/inline-input"
-import { TextInput } from "@opencode/ui/text-input"
-import { Textarea } from "@opencode/ui/textarea"
+import { InlineInput } from "@uf0rs/ui/inline-input"
+import { TextInput } from "@uf0rs/ui/text-input"
+import { Textarea } from "@uf0rs/ui/textarea"
 
 const docs = `### Overview
 Composable field layout for TextInput, Textarea, and InlineInput.

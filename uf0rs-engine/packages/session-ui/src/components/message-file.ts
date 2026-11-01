@@ -1,5 +1,5 @@
-import { getFilename } from "@opencode/util/path"
-import type { PromptAttachment } from "@opencode/client/promise"
+import { getFilename } from "@uf0rs/util/path"
+import type { PromptAttachment } from "@uf0rs/client/promise"
 
 export const MIN_IMAGE_PLACEHOLDER_PX = 96
 

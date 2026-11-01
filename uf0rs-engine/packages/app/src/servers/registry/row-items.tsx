@@ -1,4 +1,4 @@
-import { Menu } from "@opencode/ui/menu"
+import { Menu } from "@uf0rs/ui/menu"
 import { For } from "solid-js"
 import { useServerRowItems } from "@/runtime/plugin/servers"
 

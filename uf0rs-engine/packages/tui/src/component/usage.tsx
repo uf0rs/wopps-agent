@@ -1,4 +1,4 @@
-import type { ModelInfo, SessionMessageAssistant } from "@opencode/client"
+import type { ModelInfo, SessionMessageAssistant } from "@uf0rs/client"
 import { TextAttributes } from "@opentui/core"
 import { createEffect, createMemo, createSignal, For, Match, onCleanup, onMount, Show, Switch } from "solid-js"
 import { useData } from "../context/data"
@@ -26,7 +26,7 @@ import {
 } from "../util/usage-limits"
 
 /**
- * The OpenCode Console limits on this location's models. Limits load once; `refresh` reloads them, since spend moves
+ * The WOPPS Console limits on this location's models. Limits load once; `refresh` reloads them, since spend moves
  * with every request, and keeps showing the ones already loaded meanwhile.
  */
 export function useUsageLimits() {
@@ -40,7 +40,7 @@ export function useUsageLimits() {
     return value ? modelUsage(value, model, providers().get(model.providerID)) : undefined
   }
   return {
-    /** Undefined until loaded, and null when the location isn't signed in to OpenCode Console. */
+    /** Undefined until loaded, and null when the location isn't signed in to WOPPS Console. */
     info,
     load: (refresh = false) => {
       if (refresh) data.location.usage.invalidate(ref())
@@ -49,7 +49,7 @@ export function useUsageLimits() {
     models: () => data.location.model.list(ref()) ?? [],
     usage,
     served: (providerID: string) => servedByConsole(providers().get(providerID)),
-    /** A paid model OpenCode Console serves without any limit on it. */
+    /** A paid model WOPPS Console serves without any limit on it. */
     unlimited: (model: ModelInfo) =>
       Boolean(info()) &&
       servedByConsole(providers().get(model.providerID)) &&
@@ -206,7 +206,7 @@ export function DialogUsageModel(props: { model: ModelInfo }) {
   )
 }
 
-// Each warning shows once per model while OpenCode runs, however many sessions use the model.
+// Each warning shows once per model while WOPPS runs, however many sessions use the model.
 const warned = new Set<string>()
 
 /** Reloads limits as the session's turns end, and warns once as the selected model runs low and once at its limit. */

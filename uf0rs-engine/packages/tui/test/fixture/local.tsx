@@ -1,5 +1,5 @@
 import { testRender } from "@opentui/solid"
-import type { AgentInfo, ModelInfo, SessionInfo } from "@opencode/client"
+import type { AgentInfo, ModelInfo, SessionInfo } from "@uf0rs/client"
 import path from "node:path"
 import { ConfigProvider } from "../../src/config"
 import { ArgsProvider, type Args } from "../../src/context/args"

@@ -1,12 +1,12 @@
-import type { PluginInfo } from "@opencode/client"
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { ErrorDetails } from "@opencode/ui/error-details"
-import { Icon } from "@opencode/ui/icon"
-import { Switch } from "@opencode/ui/switch"
-import { showToast } from "@opencode/ui/toast"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { TruncatedText } from "@opencode/ui/truncated-text"
+import type { PluginInfo } from "@uf0rs/client"
+import { Button } from "@uf0rs/ui/button"
+import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@uf0rs/ui/dialog"
+import { ErrorDetails } from "@uf0rs/ui/error-details"
+import { Icon } from "@uf0rs/ui/icon"
+import { Switch } from "@uf0rs/ui/switch"
+import { showToast } from "@uf0rs/ui/toast"
+import { Tooltip } from "@uf0rs/ui/tooltip"
+import { TruncatedText } from "@uf0rs/ui/truncated-text"
 import { useMutation } from "@tanstack/solid-query"
 import {
   children,
@@ -23,10 +23,10 @@ import {
   type JSX,
 } from "solid-js"
 import { createStore } from "solid-js/store"
-import { createKeyed, useDrawer, usePlugin, type MountedSession } from "@opencode/plugin/gui"
+import { createKeyed, useDrawer, usePlugin, type MountedSession } from "@uf0rs/plugin/gui"
 import { globalConfigDirectory, serviceConfigFile } from "./config-file"
 import { configuredLsps } from "./configured-lsp"
-import { builtinContext } from "@opencode/plugin/gui/builtin"
+import { builtinContext } from "@uf0rs/plugin/gui/builtin"
 import { createFlyoutMotion } from "./flyout-motion"
 
 const services = [
@@ -992,7 +992,7 @@ function ServiceConfigLink(props: { owner: ServiceProps; service: Service }) {
   )
 }
 
-// Starts a draft session in the global configuration's directory that asks OpenCode to set the service up.
+// Starts a draft session in the global configuration's directory that asks WOPPS to set the service up.
 function ServiceSetup(props: { owner: ServiceProps; service: Service }) {
   const ctx = usePlugin()
   const [store, setStore] = createStore({ opening: false })

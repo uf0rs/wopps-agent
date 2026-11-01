@@ -360,7 +360,7 @@ async function installReviewPaneScalingProbe(page: Page, input: { expectedFile: 
 
           if (!toggle?.hasAttribute("data-review-pane-scaling-toggle")) return
           probe.startedAt = performance.now()
-          performance.mark("opencode.review-pane-scaling.click")
+          performance.mark("uf0rs.review-pane-scaling.click")
           requestAnimationFrame(sample)
         },
         { capture: true, once: true },

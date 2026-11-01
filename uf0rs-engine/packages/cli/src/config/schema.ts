@@ -1,4 +1,4 @@
-import { Config } from "@opencode/tui/config"
+import { Config } from "@uf0rs/tui/config"
 import { Schema } from "effect"
 
 export const SchemaURL = "https://raw.githubusercontent.com/uf0rs/wopps-ai/main/schemas/uf0rs-config.json"

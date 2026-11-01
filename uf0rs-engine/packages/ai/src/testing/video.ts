@@ -8,7 +8,7 @@ export type Response = TestMedia.Response<VideoResponse>
 
 export interface TestInterface extends TestMedia.TestInterface<VideoRequestFor, VideoEvent, VideoResponse> {}
 
-export class Test extends Context.Service<Test, TestInterface>()("@opencode/ai/TestVideo/Test") {}
+export class Test extends Context.Service<Test, TestInterface>()("@uf0rs/ai/TestVideo/Test") {}
 
 export type LayerOptions = TestScript.Options<VideoRequestFor, Response>
 

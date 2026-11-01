@@ -1,5 +1,5 @@
 import { RGBA, SyntaxStyle, type CliRenderer, type ColorInput, type TerminalColors } from "@opentui/core"
-import { generateSyntax, resolveThemeDocument, themeModes, type ResolvedTheme } from "@opencode/theme/tui"
+import { generateSyntax, resolveThemeDocument, themeModes, type ResolvedTheme } from "@uf0rs/theme/tui"
 import { allThemes, getUf0rsTheme, isThemeSource, parseTheme, type ThemeDocumentSource } from "../theme"
 import { ansiToRgba } from "../theme/color"
 import { discoverThemes } from "../theme/discovery"
@@ -319,9 +319,9 @@ async function themeSource(
   mode: "dark" | "light",
 ): Promise<ThemeDocumentSource> {
   if (name === "system" && colors) return generateSystem(colors, mode)
-  const { Global } = await import("@opencode/util/global")
+  const { Global } = await import("@uf0rs/util/global")
   const custom = await discoverThemes(
-    configDirectories(process.env.OPENCODE_CONFIG_DIR ?? Global.Path.config, process.cwd()),
+    configDirectories(process.env.UF0RS_CONFIG_DIR ?? Global.Path.config, process.cwd()),
   )
   const source = custom[name] ?? allThemes()[name] ?? getUf0rsTheme()
   return isThemeSource(source) ? source : getUf0rsTheme()

@@ -1,13 +1,13 @@
 import { describe, expect, test } from "bun:test"
-import { AIError, HttpContext, InvalidRequestError, TransportError } from "@opencode/ai/effect"
+import { AIError, HttpContext, InvalidRequestError, TransportError } from "@uf0rs/ai/effect"
 import type {
   ChannelObservation,
   WebSocketChannelExchange,
   WebSocketConnection,
   WebSocketConnector,
-} from "@opencode/ai/route"
-import { SessionModelTransport } from "@opencode/core/session/model-transport"
-import { Session } from "@opencode/schema/session"
+} from "@uf0rs/ai/route"
+import { SessionModelTransport } from "@uf0rs/core/session/model-transport"
+import { Session } from "@uf0rs/schema/session"
 import { Cause, Deferred, Effect, Fiber, Metric, Queue, Stream } from "effect"
 import { TestClock } from "effect/testing"
 import { Headers } from "effect/http"
@@ -1092,7 +1092,7 @@ describe("SessionModelTransport", () => {
         yield* collect(executor, exchange("third", { headers: { authorization: "secret-two" } }))
 
         const snapshots = yield* Metric.snapshot
-        const lifecycle = snapshots.filter((item) => item.id === "opencode_session_websocket_events_total")
+        const lifecycle = snapshots.filter((item) => item.id === "uf0rs_session_websocket_events_total")
         const names = new Set(lifecycle.map((item) => item.attributes?.event))
         expect(Array.from(names)).toEqual(
           expect.arrayContaining(["connect", "reuse", "rotation", "reconnect", "send", "terminal"]),

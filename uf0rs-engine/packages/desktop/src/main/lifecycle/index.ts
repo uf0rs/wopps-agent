@@ -22,7 +22,7 @@ export interface Interface {
   readonly restoreWindows: () => BrowserWindow[]
 }
 
-export class Service extends Context.Service<Service, Interface>()("opencode/desktop/ApplicationLifecycle") {}
+export class Service extends Context.Service<Service, Interface>()("uf0rs/desktop/ApplicationLifecycle") {}
 
 const runtime = Layer.effect(
   Service,
@@ -86,7 +86,7 @@ const runtime = Layer.effect(
     }
 
     const secondInstance = (_event: Event, argv: string[]) => {
-      const urls = argv.filter((arg) => arg.startsWith("opencode://"))
+      const urls = argv.filter((arg) => arg.startsWith("uf0rs://"))
 
       if (urls.length) {
         runFork(Effect.logInfo("deep link received via second-instance", { urls }))

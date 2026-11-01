@@ -1,6 +1,6 @@
 import { EmbeddedTerminalRenderable, type RGBA } from "@opentui/core"
-import { decodePersistentPtyMessage, persistentPtyFrame } from "@opencode/client/solid"
-import { rgbToOklch, type ResolvedThemeTokens } from "@opencode/theme/tui"
+import { decodePersistentPtyMessage, persistentPtyFrame } from "@uf0rs/client/solid"
+import { rgbToOklch, type ResolvedThemeTokens } from "@uf0rs/theme/tui"
 import { extend, useRenderer } from "@opentui/solid"
 import { Option } from "effect"
 import { createEffect, createSignal, onCleanup, onMount, Show } from "solid-js"
@@ -235,7 +235,7 @@ export function TerminalPane(props: {
       }
       if (message.type !== "attached") return
       if (message.inputProtocol !== 1) {
-        setFailure("Persistent terminal server is out of date; restart OpenCode")
+        setFailure("Persistent terminal server is out of date; restart WOPPS")
         next.close()
         return
       }

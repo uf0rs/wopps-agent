@@ -39,7 +39,7 @@ mod tests {
                 buffer.as_mut_ptr().cast(),
             );
             assert_eq!(root, 0);
-            let missing = c"/opencode-pty-missing".as_ptr();
+            let missing = c"/uf0rs-pty-missing".as_ptr();
             assert_eq!(
                 statx(
                     libc::AT_FDCWD,

@@ -13,10 +13,10 @@ use std::sync::mpsc;
 use std::thread;
 use std::time::{Duration, Instant};
 
-use opencode_pty::service::CreateTerminal;
+use uf0rs_pty::service::CreateTerminal;
 use serde::{Deserialize, Serialize};
 
-const ADDRESS: &str = "OPENCODE_PTY_FIXTURE_ADDRESS";
+const ADDRESS: &str = "UF0RS_PTY_FIXTURE_ADDRESS";
 const TIMEOUT: Duration = Duration::from_secs(15);
 
 #[derive(Serialize, Deserialize)]

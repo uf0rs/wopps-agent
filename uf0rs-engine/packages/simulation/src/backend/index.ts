@@ -1,7 +1,7 @@
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
-import { SdkPlugins } from "@opencode/core/plugin/sdk"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
+import { makeGlobalNode } from "@uf0rs/util/effect/app-node"
+import { httpClient } from "@uf0rs/util/effect/app-node-platform"
+import { SdkPlugins } from "@uf0rs/core/plugin/sdk"
 import { Config, Effect, FileSystem, Layer } from "effect"
 import { HttpClient } from "effect/http"
 import { DriveManifest } from "../manifest"
@@ -27,8 +27,8 @@ export const simulationReplacements: (app: {
   function* (app: { readonly version: string }) {
     // ModelsDev dies when its catalog fetch fails, so simulation answers it with
     // an empty catalog; providers come from seeded config instead.
-    const models = SimulationNetwork.json("GET", "https://models.opencode.ai/experimental/v2.0/api.json", {})
-    const drive = yield* Config.String("OPENCODE_DRIVE").pipe(Config.withDefault(undefined))
+    const models = SimulationNetwork.json("GET", "https://models.wopps.ai/experimental/v2.0/api.json", {})
+    const drive = yield* Config.String("UF0RS_DRIVE").pipe(Config.withDefault(undefined))
     if (!drive) return [httpClient.replace(SimulationNetwork.layer([models]))] satisfies LayerNode.Replacements
 
     const manifest = yield* DriveManifest.resolve()

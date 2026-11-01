@@ -1,9 +1,9 @@
 export * as PluginUpdate from "./update.js"
 
 import { Clock, Context, Effect, Exit, Layer, Option, PubSub, Stream } from "effect"
-import { Npm } from "@opencode/util/npm"
-import { EffectFlock } from "@opencode/util/effect-flock"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
+import { Npm } from "@uf0rs/util/npm"
+import { EffectFlock } from "@uf0rs/util/effect-flock"
+import { makeGlobalNode } from "@uf0rs/util/effect/app-node"
 import { KeyedMutex } from "../effect/keyed-mutex.js"
 
 const interval = 24 * 60 * 60 * 1_000
@@ -20,7 +20,7 @@ export interface Interface {
   readonly changes: () => Stream.Stream<Change>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/PluginUpdate") {}
+export class Service extends Context.Service<Service, Interface>()("@uf0rs/PluginUpdate") {}
 
 const layer = Layer.effect(
   Service,

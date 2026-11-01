@@ -17,9 +17,9 @@ process.env.XDG_CONFIG_HOME ??= home
 process.env.XDG_DATA_HOME ??= home
 process.env.XDG_CACHE_HOME ??= home
 process.env.XDG_STATE_HOME ??= home
-process.env.OPENCODE_CONFIG_DIR ??= home
-process.env.OPENCODE_CLIENT ??= "WOPPS by UF0RS STUDIO"
-process.env.OPENCODE_DISABLE_AUTOUPDATE ??= "1"
+process.env.UF0RS_CONFIG_DIR ??= home
+process.env.UF0RS_CLIENT ??= "WOPPS by UF0RS STUDIO"
+process.env.UF0RS_DISABLE_AUTOUPDATE ??= "1"
 
 async function ensureComputerTools() {
   const configPath = path.join(home, "uf0rs.json")

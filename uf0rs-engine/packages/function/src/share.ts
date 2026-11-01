@@ -6,7 +6,7 @@ const page = `<!doctype html>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
-    <title>Session sharing has been discontinued | opencode</title>
+    <title>Session sharing has been discontinued | uf0rs</title>
     <style>
       :root {
         --text: hsl(224, 10%, 10%);
@@ -125,7 +125,7 @@ const page = `<!doctype html>
   <body>
     <main>
       <header>
-        <a href="https://opencode.ai" aria-label="opencode">
+        <a href="https://wopps.ai" aria-label="uf0rs">
           <svg viewBox="0 0 234 42" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="c" d="M18 30H6V18H18V30Z" />
           <path class="b" d="M18 12H6V30H18V12ZM24 36H0V6H24V36Z" />
@@ -146,13 +146,13 @@ const page = `<!doctype html>
           </svg>
         </a>
         <h1>Session sharing has been discontinued</h1>
-        <p>opencode no longer hosts shared sessions. This link and its content are no longer available.</p>
+        <p>uf0rs no longer hosts shared sessions. This link and its content are no longer available.</p>
       </header>
       <nav>
-        <a href="https://opencode.ai">Home</a>
-        <a href="https://opencode.ai/v2/docs">Docs</a>
-        <a href="https://github.com/anomalyco/opencode">GitHub</a>
-        <a href="https://opencode.ai/discord">Discord</a>
+        <a href="https://wopps.ai">Home</a>
+        <a href="https://wopps.ai/v2/docs">Docs</a>
+        <a href="https://github.com/uf0rs/wopps-ai">GitHub</a>
+        <a href="https://wopps.ai/discord">Discord</a>
       </nav>
     </main>
   </body>

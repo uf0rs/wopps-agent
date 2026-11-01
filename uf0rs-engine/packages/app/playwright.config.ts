@@ -32,7 +32,7 @@ export default defineConfig({
   testDir: "./e2e",
   testIgnore: [
     "service-worker/**",
-    process.env.OPENCODE_PERFORMANCE === "1" ? "performance/**/*.test.ts" : "performance/**",
+    process.env.UF0RS_PERFORMANCE === "1" ? "performance/**/*.test.ts" : "performance/**",
   ],
   outputDir: "./e2e/test-results",
   timeout: 60_000,
@@ -52,9 +52,9 @@ export default defineConfig({
         reuseExistingServer: !built,
         timeout: 120_000,
         env: {
-          VITE_OPENCODE_TEST_FIXTURES: "1",
-          VITE_OPENCODE_SERVER_HOST: serverHost,
-          VITE_OPENCODE_SERVER_PORT: serverPort,
+          VITE_UF0RS_TEST_FIXTURES: "1",
+          VITE_UF0RS_SERVER_HOST: serverHost,
+          VITE_UF0RS_SERVER_PORT: serverPort,
         },
       },
   use: {

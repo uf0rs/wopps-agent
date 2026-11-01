@@ -1,18 +1,18 @@
 import { Effect, Stream } from "effect"
-import { Llm, OpenCodeDriver } from "opencode-drive"
+import { Llm, WOPPSDriver } from "uf0rs-drive"
 
 const label = process.env.DEMO_LABEL ?? "AFTER"
 
-// Run from the repository root with `opencode-drive run script/drive/shell-output.ts`.
-// Set OPENCODE_DEV to an immutable base worktree and DEMO_LABEL=BEFORE for comparison.
+// Run from the repository root with `uf0rs-drive run script/drive/shell-output.ts`.
+// Set UF0RS_DEV to an immutable base worktree and DEMO_LABEL=BEFORE for comparison.
 // Only the conversation is simulated; shell execution and output reads are real.
-export default OpenCodeDriver.use(
+export default WOPPSDriver.use(
   {
-    opencode: { dev: process.env.OPENCODE_DEV ?? process.cwd() },
+    uf0rs: { dev: process.env.UF0RS_DEV ?? process.cwd() },
     keepArtifacts: true,
     tui: { recording: true, keypressOverlay: true, viewport: { cols: 90, rows: 30 } },
     config: { autoupdate: false, username: "Demo" },
-    tuiConfig: { theme: { name: "opencode", mode: "dark" }, animations: false, tabs: { mode: "off" } },
+    tuiConfig: { theme: { name: "uf0rs", mode: "dark" }, animations: false, tabs: { mode: "off" } },
     project: {
       git: true,
       files: {
@@ -30,18 +30,18 @@ export default OpenCodeDriver.use(
       },
     },
   },
-  ({ ui, llm, tui, opencode, artifacts }) =>
+  ({ ui, llm, tui, uf0rs, artifacts }) =>
     Effect.gen(function* () {
       const recording = tui.recording
       if (!recording) return yield* Effect.fail(new Error("Recording required"))
       yield* llm.serve(() => Stream.make(Llm.text("Ready to inspect the render job.")))
       yield* ui.submit("Inspect the render job.")
       yield* ui.waitFor("Ready to inspect the render job.")
-      const sessions = yield* opencode.session.list({ limit: 1, order: "desc" })
+      const sessions = yield* uf0rs.session.list({ limit: 1, order: "desc" })
       const session = sessions.data[0]
       if (!session) return yield* Effect.fail(new Error("Session missing"))
-      yield* opencode.session.rename({ sessionID: session.id, title: "Shell output demo" })
-      yield* opencode.shell.create({ command: "sh render-scene.sh", timeout: 0, metadata: { sessionID: session.id } })
+      yield* uf0rs.session.rename({ sessionID: session.id, title: "Shell output demo" })
+      yield* uf0rs.shell.create({ command: "sh render-scene.sh", timeout: 0, metadata: { sessionID: session.id } })
       yield* ui.arrow("down")
       yield* ui.arrow("right")
       yield* ui.waitFor("sh render-scene.sh")

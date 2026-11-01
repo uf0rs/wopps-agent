@@ -1,12 +1,12 @@
 import { createMemo, createUniqueId, For, onCleanup, Show, type Accessor } from "solid-js"
 import { createStore } from "solid-js/store"
 import { createQuery, keepPreviousData } from "@tanstack/solid-query"
-import { Icon } from "@opencode/ui/icon"
-import { SessionFilePanelV2, SessionFilePanelV2Empty } from "@opencode/session-ui/v2/session-file-panel-v2"
-import { SessionReviewV2Sidebar, SessionReviewV2SidebarToggle } from "@opencode/session-ui/v2/session-review-v2"
-import { getFilename } from "@opencode/util/path"
-import { artifactKind } from "@opencode/util/artifact"
-import type { ChangeKind } from "@opencode/plugin/gui/review"
+import { Icon } from "@uf0rs/ui/icon"
+import { SessionFilePanelV2, SessionFilePanelV2Empty } from "@uf0rs/session-ui/v2/session-file-panel-v2"
+import { SessionReviewV2Sidebar, SessionReviewV2SidebarToggle } from "@uf0rs/session-ui/v2/session-review-v2"
+import { getFilename } from "@uf0rs/util/path"
+import { artifactKind } from "@uf0rs/util/artifact"
+import type { ChangeKind } from "@uf0rs/plugin/gui/review"
 import {
   createKeyed,
   usePlugin,
@@ -15,7 +15,7 @@ import {
   type PanelSidebar,
   type PanelTab,
   type SessionScreen,
-} from "@opencode/plugin/gui"
+} from "@uf0rs/plugin/gui"
 import { current, useShared } from "./context"
 import SessionFileList, { applyFileListKeyDown } from "./list"
 import { fileTabPath, isFileTab } from "./path"

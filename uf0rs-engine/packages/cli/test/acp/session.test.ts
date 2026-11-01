@@ -22,26 +22,26 @@ describe("acp session lifecycle over the wire", () => {
         mcpCapabilities: { http: true, sse: false },
         promptCapabilities: { embeddedContext: true, image: true },
         sessionCapabilities: { additionalDirectories: {}, close: {}, delete: {}, fork: {}, list: {}, resume: {} },
-        _meta: { "opencode/child-session-updates": true },
+        _meta: { "uf0rs/child-session-updates": true },
       },
       agentInfo: { name: "WOPPS" },
     })
     expect(plain.authMethods).toEqual([
-      { id: "opencode-login", name: "Login with opencode", description: "Run `opencode auth login` in the terminal" },
+      { id: "uf0rs-login", name: "Login with uf0rs", description: "Run `uf0rs auth login` in the terminal" },
     ])
     expect(terminal.authMethods?.[0]?._meta).toEqual({
       "terminal-auth": { command: "uf0rs", args: ["auth", "login"], label: "WOPPS Login" },
     })
     expect(standard.authMethods).toEqual([
       {
-        id: "opencode-login",
-        name: "Login with opencode",
-        description: "Run `opencode auth login` in the terminal",
+        id: "uf0rs-login",
+        name: "Login with uf0rs",
+        description: "Run `uf0rs auth login` in the terminal",
         type: "terminal",
         args: ["--login"],
       },
     ])
-    expect(await acp.request("authenticate", { methodId: "opencode-login" })).toEqual({})
+    expect(await acp.request("authenticate", { methodId: "uf0rs-login" })).toEqual({})
     expect(await rpcError(acp.request("authenticate", { methodId: "missing" }))).toMatchObject({
       code: -32602,
       data: { methodId: "missing" },

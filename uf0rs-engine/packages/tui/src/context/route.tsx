@@ -1,5 +1,5 @@
 import { createStore, reconcile } from "solid-js/store"
-import type { LocationRef } from "@opencode/client"
+import type { LocationRef } from "@uf0rs/client"
 import { createSimpleContext } from "./helper"
 import type { PromptInfo } from "../prompt/history"
 import { useTuiStartup } from "./runtime"

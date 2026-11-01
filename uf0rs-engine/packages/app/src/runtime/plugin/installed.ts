@@ -1,6 +1,6 @@
 import { createMemo, createResource, onCleanup } from "solid-js"
 import { createStore, reconcile } from "solid-js/store"
-import type { Bridge, Installed } from "@opencode/plugin/gui/host"
+import type { Bridge, Installed } from "@uf0rs/plugin/gui/host"
 
 /** Saved enable preferences and the plugins main lists; activation status belongs to the host. */
 export function createInstalled(bridge: Bridge | undefined) {

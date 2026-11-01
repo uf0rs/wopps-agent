@@ -1,5 +1,5 @@
-import { encodeFilePath, getFilename } from "@opencode/util/path"
-import { parseSessionMention } from "@opencode/util/session-mention"
+import { encodeFilePath, getFilename } from "@uf0rs/util/path"
+import { parseSessionMention } from "@uf0rs/util/session-mention"
 import { serializePrompt } from "./prompt-parts"
 import type { FileSelection } from "@/workspaces/files/model"
 import type {

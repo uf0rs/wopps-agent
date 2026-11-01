@@ -1,4 +1,4 @@
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@uf0rs/plugin/tui"
 import { createMemo, Show } from "solid-js"
 import { TextAttributes } from "@opentui/core"
 import { contextUsage } from "../../util/session"
@@ -44,7 +44,7 @@ export function SidebarContext(props: { context: Plugin.Context; sessionID: stri
 }
 
 export default Plugin.define({
-  id: "opencode.sidebar.context",
+  id: "uf0rs.sidebar.context",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

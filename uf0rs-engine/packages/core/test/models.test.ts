@@ -1,17 +1,17 @@
 import { describe, expect, test } from "bun:test"
-import { Money } from "@opencode/schema/money"
+import { Money } from "@uf0rs/schema/money"
 import { Effect, Fiber, Layer, Ref, Scope, Stream } from "effect"
 import { HttpClient, HttpClientResponse } from "effect/http"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@opencode/util/effect/app-node-platform"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { KV } from "@opencode/core/kv"
-import { Location } from "@opencode/core/location"
-import { Model } from "@opencode/core/model"
-import { bodyDigest, ModelsDev } from "@opencode/core/models-dev"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
+import { AppNodeBuilder } from "@uf0rs/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@uf0rs/util/effect/app-node-platform"
+import { LayerNode } from "@uf0rs/util/effect/layer-node"
+import { Bus } from "@uf0rs/core/bus"
+import { KV } from "@uf0rs/core/kv"
+import { Location } from "@uf0rs/core/location"
+import { Model } from "@uf0rs/core/model"
+import { bodyDigest, ModelsDev } from "@uf0rs/core/models-dev"
+import { Provider } from "@uf0rs/core/provider"
+import { AbsolutePath } from "@uf0rs/core/schema"
 import { location } from "./fixture/location"
 import { it } from "./lib/effect"
 
@@ -38,7 +38,7 @@ const sourceModel = (id: string, input: Record<string, unknown> = {}) => ({
   api: {
     "chat-completions": {
       base_url: "https://api.example.test/v1",
-      sdk: { aisdk: "@ai-sdk/openai-compatible", opencodeai: "@opencode/ai/providers/openai-compatible" },
+      sdk: { aisdk: "@ai-sdk/openai-compatible", uf0rsai: "@uf0rs/ai/providers/openai-compatible" },
     },
   },
   ...input,
@@ -55,7 +55,7 @@ const fixture = {
         api: {
           "chat-completions": {
             base_url: "https://api.acme.test/v1",
-            sdk: { aisdk: "@ai-sdk/openai-compatible", opencodeai: "@opencode/ai/providers/openai-compatible" },
+            sdk: { aisdk: "@ai-sdk/openai-compatible", uf0rsai: "@uf0rs/ai/providers/openai-compatible" },
             compatibility: { reasoning_field: "vendor_reasoning" },
           },
         },
@@ -78,7 +78,7 @@ const fixtureSnapshot = [
       id: Provider.ID.make("acme"),
       name: "Acme",
       activation: "auto",
-      package: "@opencode/ai/providers/openai-compatible",
+      package: "@uf0rs/ai/providers/openai-compatible",
       settings: { baseURL: "https://api.acme.test/v1" },
     },
     models: [
@@ -129,7 +129,7 @@ const fixture2Snapshot = [
       id: Provider.ID.make("beta"),
       name: "Beta",
       activation: "auto",
-      package: "@opencode/ai/providers/openai-compatible",
+      package: "@uf0rs/ai/providers/openai-compatible",
       settings: { baseURL: "https://api.example.test/v1" },
     },
     models: [
@@ -262,10 +262,10 @@ describe("ModelsDev Service", () => {
   it.live("takes each model's package from its first API and skips URLs packages build themselves", () =>
     Effect.gen(function* () {
       const cache = makeCache()
-      const azureAPI = (protocol: string, opencodeai: string) => ({
+      const azureAPI = (protocol: string, uf0rsai: string) => ({
         [protocol]: {
           base_url: "https://${AZURE_RESOURCE_NAME}.openai.azure.com/openai/v1",
-          sdk: { aisdk: "@ai-sdk/azure", opencodeai },
+          sdk: { aisdk: "@ai-sdk/azure", uf0rsai },
         },
       })
       writeCache(cache, {
@@ -277,7 +277,7 @@ describe("ModelsDev Service", () => {
               api: {
                 responses: {
                   base_url: "https://api.acme.test/v1",
-                  sdk: { aisdk: "@ai-sdk/openai", opencodeai: "@opencode/ai/providers/openai/responses" },
+                  sdk: { aisdk: "@ai-sdk/openai", uf0rsai: "@uf0rs/ai/providers/openai/responses" },
                 },
                 "chat-completions": { base_url: "https://other.acme.test/v1", sdk: { aisdk: "@ai-sdk/openai" } },
               },
@@ -292,15 +292,15 @@ describe("ModelsDev Service", () => {
           name: "Azure",
           env: ["AZURE_RESOURCE_NAME", "AZURE_API_KEY"],
           models: {
-            "gpt-5": sourceModel("gpt-5", { api: azureAPI("responses", "@opencode/ai/providers/azure/responses") }),
+            "gpt-5": sourceModel("gpt-5", { api: azureAPI("responses", "@uf0rs/ai/providers/azure/responses") }),
             "custom-chat": sourceModel("custom-chat", {
-              api: azureAPI("chat-completions", "@opencode/ai/providers/azure/chat"),
+              api: azureAPI("chat-completions", "@uf0rs/ai/providers/azure/chat"),
             }),
             claude: sourceModel("claude", {
               api: {
                 messages: {
                   base_url: "https://${AZURE_RESOURCE_NAME}.services.ai.azure.com/anthropic/v1",
-                  sdk: { aisdk: "@ai-sdk/anthropic", opencodeai: "@opencode/ai/providers/anthropic-compatible" },
+                  sdk: { aisdk: "@ai-sdk/anthropic", uf0rsai: "@uf0rs/ai/providers/anthropic-compatible" },
                 },
               },
             }),
@@ -314,18 +314,18 @@ describe("ModelsDev Service", () => {
         ModelsDev.Service.use((service) => service.get()),
       )
       const acmeModel = (id: string) => acme?.models.find((model) => model.id === id)
-      expect(acmeModel("acme-responses")?.package).toBe("@opencode/ai/providers/openai/responses")
+      expect(acmeModel("acme-responses")?.package).toBe("@uf0rs/ai/providers/openai/responses")
       expect(acmeModel("acme-responses")?.settings).toBeUndefined()
-      // Without an opencode package, the AI SDK package maps to the native one as before.
-      expect(acmeModel("acme-fallback")?.package).toBe("@opencode/ai/providers/anthropic")
+      // Without an uf0rs package, the AI SDK package maps to the native one as before.
+      expect(acmeModel("acme-fallback")?.package).toBe("@uf0rs/ai/providers/anthropic")
       expect(acmeModel("acme-fallback")?.settings).toEqual({ baseURL: "https://claude.acme.test/v1" })
 
       const azureModel = (id: string) => azure?.models.find((model) => model.id === id)
-      expect(azure?.info.package).toBe("@opencode/ai/providers/azure/responses")
+      expect(azure?.info.package).toBe("@uf0rs/ai/providers/azure/responses")
       expect(azure?.info.settings).toBeUndefined()
       expect(azureModel("gpt-5")?.package).toBeUndefined()
       expect(azureModel("gpt-5")?.settings).toBeUndefined()
-      expect(azureModel("custom-chat")?.package).toBe("@opencode/ai/providers/azure/chat")
+      expect(azureModel("custom-chat")?.package).toBe("@uf0rs/ai/providers/azure/chat")
       expect(azureModel("custom-chat")?.settings).toBeUndefined()
       expect(azureModel("claude")?.settings).toEqual({
         baseURL: "https://${AZURE_RESOURCE_NAME}.services.ai.azure.com/anthropic/v1",
@@ -354,7 +354,7 @@ describe("ModelsDev Service", () => {
                   base_url: "https://api.example.test/v1",
                   sdk: {
                     aisdk: "@acme/ai-sdk-provider",
-                    opencodeai: "@opencode/ai/providers/openai-compatible/images",
+                    uf0rsai: "@uf0rs/ai/providers/openai-compatible/images",
                   },
                 },
               },
@@ -381,8 +381,8 @@ describe("ModelsDev Service", () => {
         ["acme-image-fast", "image"],
       ])
       expect(acme?.models[1]?.capabilities).toMatchObject({ input: ["text", "image", "pdf"], output: ["image"] })
-      expect(acme?.models[1]?.package).toBe("@opencode/ai/providers/openai-compatible/images")
-      // Without an opencode package a non-chat model is left out ("acme-sdk-image" above).
+      expect(acme?.models[1]?.package).toBe("@uf0rs/ai/providers/openai-compatible/images")
+      // Without an uf0rs package a non-chat model is left out ("acme-sdk-image" above).
     }),
   )
 
@@ -439,11 +439,11 @@ describe("ModelsDev Service", () => {
     }),
   )
 
-  it.effect("skips APIs whose opencode entrypoint this build doesn't have", () =>
+  it.effect("skips APIs whose uf0rs entrypoint this build doesn't have", () =>
     Effect.gen(function* () {
       const unknown = (path: string) => ({
         base_url: "https://new.acme.test/v1",
-        sdk: { opencodeai: `@opencode/ai/providers/acme/${path}` },
+        sdk: { uf0rsai: `@uf0rs/ai/providers/acme/${path}` },
       })
       const image = (id: string, api: Record<string, unknown>) =>
         sourceModel(id, { type: "image", modalities: { input: ["text"], output: ["image/png"] }, api })
@@ -459,7 +459,7 @@ describe("ModelsDev Service", () => {
                 api: {
                   "new-api": {
                     base_url: "https://claude.acme.test/v1",
-                    sdk: { aisdk: "@ai-sdk/anthropic", opencodeai: "@opencode/ai/providers/acme/new-api" },
+                    sdk: { aisdk: "@ai-sdk/anthropic", uf0rsai: "@uf0rs/ai/providers/acme/new-api" },
                   },
                 },
               }),
@@ -469,7 +469,7 @@ describe("ModelsDev Service", () => {
                 images: unknown("images"),
                 "openai-images": {
                   base_url: "https://api.acme.test/v1",
-                  sdk: { opencodeai: "@opencode/ai/providers/openai-compatible/images" },
+                  sdk: { uf0rsai: "@uf0rs/ai/providers/openai-compatible/images" },
                 },
               }),
             },
@@ -481,27 +481,27 @@ describe("ModelsDev Service", () => {
         ["next", "sdk-fallback", "image-known"].map((id) => Model.ID.make(id)),
       )
       expect(acme?.info).toMatchObject({
-        package: "@opencode/ai/providers/openai-compatible",
+        package: "@uf0rs/ai/providers/openai-compatible",
         settings: { baseURL: "https://api.example.test/v1" },
       })
       expect(model("next")).toMatchObject({ package: undefined, settings: { provider: "acme" } })
       expect(model("sdk-fallback")).toMatchObject({
-        package: "@opencode/ai/providers/anthropic",
+        package: "@uf0rs/ai/providers/anthropic",
         settings: { baseURL: "https://claude.acme.test/v1" },
       })
       expect(model("image-known")).toMatchObject({
-        package: "@opencode/ai/providers/openai-compatible/images",
+        package: "@uf0rs/ai/providers/openai-compatible/images",
         settings: { baseURL: "https://api.acme.test/v1" },
       })
     }),
   )
 
-  it.effect("skips non-chat models whose only opencode package serves another type", () =>
+  it.effect("skips non-chat models whose only uf0rs package serves another type", () =>
     Effect.gen(function* () {
-      const api = (opencodeai: string) => ({
-        "chat-completions": { base_url: "https://api.acme.test/v1", sdk: { opencodeai } },
+      const api = (uf0rsai: string) => ({
+        "chat-completions": { base_url: "https://api.acme.test/v1", sdk: { uf0rsai } },
       })
-      const chatPackage = "@opencode/ai/providers/openai-compatible"
+      const chatPackage = "@uf0rs/ai/providers/openai-compatible"
       const [acme] = yield* ModelsDev.decodeSnapshot(
         JSON.stringify({
           acme: {
@@ -513,17 +513,17 @@ describe("ModelsDev Service", () => {
                 type: "image",
                 api: {
                   ...api(chatPackage),
-                  images: api("@opencode/ai/providers/openai-compatible/images")["chat-completions"],
+                  images: api("@uf0rs/ai/providers/openai-compatible/images")["chat-completions"],
                 },
               }),
               "decision-chat-only": sourceModel("decision-chat-only", { type: "decision", api: api(chatPackage) }),
               "decision-image-only": sourceModel("decision-image-only", {
                 type: "decision",
-                api: api("@opencode/ai/providers/openrouter/images"),
+                api: api("@uf0rs/ai/providers/openrouter/images"),
               }),
               decision: sourceModel("decision", {
                 type: "decision",
-                api: api("@opencode/ai/providers/openrouter/decisions"),
+                api: api("@uf0rs/ai/providers/openrouter/decisions"),
               }),
             },
           },
@@ -531,17 +531,17 @@ describe("ModelsDev Service", () => {
       )
       expect(acme?.models.map((item) => [item.id, item.type, item.package ?? acme.info.package])).toEqual([
         [Model.ID.make("chat"), "chat", chatPackage],
-        [Model.ID.make("image"), "image", "@opencode/ai/providers/openai-compatible/images"],
-        [Model.ID.make("decision"), "decision", "@opencode/ai/providers/openrouter/decisions"],
+        [Model.ID.make("image"), "image", "@uf0rs/ai/providers/openai-compatible/images"],
+        [Model.ID.make("decision"), "decision", "@uf0rs/ai/providers/openrouter/decisions"],
       ])
     }),
   )
 
-  it.live("drops model types opencode doesn't keep", () =>
+  it.live("drops model types uf0rs doesn't keep", () =>
     Effect.gen(function* () {
       const cache = makeCache()
       const api = {
-        images: { base_url: "https://api.acme.test/v1", sdk: { opencodeai: "@opencode/ai/providers/openai/images" } },
+        images: { base_url: "https://api.acme.test/v1", sdk: { uf0rsai: "@uf0rs/ai/providers/openai/images" } },
       }
       const model = (id: string, type: string) => ({
         id,
@@ -590,7 +590,7 @@ describe("ModelsDev Service", () => {
                 future: { url: 42 },
                 "chat-completions": {
                   base_url: "https://api.acme.test/v1",
-                  sdk: { opencodeai: "@opencode/ai/providers/openai-compatible" },
+                  sdk: { uf0rsai: "@uf0rs/ai/providers/openai-compatible" },
                 },
               },
               experimental: {
@@ -607,7 +607,7 @@ describe("ModelsDev Service", () => {
         ModelsDev.Service.use((service) => service.get()),
       )
       expect(acme?.info).toMatchObject({
-        package: "@opencode/ai/providers/openai-compatible",
+        package: "@uf0rs/ai/providers/openai-compatible",
         settings: { baseURL: "https://api.acme.test/v1" },
       })
       expect(acme?.models.map((model) => model.id)).toEqual([Model.ID.make("acme-1"), Model.ID.make("acme-1-fast")])
@@ -651,7 +651,7 @@ describe("ModelsDev Service", () => {
         ModelsDev.Service.use((service) => service.get()),
       )
       expect(acme?.info).toMatchObject({
-        package: "@opencode/ai/providers/openai-compatible",
+        package: "@uf0rs/ai/providers/openai-compatible",
         settings: { baseURL: "https://api.acme.test/v1" },
       })
       expect(acme?.models[0]).toMatchObject({
@@ -788,7 +788,7 @@ describe("ModelsDev Service", () => {
         Effect.provide(buildLayer(state, cache, { url: "", fetch: true, snapshot: false })),
       )
       expect((yield* Ref.get(state)).calls[0]?.url).toBe(
-        "https://models.opencode.ai/experimental/v2.0/api.json?type=chat,decision,image",
+        "https://models.wopps.ai/experimental/v2.0/api.json?type=chat,decision,image",
       )
     }),
   )
@@ -854,7 +854,7 @@ describe("ModelsDev Service", () => {
       const final = yield* Ref.get(state)
       expect(final.calls.length).toBe(1)
       expect(final.calls[0].url).toContain(ModelsDev.catalogPath)
-      expect(final.calls[0].userAgent).toContain("/opencode")
+      expect(final.calls[0].userAgent).toContain("/uf0rs")
     }),
   )
 

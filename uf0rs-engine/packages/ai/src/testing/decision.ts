@@ -9,7 +9,7 @@ export type Response = DecisionResponse | AIError
 
 export interface TestInterface extends Interface, TestScript.Controls<DecisionRequestFor, Response> {}
 
-export class Test extends Context.Service<Test, TestInterface>()("@opencode/ai/TestDecision/Test") {}
+export class Test extends Context.Service<Test, TestInterface>()("@uf0rs/ai/TestDecision/Test") {}
 
 export type LayerOptions = TestScript.Options<DecisionRequestFor, Response>
 
