@@ -68,9 +68,23 @@ uf0rs doctor              Diagnose the installation, PATH, and settings
 uf0rs update              Update UF0RS
 uf0rs uninstall           Uninstall UF0RS
 In the TUI: /language     Choose the interface language
+In the TUI: /montage      Video mode: brief → scenes → voice → MP4
 ```
 
 Type `/` in the TUI to open the slash-command palette. `/auto_mod` toggles permission prompts for the current run; `/auto_mod on` and `/auto_mod off` set the mode explicitly. `/auto_mode` remains an alias. Automatic approval skips permission prompts for model actions, so enable it only when you trust the requests and selected model.
+
+## Video: `/montage`
+
+Start a new session, run `/montage`, answer a short brief (topic, audience, length, aspect, language, mood). The agent writes `scenes.json` and runs a deterministic pipeline: edge-tts voice → real `ffprobe` timing → generated score and SFX → sidechain mix → Remotion render in parallel chunks → MP4 with burned-in and sidecar subtitles. The mode only affects the current session.
+
+```text
+node "$HOME/.config/uf0rs/montage/bin/montage.mjs" doctor
+node "$HOME/.config/uf0rs/montage/bin/montage.mjs" init my-video --title "Launch" --seconds 60
+node "$HOME/.config/uf0rs/montage/bin/montage.mjs" build my-video --profile draft
+node "$HOME/.config/uf0rs/montage/bin/montage.mjs" build my-video --profile final
+```
+
+Draft renders at 0.5× (crf 30) for pacing checks; final renders 1080p (crf 16) with 3 parallel segments. Every stage is content-hashed, so editing one scene does not re-voice or re-render the whole film. Full reference: [docs/MONTAGE.md](docs/MONTAGE.md).
 
 ## Projects and computer tools
 

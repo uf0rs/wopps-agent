@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { version } from "./version.js";
+import { installMontage } from "./montage.js";
 
 const sourceRoot = typeof __UF0RS_SOURCE_DIR__ === "undefined"
   ? path.resolve(path.dirname(process.argv[1] || process.cwd()), "..")
@@ -234,7 +235,24 @@ export async function installApp({ binaryPath, sourceDir = sourceRoot, paths = g
   await fs.writeFile(paths.manifest, `${JSON.stringify(manifest, null, 2)}\n`, { encoding: "utf8", mode: 0o600 });
   if (!skipPathUpdate) await updatePath(paths.binDir, "add", paths, platform);
   process.env.PATH = addPathEntry(process.env.PATH || "", paths.binDir, platform);
-  return { ...manifest, launcher: paths.launcher, pathUpdated: !skipPathUpdate, deferredWindowsUpdate };
+  const montage = await deployMontage(sourceDir);
+  return { ...manifest, launcher: paths.launcher, pathUpdated: !skipPathUpdate, deferredWindowsUpdate, montage };
+}
+
+/** Copies the `/montage` command, agent, skills and studio kit into the global config. */
+async function deployMontage(sourceDir) {
+  if (!sourceDir) return null;
+  try {
+    await fs.access(path.join(sourceDir, "montage", "bin", "montage.mjs"));
+  } catch {
+    return null;
+  }
+  try {
+    return await installMontage({ sourceDir: path.resolve(sourceDir) });
+  } catch (error) {
+    console.warn(`Montage kit was not installed: ${error.message}`);
+    return null;
+  }
 }
 
 async function readManifest(paths) {
@@ -422,6 +440,7 @@ export async function updateApp({ sourceDir, paths = getInstallPaths(), platform
     installed.sourceDir = source;
     installed.updatedAt = new Date().toISOString();
     await fs.writeFile(paths.manifest, `${JSON.stringify(installed, null, 2)}\n`, { encoding: "utf8", mode: 0o600 });
+    await deployMontage(source);
     console.log(`WOPPS AI updated to ${updatedVersion}.`);
     if (platform === "win32") console.log("The executable will be replaced in the background after this process exits.");
   } finally {

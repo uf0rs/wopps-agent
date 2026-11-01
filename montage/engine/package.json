@@ -1,0 +1,22 @@
+{
+  "name": "wopps-montage-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WOPPS Montage engine - data-driven motion graphics on Remotion",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Montage"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.539",
+    "@remotion/media-utils": "^4.0.539",
+    "@remotion/renderer": "^4.0.539",
+    "@types/react": "^19.3.0",
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.539",
+    "typescript": "^7.0.2"
+  }
+}

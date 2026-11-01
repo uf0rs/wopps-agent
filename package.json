@@ -16,6 +16,8 @@
     "test": "node --test test/*.test.js",
     "build:cli": "node scripts/build-cli.js",
     "build:cli:all": "node scripts/build-cli.js --all",
-    "prepare:release": "node scripts/prepare-release-assets.js"
+    "prepare:release": "node scripts/prepare-release-assets.js",
+    "montage:install": "node montage/install.mjs",
+    "montage:doctor": "node montage/bin/montage.mjs doctor"
   }
 }
