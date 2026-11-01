@@ -1,6 +1,6 @@
 # Built-in GUI plugins
 
-Built-in features of the desktop and web app, each behind the GUI plugin SDK, `@opencode/plugin/gui` in `packages/plugin/src/gui/`. The window host lives in `packages/app/src/runtime/plugin/`, the main-process host in `packages/desktop/src/main/plugin/`. [README.md](README.md) is the author guide: it explains every rule below, with diagrams and source-checked code from the shipping plugins, and walks through `src/pairing/`. These are the rules.
+Built-in features of the desktop and web app, each behind the GUI plugin SDK, `@opencode/plugin/gui` in `packages/plugin/src/gui/`. The window host lives in `packages/app/src/runtime/plugin/`, the main-process host in `packages/desktop/src/main/plugin/`. These are the rules.
 
 ## Structure
 
