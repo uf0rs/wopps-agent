@@ -147,8 +147,7 @@ export const Hud: React.FC<{
   );
 };
 
-/** Soft entrance/exit for every scene: fade + tiny camera push. */
-export const SceneShell: React.FC<{
+/** Soft entrance/exit for every scene: fade + tiny camera push. */export const SceneShell: React.FC<{
   duration: number;
   children: React.ReactNode;
   fadeIn?: number;
@@ -162,5 +161,34 @@ export const SceneShell: React.FC<{
     <AbsoluteFill style={{ opacity, transform: `scale(${scale})` }}>
       {children}
     </AbsoluteFill>
+  );
+};
+
+/** A light sweep that lands on every cut, so edits feel intentional. */
+export const CutSweep: React.FC<{ cuts: number[]; frame: number; accent?: string }> = ({ cuts, frame, accent }) => {
+  const c = useC();
+  const tint = accent ?? c.accent;
+  const cut = cuts.find((start) => frame >= start - 7 && frame <= start + 9);
+  if (cut === undefined) return null;
+  const delta = frame - cut;
+  const p = clamp((delta + 7) / 16);
+  const x = -30 + 160 * easeOut(p);
+  const flash = Math.max(0, 1 - Math.abs(delta) / 3) * 0.1;
+  return (
+    <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 85 }}>
+      <div
+        style={{
+          position: "absolute",
+          left: `${x}%`,
+          top: 0,
+          bottom: 0,
+          width: 460,
+          background: `linear-gradient(90deg, transparent, ${tint}14, ${tint}26, transparent)`,
+          transform: "skewX(-14deg)",
+          opacity: Math.sin(Math.PI * p) * 0.9,
+        }}
+      />
+      <div style={{ position: "absolute", inset: 0, background: tint, opacity: flash, mixBlendMode: "screen" }} />
+    </div>
   );
 };

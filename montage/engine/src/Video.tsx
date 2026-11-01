@@ -3,7 +3,7 @@ import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoCon
 import { FontLoader } from "./lib/fonts";
 import { PaletteProvider } from "./lib/colors";
 import { palette } from "./lib/theme";
-import { Captions, Hud, SceneShell } from "./components/Overlay";
+import { Captions, CutSweep, Hud, SceneShell } from "./components/Overlay";
 import { REGISTRY } from "./scenes";
 import type { Project } from "./types";
 
@@ -46,6 +46,7 @@ export const MontageVideo: React.FC<Project> = (project) => {
             );
           })}
           {project.captions && project.captionsData.length > 0 ? <Captions captions={project.captionsData} /> : null}
+          <CutSweep cuts={starts.slice(1)} frame={frame} accent={project.brand.accent} />
           {project.hud ? (
             <Hud
               brand={project.brand.name}
