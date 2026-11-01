@@ -58,9 +58,10 @@ vo = np.zeros(N, dtype=np.float32)
 lines = [line for scene in TL["scenes"] for line in scene.get("lines", [])]
 
 if voice_dir and lines:
+    present = [line for line in lines if os.path.exists(os.path.join(voice_dir, line["file"]))]
     with ThreadPoolExecutor(max_workers=6) as pool:
-        list(pool.map(decode, [os.path.join(voice_dir, line["file"]) for line in lines]))
-    for line in lines:
+        list(pool.map(decode, [os.path.join(voice_dir, line["file"]) for line in present]))
+    for line in present:
         path = os.path.join(voice_dir, line["file"])
         audio = read_wav(decode(path))
         peak = float(np.max(np.abs(audio))) + 1e-9

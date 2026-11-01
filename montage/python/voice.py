@@ -60,6 +60,17 @@ async def main():
         result["sha"] = digest
         results.append(result)
 
+    # edge-tts occasionally drops a connection; retry those lines once, sequentially.
+    failed = [item for item in results if not item.get("ok") and item.get("id")]
+    for item in failed:
+        line = next(entry for entry in job["lines"] if entry["id"] == item["id"])
+        digest = key(line, voice, rate)
+        retry = await one(line, out_dir, voice, rate, asyncio.Semaphore(1))
+        if retry.get("ok"):
+            item.update({"ok": True, "file": retry["file"]})
+            item.pop("error", None)
+            item["sha"] = digest
+
     bad = [item for item in results if not item.get("ok")]
     print(json.dumps({"ok": not bad, "count": len(results), "failed": bad, "results": results}, ensure_ascii=False))
 

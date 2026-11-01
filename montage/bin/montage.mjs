@@ -36,7 +36,7 @@ import {
   writeJson,
 } from "./lib/util.mjs";
 import { concatParts, loudness, blackFrames, muxAudio, probeDuration, probeVideo, requireMedia, resolveMedia } from "./lib/media.mjs";
-import { buildTimeline, normalizeScenes, scenesOf, toSrt } from "./lib/timeline.mjs";
+import { buildTimeline, estimateSeconds, normalizeScenes, scenesOf, toSrt } from "./lib/timeline.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PYTHON_DIR = path.join(ROOT, "python");
@@ -405,23 +405,29 @@ const cmdBuild = async (positional, flags) => {
     );
     state.voice = { hash: voiceHash, lineShas: Object.fromEntries(result.results.filter((item) => item.sha).map((item) => [item.id, item.sha])) };
     if (!result.ok) {
-      warn(`часть реплик не озвучилась: ${result.failed.map((item) => item.id).join(", ")}`);
+      const detail = result.failed.map((item) => `${item.id}: ${item.error ?? "нет файла"}`).join("; ");
+      warn(`часть реплик не озвучилась (${detail}) — для них возьму оценку по тексту`);
     }
     if (process.env.MONTAGE_DEBUG) log(paint("dim", JSON.stringify(result).slice(0, 600)));
     ok(`голос готов (${result.count} файлов)`);
 
     step("измеряю длительности по факту (ffprobe)");
-    const durations = await Promise.all(
-      lines.map(async (line) => {
-        const file = path.join(paths.vo, `${line.id}.mp3`);
-        if (!exists(file)) return [line.id, 0];
-        return [line.id, await probeDuration(file)];
-      }),
-    );
-    const byId = Object.fromEntries(durations);
+    const byId = {};
+    for (const line of lines) {
+      const file = path.join(paths.vo, `${line.id}.mp3`);
+      if (!exists(file)) continue;
+      try {
+        byId[line.id] = await probeDuration(file);
+      } catch {
+        warn(`не удалось измерить ${line.id} — оценка по тексту`);
+      }
+    }
     measured = {};
     for (const scene of scenes) {
-      measured[scene.id] = scenesOf(scene).map((_, index) => byId[`${scene.id}-l${String(index + 1).padStart(2, "0")}`] ?? 0);
+      measured[scene.id] = scenesOf(scene).map((text, index) => {
+        const id = `${scene.id}-l${String(index + 1).padStart(2, "0")}`;
+        return byId[id] ?? estimateSeconds(text);
+      });
     }
     ok("тайминг снят с реального голоса");
   } else {
