@@ -1,4 +1,4 @@
-name: Submit WOPPS AI to WinGet
+name: Submit WOPPS AGENT to WinGet
 
 on:
   workflow_dispatch:
@@ -40,18 +40,18 @@ jobs:
         run: |
           $manifestDirectory = Join-Path $env:RUNNER_TEMP "winget"
           New-Item -ItemType Directory -Force -Path $manifestDirectory | Out-Null
-          gh release download $env:RELEASE_TAG --repo $env:GITHUB_REPOSITORY --pattern "UF0RS.WOPPSAI*.yaml" --dir $manifestDirectory
+          gh release download $env:RELEASE_TAG --repo $env:GITHUB_REPOSITORY --pattern "UF0RS.WOPPSAGENT*.yaml" --dir $manifestDirectory
           if ($LASTEXITCODE -ne 0) {
             throw "Could not download WinGet manifests for $env:RELEASE_TAG."
           }
-          $manifests = @(Get-ChildItem -LiteralPath $manifestDirectory -Filter "UF0RS.WOPPSAI*.yaml")
+          $manifests = @(Get-ChildItem -LiteralPath $manifestDirectory -Filter "UF0RS.WOPPSAGENT*.yaml")
           if ($manifests.Count -ne 3) {
             throw "Expected 3 WinGet manifest files, found $($manifests.Count)."
           }
           $schemaTypes = @{
-            "UF0RS.WOPPSAI.yaml" = "version"
-            "UF0RS.WOPPSAI.installer.yaml" = "installer"
-            "UF0RS.WOPPSAI.locale.en-US.yaml" = "defaultLocale"
+            "UF0RS.WOPPSAGENT.yaml" = "version"
+            "UF0RS.WOPPSAGENT.installer.yaml" = "installer"
+            "UF0RS.WOPPSAGENT.locale.en-US.yaml" = "defaultLocale"
           }
           foreach ($fileName in $schemaTypes.Keys) {
             $manifestPath = Join-Path $manifestDirectory $fileName
@@ -69,7 +69,7 @@ jobs:
           WINGET_CREATE_GITHUB_TOKEN: ${{ secrets.WINGET_TOKEN }}
           RELEASE_TAG: ${{ inputs.tag }}
         run: |
-          wingetcreate submit --no-open --prtitle "WOPPS AI $env:RELEASE_TAG" "$env:RUNNER_TEMP\winget"
+          wingetcreate submit --no-open --prtitle "WOPPS AGENT $env:RELEASE_TAG" "$env:RUNNER_TEMP\winget"
           if ($LASTEXITCODE -ne 0) {
             throw "WinGetCreate failed to submit the manifests."
           }

@@ -9,12 +9,12 @@ const releaseRoot = path.join(root, "dist", "releases");
 const assetRoot = path.join(root, "dist", "release-assets");
 const version = packageJson.version;
 const platforms = [
-  { platform: "linux", arch: "x64", filename: "wopps-ai-linux-x64" },
-  { platform: "linux", arch: "arm64", filename: "wopps-ai-linux-arm64" },
-  { platform: "macos", arch: "x64", filename: "wopps-ai-macos-x64.tar.gz", archive: true },
-  { platform: "macos", arch: "arm64", filename: "wopps-ai-macos-arm64.tar.gz", archive: true },
+  { platform: "linux", arch: "x64", filename: "wopps-agent-linux-x64" },
+  { platform: "linux", arch: "arm64", filename: "wopps-agent-linux-arm64" },
+  { platform: "macos", arch: "x64", filename: "wopps-agent-macos-x64.tar.gz", archive: true },
+  { platform: "macos", arch: "arm64", filename: "wopps-agent-macos-arm64.tar.gz", archive: true },
   { platform: "win", arch: "x64", filename: "uf0rs.exe", extension: ".exe" },
-  { platform: "win", arch: "arm64", filename: "wopps-ai-win-arm64.exe", extension: ".exe" },
+  { platform: "win", arch: "arm64", filename: "wopps-agent-win-arm64.exe", extension: ".exe" },
 ];
 
 await fs.rm(assetRoot, { recursive: true, force: true });
@@ -38,18 +38,18 @@ for (const target of platforms) {
 await fs.copyFile(path.join(root, "install.sh"), path.join(assetRoot, "install.sh"));
 await fs.copyFile(path.join(root, "uf0rs-install.cmd"), path.join(assetRoot, "uf0rs-install.cmd"));
 const formula = `class WoppsAi < Formula
-  desc "Friendly bilingual terminal AI assistant by uf0rs / дружелюбный ИИ-помощник для терминала"
-  homepage "https://github.com/uf0rs/wopps-ai"
+  desc "Friendly bilingual terminal agent by uf0rs / дружелюбный ИИ-помощник для терминала"
+  homepage "https://github.com/uf0rs/wopps-agent"
   version "${version}"
   license :cannot_represent
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/uf0rs/wopps-ai/releases/download/v#{version}/wopps-ai-macos-arm64.tar.gz"
-      sha256 "${checksums["wopps-ai-macos-arm64.tar.gz"]}"
+      url "https://github.com/uf0rs/wopps-agent/releases/download/v#{version}/wopps-agent-macos-arm64.tar.gz"
+      sha256 "${checksums["wopps-agent-macos-arm64.tar.gz"]}"
     else
-      url "https://github.com/uf0rs/wopps-ai/releases/download/v#{version}/wopps-ai-macos-x64.tar.gz"
-      sha256 "${checksums["wopps-ai-macos-x64.tar.gz"]}"
+      url "https://github.com/uf0rs/wopps-agent/releases/download/v#{version}/wopps-agent-macos-x64.tar.gz"
+      sha256 "${checksums["wopps-agent-macos-x64.tar.gz"]}"
     end
   end
 
@@ -62,18 +62,18 @@ const formula = `class WoppsAi < Formula
   end
 end
 `;
-await fs.writeFile(path.join(assetRoot, "wopps-ai.rb"), formula);
+await fs.writeFile(path.join(assetRoot, "wopps-agent.rb"), formula);
 
-const windowsUrl = `https://github.com/uf0rs/wopps-ai/releases/download/v${version}/uf0rs.exe`;
-const windowsArmUrl = `https://github.com/uf0rs/wopps-ai/releases/download/v${version}/wopps-ai-win-arm64.exe`;
+const windowsUrl = `https://github.com/uf0rs/wopps-agent/releases/download/v${version}/uf0rs.exe`;
+const windowsArmUrl = `https://github.com/uf0rs/wopps-agent/releases/download/v${version}/wopps-agent-win-arm64.exe`;
 const wingetRoot = path.join(assetRoot, "winget");
 await fs.mkdir(wingetRoot, { recursive: true });
-const packageId = "UF0RS.WOPPSAI";
+const packageId = "UF0RS.WOPPSAGENT";
 const manifestVersion = "1.10.0";
 const common = `PackageIdentifier: ${packageId}\nPackageVersion: ${version}\n`;
 const schemaHeader = (type) => `# yaml-language-server: $schema=https://aka.ms/winget-manifest.${type}.${manifestVersion}.schema.json\n`;
 await fs.writeFile(path.join(wingetRoot, `${packageId}.yaml`), `${schemaHeader("version")}${common}DefaultLocale: en-US\nManifestType: version\nManifestVersion: ${manifestVersion}\n`);
-await fs.writeFile(path.join(wingetRoot, `${packageId}.installer.yaml`), `${schemaHeader("installer")}${common}InstallerType: portable\nUpgradeBehavior: install\nCommands:\n  - uf0rs\nInstallers:\n  - Architecture: x64\n    InstallerUrl: ${windowsUrl}\n    InstallerSha256: ${checksums["uf0rs.exe"]}\n  - Architecture: arm64\n    InstallerUrl: ${windowsArmUrl}\n    InstallerSha256: ${checksums["wopps-ai-win-arm64.exe"]}\nManifestType: installer\nManifestVersion: ${manifestVersion}\n`);
-await fs.writeFile(path.join(wingetRoot, `${packageId}.locale.en-US.yaml`), `${schemaHeader("defaultLocale")}${common}PackageLocale: en-US\nPublisher: UF0RS STUDIO\nPackageName: WOPPS AI\nLicense: Proprietary\nShortDescription: Friendly terminal AI assistant by uf0rs.\nDescription: Bilingual terminal AI assistant for Windows, Linux, and macOS.\nManifestType: defaultLocale\nManifestVersion: ${manifestVersion}\n`);
+await fs.writeFile(path.join(wingetRoot, `${packageId}.installer.yaml`), `${schemaHeader("installer")}${common}InstallerType: portable\nUpgradeBehavior: install\nCommands:\n  - uf0rs\nInstallers:\n  - Architecture: x64\n    InstallerUrl: ${windowsUrl}\n    InstallerSha256: ${checksums["uf0rs.exe"]}\n  - Architecture: arm64\n    InstallerUrl: ${windowsArmUrl}\n    InstallerSha256: ${checksums["wopps-agent-win-arm64.exe"]}\nManifestType: installer\nManifestVersion: ${manifestVersion}\n`);
+await fs.writeFile(path.join(wingetRoot, `${packageId}.locale.en-US.yaml`), `${schemaHeader("defaultLocale")}${common}PackageLocale: en-US\nPublisher: UF0RS STUDIO\nPackageName: WOPPS AGENT\nLicense: Proprietary\nShortDescription: Friendly terminal agent by uf0rs.\nDescription: Bilingual terminal agent for Windows, Linux, and macOS.\nManifestType: defaultLocale\nManifestVersion: ${manifestVersion}\n`);
 await fs.writeFile(path.join(assetRoot, "checksums.txt"), `${Object.entries(checksums).map(([name, hash]) => `${hash}  ${name}`).join("\n")}\n`);
-console.log(`Prepared WOPPS AI ${version} release assets in ${assetRoot}.`);
+console.log(`Prepared WOPPS AGENT ${version} release assets in ${assetRoot}.`);

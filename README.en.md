@@ -1,26 +1,26 @@
 # WOPPS
 
-[Русская версия](README.md)
+[Р СѓСЃСЃРєР°СЏ РІРµСЂСЃРёСЏ](README.md)
 
-![WOPPS cover — a terminal AI companion with its neon bunny mascot](docs/uf0rs-cover.svg)
+![WOPPS cover вЂ” a terminal agent with its neon bunny mascot](docs/uf0rs-cover.svg)
 
-**WOPPS** is the terminal and desktop AI companion from UF0RS STUDIO. It opens a selected project and provides an interactive TUI for chatting with a model, reviewing its actions, inspecting file changes, and reading command output. Dark forest theme, an ASCII bunny, a slash-command palette, and keyboard and mouse controls.
+**WOPPS** is the terminal and desktop agent from UF0RS STUDIO. It opens a selected project and provides an interactive TUI for chatting with a model, reviewing its actions, inspecting file changes, and reading command output. Dark forest theme, an ASCII bunny, a slash-command palette, and keyboard and mouse controls.
 
 Current version: **0.3.33**.
 
 ## Installation
 
-### Windows — one file
+### Windows вЂ” one file
 
-1. Download [uf0rs-install.cmd](https://github.com/uf0rs/wopps-ai/releases/latest/download/uf0rs-install.cmd).
+1. Download [uf0rs-install.cmd](https://github.com/uf0rs/wopps-agent/releases/latest/download/uf0rs-install.cmd).
 2. Run it with a double click.
 3. Open a **new** terminal window and type `uf0rs`.
 
-The script needs neither Node.js nor administrator rights: it downloads `uf0rs.exe` from the latest release, copies it to `%LOCALAPPDATA%\Programs\UF0RS AI`, adds that directory to the user `PATH`, and verifies the result with `uf0rs doctor`. Afterwards `uf0rs` works in any new CMD, PowerShell, Windows Terminal, and Git Bash window. WSL needs the Linux package.
+The script needs neither Node.js nor administrator rights: it downloads `uf0rs.exe` from the latest release, copies it to `%LOCALAPPDATA%\Programs\UF0RS AGENT`, adds that directory to the user `PATH`, and verifies the result with `uf0rs doctor`. Afterwards `uf0rs` works in any new CMD, PowerShell, Windows Terminal, and Git Bash window. WSL needs the Linux package.
 
 If `uf0rs.exe` already sits next to the script, the download is skipped and that file is installed.
 
-### Windows — from source
+### Windows вЂ” from source
 
 Node.js 22+ is required. From the source directory:
 
@@ -68,14 +68,14 @@ uf0rs doctor              Diagnose the installation, PATH, and settings
 uf0rs update              Update UF0RS
 uf0rs uninstall           Uninstall UF0RS
 In the TUI: /language     Choose the interface language
-In the TUI: /montage      Video mode: brief → scenes → voice → MP4
+In the TUI: /montage      Video mode: brief в†’ scenes в†’ voice в†’ MP4
 ```
 
 Type `/` in the TUI to open the slash-command palette. `/auto_mod` toggles permission prompts for the current run; `/auto_mod on` and `/auto_mod off` set the mode explicitly. `/auto_mode` remains an alias. Automatic approval skips permission prompts for model actions, so enable it only when you trust the requests and selected model.
 
 ## Video: `/montage`
 
-Start a new session, run `/montage`, answer a short brief (topic, audience, length, aspect, language, mood). The agent writes `scenes.json` and runs a deterministic pipeline: edge-tts voice → real `ffprobe` timing → generated score and SFX → sidechain mix → Remotion render in parallel chunks → MP4 with burned-in and sidecar subtitles. The mode only affects the current session.
+Start a new session, run `/montage`, answer a short brief (topic, audience, length, aspect, language, mood). The agent writes `scenes.json` and runs a deterministic pipeline: edge-tts voice в†’ real `ffprobe` timing в†’ generated score and SFX в†’ sidechain mix в†’ Remotion render in parallel chunks в†’ MP4 with burned-in and sidecar subtitles. The mode only affects the current session.
 
 ```text
 node "$HOME/.config/uf0rs/montage/bin/montage.mjs" doctor
@@ -84,7 +84,7 @@ node "$HOME/.config/uf0rs/montage/bin/montage.mjs" build my-video --profile draf
 node "$HOME/.config/uf0rs/montage/bin/montage.mjs" build my-video --profile final
 ```
 
-Draft renders at 0.5× (crf 30) for pacing checks; final renders 1080p (crf 16) with 3 parallel segments. Every stage is content-hashed, so editing one scene does not re-voice or re-render the whole film. Full reference: [docs/MONTAGE.md](docs/MONTAGE.md).
+Draft renders at 0.5Г— (crf 30) for pacing checks; final renders 1080p (crf 16) with 3 parallel segments. Every stage is content-hashed, so editing one scene does not re-voice or re-render the whole film. Full reference: [docs/MONTAGE.md](docs/MONTAGE.md).
 
 ## Projects and computer tools
 

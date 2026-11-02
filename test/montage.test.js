@@ -37,7 +37,7 @@ test("installMontage deploys the command, agent, skills and studio kit", async (
   }
 
   const command = await fs.readFile(path.join(configDir, "command", "montage.md"), "utf8");
-  assert.match(command, /^---\n[\s\S]*agent: montage/);
+  assert.match(command, /^---\r?\n[\s\S]*agent: montage/);
   assert.match(command, /\$ARGUMENTS/);
 
   await fs.rm(root, { recursive: true, force: true });

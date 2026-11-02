@@ -118,7 +118,7 @@
         "@modelcontextprotocol/sdk": "1.32.2",
         "@uf0rs/client": "workspace:*",
         "@uf0rs/plugin": "workspace:*",
-        "@uf0rs/pty": "0.4.0",
+        "@opencode/pty": "0.4.0",
         "@uf0rs/schema": "workspace:*",
         "@uf0rs/server": "workspace:*",
         "@uf0rs/tui": "workspace:*",
@@ -262,7 +262,7 @@
         "@uf0rs/codemode": "workspace:*",
         "@uf0rs/plugin": "workspace:*",
         "@uf0rs/plugin-browser": "workspace:*",
-        "@uf0rs/pty": "0.4.0",
+        "@opencode/pty": "0.4.0",
         "@uf0rs/schema": "workspace:*",
         "@uf0rs/util": "workspace:*",
         "@parcel/watcher": "2.5.1",
@@ -661,7 +661,7 @@
       "devDependencies": {
         "@uf0rs/client": "workspace:*",
         "@uf0rs/plugin": "workspace:*",
-        "@uf0rs/pty": "0.4.0",
+        "@opencode/pty": "0.4.0",
         "@tsconfig/bun": "catalog:",
         "@types/bun": "catalog:",
         "@typescript/native": "catalog:",
@@ -1935,23 +1935,23 @@
 
     "@uf0rs/protocol": ["@uf0rs/protocol@workspace:packages/protocol"],
 
-    "@uf0rs/pty": ["@uf0rs/pty@0.4.0", "", { "optionalDependencies": { "@uf0rs/pty-darwin-arm64": "0.4.0", "@uf0rs/pty-darwin-x64": "0.4.0", "@uf0rs/pty-linux-arm64-gnu": "0.4.0", "@uf0rs/pty-linux-arm64-musl": "0.4.0", "@uf0rs/pty-linux-x64-gnu": "0.4.0", "@uf0rs/pty-linux-x64-musl": "0.4.0", "@uf0rs/pty-win32-arm64": "0.4.0", "@uf0rs/pty-win32-x64": "0.4.0" }, "bin": { "uf0rs-pty": "bin/uf0rs-pty.js" } }, "sha512-v7cLT71yfoNM5FlyPGwMjeqIJbr0DneGq4NpoOY5iAKpsevzOIcsI2E0fiDWajuk5xAFRxwyv4CpGqow7cu79Q=="],
+    "@opencode/pty": ["@opencode/pty@0.4.0", "", { "optionalDependencies": { "@opencode/pty-darwin-arm64": "0.4.0", "@opencode/pty-darwin-x64": "0.4.0", "@opencode/pty-linux-arm64-gnu": "0.4.0", "@opencode/pty-linux-arm64-musl": "0.4.0", "@opencode/pty-linux-x64-gnu": "0.4.0", "@opencode/pty-linux-x64-musl": "0.4.0", "@opencode/pty-win32-arm64": "0.4.0", "@opencode/pty-win32-x64": "0.4.0" }, "bin": { "uf0rs-pty": "bin/uf0rs-pty.js" } }, "sha512-v7cLT71yfoNM5FlyPGwMjeqIJbr0DneGq4NpoOY5iAKpsevzOIcsI2E0fiDWajuk5xAFRxwyv4CpGqow7cu79Q=="],
 
-    "@uf0rs/pty-darwin-arm64": ["@uf0rs/pty-darwin-arm64@0.4.0", "", { "os": "darwin", "cpu": "arm64" }, "sha512-XzZZJcQeR42IRpxHbbPEo4AK7jdp9SpgPx234DZ6uLnl6yclXcixH70G2U88EhKtGAMyCPIXdBfvQf4OQTDvbQ=="],
+    "@opencode/pty-darwin-arm64": ["@opencode/pty-darwin-arm64@0.4.0", "", { "os": "darwin", "cpu": "arm64" }, "sha512-XzZZJcQeR42IRpxHbbPEo4AK7jdp9SpgPx234DZ6uLnl6yclXcixH70G2U88EhKtGAMyCPIXdBfvQf4OQTDvbQ=="],
 
-    "@uf0rs/pty-darwin-x64": ["@uf0rs/pty-darwin-x64@0.4.0", "", { "os": "darwin", "cpu": "x64" }, "sha512-NvQfygGcsGmDCIUJ/VHLcS6SduC93Y/qP2hrHjtBpiL2sSQyeCDcifNhLvqY/wxGFNNZ4GeZwwZqe7rMEuBJbQ=="],
+    "@opencode/pty-darwin-x64": ["@opencode/pty-darwin-x64@0.4.0", "", { "os": "darwin", "cpu": "x64" }, "sha512-NvQfygGcsGmDCIUJ/VHLcS6SduC93Y/qP2hrHjtBpiL2sSQyeCDcifNhLvqY/wxGFNNZ4GeZwwZqe7rMEuBJbQ=="],
 
-    "@uf0rs/pty-linux-arm64-gnu": ["@uf0rs/pty-linux-arm64-gnu@0.4.0", "", { "os": "linux", "cpu": "arm64", "libc": "glibc" }, "sha512-VZXkYD+CT+zdodmTnKn9/VlmswksLPBLJryeBsG4IXUFXTsATr7+PVygJk96FxCh5nq68H3a/UJgyiIUMl1XCQ=="],
+    "@opencode/pty-linux-arm64-gnu": ["@opencode/pty-linux-arm64-gnu@0.4.0", "", { "os": "linux", "cpu": "arm64", "libc": "glibc" }, "sha512-VZXkYD+CT+zdodmTnKn9/VlmswksLPBLJryeBsG4IXUFXTsATr7+PVygJk96FxCh5nq68H3a/UJgyiIUMl1XCQ=="],
 
-    "@uf0rs/pty-linux-arm64-musl": ["@uf0rs/pty-linux-arm64-musl@0.4.0", "", { "os": "linux", "cpu": "arm64", "libc": "musl" }, "sha512-hCx25Hn9sALdnkx2Y4aPGVw3glTbX61XRiJs+XETPPIO9QTaav4OS4k2JR2uHC6/u161xKdN82iJ+OYfwcGUSg=="],
+    "@opencode/pty-linux-arm64-musl": ["@opencode/pty-linux-arm64-musl@0.4.0", "", { "os": "linux", "cpu": "arm64", "libc": "musl" }, "sha512-hCx25Hn9sALdnkx2Y4aPGVw3glTbX61XRiJs+XETPPIO9QTaav4OS4k2JR2uHC6/u161xKdN82iJ+OYfwcGUSg=="],
 
-    "@uf0rs/pty-linux-x64-gnu": ["@uf0rs/pty-linux-x64-gnu@0.4.0", "", { "os": "linux", "cpu": "x64", "libc": "glibc" }, "sha512-Xal/d0+xp6XE4iCGUAw4JTQ4uf5l8V0EIbeKq+e03cHJewOMKZk4fooQjxpZvQIToBHRtnCJAmd+EEhVxXiDDw=="],
+    "@opencode/pty-linux-x64-gnu": ["@opencode/pty-linux-x64-gnu@0.4.0", "", { "os": "linux", "cpu": "x64", "libc": "glibc" }, "sha512-Xal/d0+xp6XE4iCGUAw4JTQ4uf5l8V0EIbeKq+e03cHJewOMKZk4fooQjxpZvQIToBHRtnCJAmd+EEhVxXiDDw=="],
 
-    "@uf0rs/pty-linux-x64-musl": ["@uf0rs/pty-linux-x64-musl@0.4.0", "", { "os": "linux", "cpu": "x64", "libc": "musl" }, "sha512-dBVtKZoVKAN6/E+65GrJksgRKzPkPHUjWZBzf3mRANXt2adpdbV+/M1AMfPCZSju2mN1j9rNu8MCrxwr+ugEig=="],
+    "@opencode/pty-linux-x64-musl": ["@opencode/pty-linux-x64-musl@0.4.0", "", { "os": "linux", "cpu": "x64", "libc": "musl" }, "sha512-dBVtKZoVKAN6/E+65GrJksgRKzPkPHUjWZBzf3mRANXt2adpdbV+/M1AMfPCZSju2mN1j9rNu8MCrxwr+ugEig=="],
 
-    "@uf0rs/pty-win32-arm64": ["@uf0rs/pty-win32-arm64@0.4.0", "", { "os": "win32", "cpu": "arm64" }, "sha512-IKJMUnS2aluWqRj13enMWomYtwbXq8rStcf/mUbxBoAGTDMtWR/ZrRmKb2ptR7KUqDjdSEa+8C8rczS7uGFl9g=="],
+    "@opencode/pty-win32-arm64": ["@opencode/pty-win32-arm64@0.4.0", "", { "os": "win32", "cpu": "arm64" }, "sha512-IKJMUnS2aluWqRj13enMWomYtwbXq8rStcf/mUbxBoAGTDMtWR/ZrRmKb2ptR7KUqDjdSEa+8C8rczS7uGFl9g=="],
 
-    "@uf0rs/pty-win32-x64": ["@uf0rs/pty-win32-x64@0.4.0", "", { "os": "win32", "cpu": "x64" }, "sha512-P1QJLUX918/y8he8VEBSYoiN5bYhUnJtEaEpiE5fxoYsDP9nqAHXqIrGxTNNnda5jOBcCalxxy0WhL8qgeKOqQ=="],
+    "@opencode/pty-win32-x64": ["@opencode/pty-win32-x64@0.4.0", "", { "os": "win32", "cpu": "x64" }, "sha512-P1QJLUX918/y8he8VEBSYoiN5bYhUnJtEaEpiE5fxoYsDP9nqAHXqIrGxTNNnda5jOBcCalxxy0WhL8qgeKOqQ=="],
 
     "@uf0rs/schema": ["@uf0rs/schema@workspace:packages/schema"],
 

@@ -16,7 +16,7 @@ type Target = {
 }
 
 const core = createRequire(path.resolve(import.meta.dirname, "../../core/package.json"))
-const pty = createRequire(core.resolve("@uf0rs/pty/package.json"))
+const pty = createRequire(core.resolve("@opencode/pty/package.json"))
 
 export async function resolveWoppsPty(target: Target): Promise<WoppsPtyAsset | undefined> {
   if (target.platform !== "darwin" && target.platform !== "linux" && target.platform !== "win32") return undefined
@@ -26,7 +26,7 @@ export async function resolveWoppsPty(target: Target): Promise<WoppsPtyAsset | u
     .filter(Boolean)
     .map((value) => (value === "glibc" ? "gnu" : value))
     .join("-")
-  const name = `@uf0rs/pty-${suffix}`
+  const name = `@opencode/pty-${suffix}`
   const local = process.env.UF0RS_PTY_BIN
   if (local && (target.platform !== process.platform || target.arch !== process.arch))
     throw new Error("UF0RS_PTY_BIN can only be embedded in a build for the current platform and architecture")

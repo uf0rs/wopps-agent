@@ -72,7 +72,7 @@ if (!targets.length) throw new Error(`Unknown build target: ${requestedTarget}`)
 
 // Bun 1.4.4 skips native packages for the other libc by default, but the musl targets need them.
 if (!skipInstall)
-  await $`bun install --os="*" --cpu="*" --libc="*" @opentui/core@${pkg.dependencies["@opentui/core"]} @uf0rs/pty@${pkg.dependencies["@uf0rs/pty"]}`
+  await $`bun install --os="*" --cpu="*" --libc="*" @opentui/core@${pkg.dependencies["@opentui/core"]} @opencode/pty@${pkg.dependencies["@opencode/pty"]}`
 const appArchive = path.join(dir, ".cache", "bun-app-archive.bin")
 await Bun.write(appArchive, await buildAppArchive("local", { skipBuild: skipWebUi }))
 const appAssetsPlugin: BunPlugin = {

@@ -37,16 +37,16 @@ esac
 DOWNLOADED_BINARY=""
 DOWNLOADED_DIR=""
 if [ ! -f "$EXECUTABLE" ] && [ ! -f "$PROJECT_ROOT/scripts/build-cli.js" ]; then
-  ASSET="wopps-ai-$RELEASE_PLATFORM-$RELEASE_ARCH"
+  ASSET="wopps-agent-$RELEASE_PLATFORM-$RELEASE_ARCH"
   if [ "$RELEASE_PLATFORM" = "macos" ]; then ASSET="$ASSET.tar.gz"; fi
-  DOWNLOAD_URL="https://github.com/uf0rs/wopps-ai/releases/latest/download/$ASSET"
-  DOWNLOADED_DIR=$(mktemp -d "${TMPDIR:-/tmp}/wopps-ai.XXXXXX")
+  DOWNLOAD_URL="https://github.com/uf0rs/wopps-agent/releases/latest/download/$ASSET"
+  DOWNLOADED_DIR=$(mktemp -d "${TMPDIR:-/tmp}/wopps-agent.XXXXXX")
   if command -v curl >/dev/null 2>&1; then
     curl -fL --retry 3 "$DOWNLOAD_URL" -o "$DOWNLOADED_DIR/$ASSET"
   elif command -v wget >/dev/null 2>&1; then
     wget -O "$DOWNLOADED_DIR/$ASSET" "$DOWNLOAD_URL"
   else
-    echo "Install curl or wget to download WOPPS AI." >&2
+    echo "Install curl or wget to download WOPPS AGENT." >&2
     exit 1
   fi
   if [ "$RELEASE_PLATFORM" = "macos" ]; then
@@ -60,7 +60,7 @@ fi
 
 if [ ! -f "$EXECUTABLE" ]; then
   if ! command -v node >/dev/null 2>&1; then
-    echo "No prebuilt WOPPS AI binary found. Install Node.js 22+ to build from source, or download a GitHub Release binary." >&2
+    echo "No prebuilt WOPPS AGENT binary found. Install Node.js 22+ to build from source, or download a GitHub Release binary." >&2
     exit 1
   fi
   NODE_MAJOR=$(node -p "Number(process.versions.node.split('.')[0])")

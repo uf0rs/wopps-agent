@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/uf0rs/wopps-ai/main/schemas/uf0rs-config.json",
+  "$id": "https://raw.githubusercontent.com/uf0rs/wopps-agent/main/schemas/uf0rs-config.json",
   "type": "object",
   "properties": {
     "$schema": {
@@ -81,7 +81,7 @@
               "anyOf": [{ "$ref": "#/$defs/TuiKeybind.BindingValue" }, { "type": "null" }],
               "description": "Open documentation"
             },
-            "opencode.settings": {
+            "uf0rs.settings": {
               "anyOf": [{ "$ref": "#/$defs/TuiKeybind.BindingValue" }, { "type": "null" }],
               "description": "Open settings"
             },
@@ -245,11 +245,11 @@
               "anyOf": [{ "$ref": "#/$defs/TuiKeybind.BindingValue" }, { "type": "null" }],
               "description": "Toggle session scrollbar"
             },
-            "opencode.status": {
+            "uf0rs.status": {
               "anyOf": [{ "$ref": "#/$defs/TuiKeybind.BindingValue" }, { "type": "null" }],
               "description": "View status"
             },
-            "opencode.debug": {
+            "uf0rs.debug": {
               "anyOf": [{ "$ref": "#/$defs/TuiKeybind.BindingValue" }, { "type": "null" }],
               "description": "View debug info"
             },
@@ -1386,7 +1386,7 @@
     },
     "highlights": {
       "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-      "description": "Show the release highlights once after OpenCode updates"
+      "description": "Show the release highlights once after Uf0rsStudio updates"
     },
     "mouse": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "description": "Enable terminal mouse capture" },
     "cursor": {

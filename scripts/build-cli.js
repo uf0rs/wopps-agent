@@ -37,17 +37,17 @@ function runBun(commandArgs, cwd, env = process.env) {
 }
 
 runBun(
-  ["install", "--cwd", engineRoot, "--filter", "@opencode/cli", "--filter", "@opencode/app", "--frozen-lockfile"],
+  ["install", "--cwd", engineRoot, "--filter", "@uf0rs/cli", "--filter", "@uf0rs/app", "--frozen-lockfile"],
   root,
 );
 
 const buildArgs = ["script/build.ts", "--outdir=../../../dist/engine"];
 const env = { ...process.env };
-delete env.OPENCODE_TARGET;
+delete env.UF0RS_TARGET;
 if (requestedTarget) {
   // build.ts prefixes the binary name itself (targetName => `uf0rs-<os>-<arch>`), so only the
   // platform part is expected here; passing the full id fails with "Unknown build target".
-  env.OPENCODE_TARGET = targets[requestedTarget].replace(/^uf0rs-/, "");
+  env.UF0RS_TARGET = targets[requestedTarget].replace(/^uf0rs-/, "");
 } else if (!args.includes("--all")) {
   buildArgs.push("--single", "--skip-install");
 }
@@ -86,7 +86,7 @@ async function copyTarget(target, installAsCurrent = false) {
     await fs.copyFile(source, finalBinary);
     if (target.platform !== "win") await fs.chmod(finalBinary, 0o755);
     const { size } = await fs.stat(finalBinary);
-    console.log(`Built ${finalBinary} (${(size / 1024 / 1024).toFixed(1)} MiB, UF0RS AI ${packageJson.version}).`);
+    console.log(`Built ${finalBinary} (${(size / 1024 / 1024).toFixed(1)} MiB, UF0RS AGENT ${packageJson.version}).`);
   } else {
     console.log(`Built ${destination}.`);
   }

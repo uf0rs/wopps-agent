@@ -8,21 +8,22 @@ import { installMontage } from "./montage.js";
 const sourceRoot = typeof __UF0RS_SOURCE_DIR__ === "undefined"
   ? path.resolve(path.dirname(process.argv[1] || process.cwd()), "..")
   : __UF0RS_SOURCE_DIR__;
-const shellMarker = "# UF0RS AI PATH";
-const shellPathLine = 'case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac # UF0RS AI PATH';
+const shellMarker = "# UF0RS AGENT PATH";
+const shellPathLine = 'case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac # UF0RS AGENT PATH';
 
 export function getInstallPaths(platform = process.platform, env = process.env) {
   const pathApi = platform === "win32" ? path.win32 : path;
   const home = os.homedir();
   if (platform === "win32") {
     const appData = env.LOCALAPPDATA || pathApi.join(home, "AppData", "Local");
-    const binDir = pathApi.join(appData, "Programs", "UF0RS AI");
+    const binDir = pathApi.join(appData, "Programs", "UF0RS AGENT");
     return {
       binDir,
+      legacyBinDir: pathApi.join(appData, "Programs", "UF0RS AI"),
       executable: pathApi.join(binDir, "uf0rs.exe"),
       launcher: pathApi.join(binDir, "uf0rs.cmd"),
-      dataDir: pathApi.join(appData, "UF0RS AI"),
-      manifest: pathApi.join(appData, "UF0RS AI", "install.json"),
+      dataDir: pathApi.join(appData, "UF0RS AGENT"),
+      manifest: pathApi.join(appData, "UF0RS AGENT", "install.json"),
       pathValue: env.Path || env.PATH || "",
       pathSeparator: ";",
     };
@@ -152,8 +153,8 @@ function defaultBinaryPath(sourceDir, platform = process.platform) {
 
 export function releaseAssetName(platform, architecture) {
   const releasePlatform = platform === "win32" ? "win" : platform === "darwin" ? "macos" : "linux";
-  if (platform === "win32") return architecture === "arm64" ? "wopps-ai-win-arm64.exe" : "uf0rs.exe";
-  return `wopps-ai-${releasePlatform}-${architecture}${platform === "darwin" ? ".tar.gz" : ""}`;
+  if (platform === "win32") return architecture === "arm64" ? "wopps-agent-win-arm64.exe" : "uf0rs.exe";
+  return `wopps-agent-${releasePlatform}-${architecture}${platform === "darwin" ? ".tar.gz" : ""}`;
 }
 
 async function replaceExecutable(source, destination, platform) {
@@ -186,6 +187,18 @@ async function replaceExecutable(source, destination, platform) {
   }
 }
 
+async function migrateLegacyInstall(paths) {
+  if (!paths.legacyBinDir) return;
+  const legacyExists = await fs.stat(paths.legacyBinDir).then(() => true, () => false);
+  if (!legacyExists) return;
+  const currentExists = await fs.stat(paths.binDir).then(() => true, () => false);
+  if (currentExists) return;
+  await fs.mkdir(path.dirname(paths.binDir), { recursive: true });
+  // Best effort: a running executable may block the rename on Windows, in which case the
+  // new install directory is simply created next to the legacy one.
+  await fs.rename(paths.legacyBinDir, paths.binDir).catch(() => {});
+}
+
 /**
  * @param {{
  *   binaryPath?: string,
@@ -205,6 +218,7 @@ export async function installApp({ binaryPath, sourceDir = sourceRoot, paths = g
   }
   const actualSource = path.resolve(binaryPath || defaultBinaryPath(sourceDir, platform));
   await fs.access(actualSource);
+  await migrateLegacyInstall(paths);
   await fs.mkdir(paths.binDir, { recursive: true });
   let deferredWindowsUpdate = false;
   try {
@@ -407,10 +421,10 @@ export async function updateApp({ sourceDir, paths = getInstallPaths(), platform
   } else {
     const architecture = process.arch === "arm64" ? "arm64" : "x64";
     const assetName = releaseAssetName(platform, architecture);
-    const downloadUrl = `https://github.com/uf0rs/wopps-ai/releases/latest/download/${assetName}`;
-    const response = await fetch(downloadUrl, { headers: { "User-Agent": "WOPPS-AI-Updater" } });
-    if (!response.ok) throw new Error(`Could not download the latest WOPPS AI release (${response.status}): ${downloadUrl}`);
-    downloadedDirectory = await fs.mkdtemp(path.join(os.tmpdir(), `wopps-ai-update-${process.pid}-`));
+    const downloadUrl = `https://github.com/uf0rs/wopps-agent/releases/latest/download/${assetName}`;
+    const response = await fetch(downloadUrl, { headers: { "User-Agent": "WOPPS-AGENT-Updater" } });
+    if (!response.ok) throw new Error(`Could not download the latest WOPPS AGENT release (${response.status}): ${downloadUrl}`);
+    downloadedDirectory = await fs.mkdtemp(path.join(os.tmpdir(), `wopps-agent-update-${process.pid}-`));
     downloadedBinary = path.join(downloadedDirectory, assetName);
     try {
       await fs.writeFile(downloadedBinary, Buffer.from(await response.arrayBuffer()), { mode: 0o700 });
@@ -422,7 +436,7 @@ export async function updateApp({ sourceDir, paths = getInstallPaths(), platform
       }
     } catch (error) {
       await fs.rm(downloadedDirectory, { recursive: true, force: true });
-      throw new Error(`Could not prepare the downloaded WOPPS AI release: ${error.message}`);
+      throw new Error(`Could not prepare the downloaded WOPPS AGENT release: ${error.message}`);
     }
   }
   try {
@@ -441,7 +455,7 @@ export async function updateApp({ sourceDir, paths = getInstallPaths(), platform
     installed.updatedAt = new Date().toISOString();
     await fs.writeFile(paths.manifest, `${JSON.stringify(installed, null, 2)}\n`, { encoding: "utf8", mode: 0o600 });
     await deployMontage(source);
-    console.log(`WOPPS AI updated to ${updatedVersion}.`);
+    console.log(`WOPPS AGENT updated to ${updatedVersion}.`);
     if (platform === "win32") console.log("The executable will be replaced in the background after this process exits.");
   } finally {
     if (downloadedDirectory && platform !== "win32") await fs.rm(downloadedDirectory, { recursive: true, force: true });

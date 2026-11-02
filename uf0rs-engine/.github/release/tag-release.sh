@@ -5,7 +5,7 @@
 . "$(dirname "$0")/lib.sh"
 
 tag="v$UF0RS_VERSION"
-# @uf0rs/pty is versioned separately, by process-daemon-v<version> tags.
+# @opencode/pty is versioned separately, by process-daemon-v<version> tags.
 git ls-files -z -- '*package.json' bun.lock ':!packages/process-daemon/**' | xargs -0 sed -i -E "s/\"version\": \"[^\"]+\"/\"version\": \"$UF0RS_VERSION\"/g"
 
 if [ -n "${UF0RS_RELEASE_NOTES:-}" ] && ! grep -qF -x "## $tag" CHANGELOG.md && ! grep -qF "## $tag " CHANGELOG.md; then

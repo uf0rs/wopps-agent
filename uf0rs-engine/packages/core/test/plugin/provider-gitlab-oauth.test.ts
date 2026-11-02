@@ -285,7 +285,7 @@ describe("GitLabPlugin OAuth", () => {
     }),
   )
 
-  it.effect("refreshes credentials without a client ID with the uf0rs-gitlab-auth application", () =>
+  it.effect("refreshes credentials without a client ID with the opencode-gitlab-auth application", () =>
     withEnv({ GITLAB_OAUTH_CLIENT_ID: undefined }, () =>
       Effect.gen(function* () {
         const test = yield* fixture()

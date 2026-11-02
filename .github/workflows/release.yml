@@ -1,4 +1,4 @@
-name: Build and publish WOPPS AI
+name: Build and publish WOPPS AGENT
 
 on:
   push:
@@ -126,17 +126,17 @@ jobs:
         run: |
           gh release create "${GITHUB_REF_NAME}" \
             dist/release-assets/uf0rs.exe \
-            dist/release-assets/wopps-ai-win-arm64.exe \
-            dist/release-assets/wopps-ai-linux-x64 \
-            dist/release-assets/wopps-ai-linux-arm64 \
-            dist/release-assets/wopps-ai-macos-x64.tar.gz \
-            dist/release-assets/wopps-ai-macos-arm64.tar.gz \
+            dist/release-assets/wopps-agent-win-arm64.exe \
+            dist/release-assets/wopps-agent-linux-x64 \
+            dist/release-assets/wopps-agent-linux-arm64 \
+            dist/release-assets/wopps-agent-macos-x64.tar.gz \
+            dist/release-assets/wopps-agent-macos-arm64.tar.gz \
             dist/release-assets/install.sh \
             dist/release-assets/uf0rs-install.cmd \
-            dist/release-assets/wopps-ai.rb \
+            dist/release-assets/wopps-agent.rb \
             dist/release-assets/checksums.txt \
             dist/release-assets/winget/*.yaml \
-            --title "WOPPS AI от uf0rs / WOPPS AI by uf0rs ${GITHUB_REF_NAME#v}" \
+            --title "WOPPS AGENT от uf0rs / WOPPS AGENT by uf0rs ${GITHUB_REF_NAME#v}" \
             --generate-notes
 
   winget:
@@ -153,12 +153,12 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path "$env:RUNNER_TEMP\winget" | Out-Null
-          gh release download "$env:GITHUB_REF_NAME" --repo "$env:GITHUB_REPOSITORY" --pattern "UF0RS.WOPPSAI*.yaml" --dir "$env:RUNNER_TEMP\winget"
+          gh release download "$env:GITHUB_REF_NAME" --repo "$env:GITHUB_REPOSITORY" --pattern "UF0RS.WOPPSAGENT*.yaml" --dir "$env:RUNNER_TEMP\winget"
           $manifestDirectory = "$env:RUNNER_TEMP\winget"
           $schemaTypes = @{
-            "UF0RS.WOPPSAI.yaml" = "version"
-            "UF0RS.WOPPSAI.installer.yaml" = "installer"
-            "UF0RS.WOPPSAI.locale.en-US.yaml" = "defaultLocale"
+            "UF0RS.WOPPSAGENT.yaml" = "version"
+            "UF0RS.WOPPSAGENT.installer.yaml" = "installer"
+            "UF0RS.WOPPSAGENT.locale.en-US.yaml" = "defaultLocale"
           }
           foreach ($fileName in $schemaTypes.Keys) {
             $manifestPath = Join-Path $manifestDirectory $fileName
@@ -175,4 +175,4 @@ jobs:
           WINGET_CREATE_GITHUB_TOKEN: ${{ secrets.WINGET_TOKEN }}
         shell: pwsh
         run: |
-          wingetcreate submit --no-open --prtitle "WOPPS AI $env:GITHUB_REF_NAME" "$env:RUNNER_TEMP\winget"
+          wingetcreate submit --no-open --prtitle "WOPPS AGENT $env:GITHUB_REF_NAME" "$env:RUNNER_TEMP\winget"

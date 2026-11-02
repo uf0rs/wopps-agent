@@ -23,7 +23,7 @@ const methodID = Integration.MethodID.make("pkce")
 // redirect URI http://127.0.0.1:8080/callback on gitlab.com. Self-managed instances
 // need their own application; override with GITLAB_OAUTH_CLIENT_ID in that case.
 const bundledClientID = "fd180700a8f9c5d5557aca231632dd0611a1135a3bb510a741d5a988a3394fa7"
-// Application used by every uf0rs-gitlab-auth release (and gitlab-ai-provider's
+// Application used by every opencode-gitlab-auth release (and gitlab-ai-provider's
 // UF0RS_GITLAB_AUTH_CLIENT_ID). Refresh tokens stay bound to the issuing
 // application, so credentials created by that plugin must refresh with it.
 const legacyClientID = "1d89f9fdb23ee96d4e603201f6861dab6e143c5c3c00469a018a2d94bdc03d4e"
@@ -146,7 +146,7 @@ export const GitLabPlugin = define({
         refresh: (value) => {
           const instanceUrl = credentialInstanceUrl(value.metadata)
           // Refresh with the application that issued the token. Credentials without a recorded
-          // client ID were issued by uf0rs-gitlab-auth, using GITLAB_OAUTH_CLIENT_ID or its default.
+          // client ID were issued by opencode-gitlab-auth, using GITLAB_OAUTH_CLIENT_ID or its default.
           const clientID =
             (typeof value.metadata?.clientID === "string" ? value.metadata.clientID : undefined) ||
             process.env.GITLAB_OAUTH_CLIENT_ID?.trim() ||
@@ -370,7 +370,7 @@ function describeClient(clientID: string) {
     clientID === bundledClientID
       ? "bundled default"
       : clientID === legacyClientID
-        ? "uf0rs-gitlab-auth application"
+        ? "opencode-gitlab-auth application"
         : "from GITLAB_OAUTH_CLIENT_ID"
   return `client_id used: ${clientID.slice(0, 12)}... (${source})`
 }

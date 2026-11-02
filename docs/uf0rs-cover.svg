@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
-  <title id="title">WOPPS — terminal AI companion by UF0RS STUDIO</title>
+  <title id="title">WOPPS — terminal agent by UF0RS STUDIO</title>
   <desc id="description">A glowing neon bunny and a terminal window in a dark green forest, with the WOPPS wordmark.</desc>
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
@@ -87,7 +87,7 @@
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" fill="#2f7d4d">
     <text x="1006" y="540">terminal</text>
-    <text x="1006" y="562">ai companion</text>
+    <text x="1006" y="562">agent companion</text>
     <text x="1006" y="584" fill="#43f27b">v0.3.33</text>
   </g>
 </svg>

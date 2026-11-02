@@ -33,7 +33,7 @@
     "@effect/platform-node": "catalog:",
     "@uf0rs/client": "workspace:*",
     "@uf0rs/plugin": "workspace:*",
-    "@uf0rs/pty": "0.4.0",
+    "@opencode/pty": "0.4.0",
     "@uf0rs/schema": "workspace:*",
     "@uf0rs/server": "workspace:*",
     "@uf0rs/tui": "workspace:*",

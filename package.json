@@ -1,12 +1,12 @@
 {
-  "name": "wopps-ai",
+  "name": "wopps-agent",
   "version": "0.3.33",
-  "description": "WOPPS, the terminal AI companion by UF0RS STUDIO",
+  "description": "WOPPS, the terminal agent by UF0RS STUDIO",
   "author": "Влад (uf0rs), UF0RS STUDIO",
-  "homepage": "https://github.com/uf0rs/wopps-ai",
+  "homepage": "https://github.com/uf0rs/wopps-agent",
   "repository": {
     "type": "git",
-    "url": "https://github.com/uf0rs/wopps-ai.git"
+    "url": "https://github.com/uf0rs/wopps-agent.git"
   },
   "type": "module",
   "engines": {

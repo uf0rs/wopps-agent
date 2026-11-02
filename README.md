@@ -14,11 +14,11 @@
 
 ### Windows — одним файлом
 
-1. Скачайте [uf0rs-install.cmd](https://github.com/uf0rs/wopps-ai/releases/latest/download/uf0rs-install.cmd).
+1. Скачайте [uf0rs-install.cmd](https://github.com/uf0rs/wopps-agent/releases/latest/download/uf0rs-install.cmd).
 2. Запустите его двойным кликом.
 3. Откройте **новое** окно терминала и введите `uf0rs`.
 
-Батник не требует Node.js и прав администратора: он скачивает `uf0rs.exe` из последнего релиза, кладёт его в `%LOCALAPPDATA%\Programs\UF0RS AI`, добавляет этот каталог в пользовательский `PATH` и проверяет результат командой `uf0rs doctor`. После этого команда `uf0rs` работает в любом новом окне CMD, PowerShell, Windows Terminal и Git Bash. В WSL нужен Linux-пакет.
+Батник не требует Node.js и прав администратора: он скачивает `uf0rs.exe` из последнего релиза, кладёт его в `%LOCALAPPDATA%\Programs\UF0RS AGENT`, добавляет этот каталог в пользовательский `PATH` и проверяет результат командой `uf0rs doctor`. После этого команда `uf0rs` работает в любом новом окне CMD, PowerShell, Windows Terminal и Git Bash. В WSL нужен Linux-пакет.
 
 Если `uf0rs.exe` уже лежит рядом с батником, скачивание пропускается и ставится этот файл.
 
