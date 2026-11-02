@@ -223,7 +223,7 @@ export default { path: file, version: ${JSON.stringify(uf0rsPty.version)}, sha25
         name: `@uf0rs/${name}`,
         version: product.version,
         license: "MIT",
-        repository: { type: "git", url: "git+https://github.com/uf0rs/wopps-ai.git" },
+        repository: { type: "git", url: "git+https://github.com/uf0rs/wopps-agent.git" },
         os: [item.os],
         cpu: [item.arch],
       },

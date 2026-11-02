@@ -222,7 +222,7 @@ function buildIssueURL(message: string, stack: string, version: string) {
   // Field keys match the ids in .github/ISSUE_TEMPLATE/bug-report.yml so the issue
   // form opens pre-filled. Populating os/terminal/reproduce keeps the report past
   // the contributing-guidelines compliance check, which pushes for system info.
-  const url = new URL("https://github.com/uf0rs/wopps-ai/issues/new?template=bug-report.yml")
+  const url = new URL("https://github.com/uf0rs/wopps-agent/issues/new?template=bug-report.yml")
   url.searchParams.set("title", `TUI crash: ${message}`)
   url.searchParams.set("uf0rs-version", version)
   url.searchParams.set("os", describeOS())

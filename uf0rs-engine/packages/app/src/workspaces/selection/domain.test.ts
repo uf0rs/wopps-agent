@@ -119,7 +119,7 @@ test.each([
   ],
   [
     "recent deep tilde",
-    shortenPickerRecentPath("/home/luke/workspaces/uf0rs/wopps-ai/packages/app", "/home/luke"),
+    shortenPickerRecentPath("/home/luke/workspaces/uf0rs/wopps-agent/packages/app", "/home/luke"),
     "~/…/packages/app",
   ],
   [

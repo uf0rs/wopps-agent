@@ -279,12 +279,12 @@ export const DESKTOP_MENU: DesktopMenu[] = [
       {
         type: "item",
         labelKey: "desktop.menu.shareFeedback",
-        href: "https://github.com/uf0rs/wopps-ai/issues/new?template=feature_request.yml",
+        href: "https://github.com/uf0rs/wopps-agent/issues/new?template=feature_request.yml",
       },
       {
         type: "item",
         labelKey: "desktop.menu.reportBug",
-        href: "https://github.com/uf0rs/wopps-ai/issues/new?template=bug_report.yml",
+        href: "https://github.com/uf0rs/wopps-agent/issues/new?template=bug_report.yml",
       },
     ],
   },

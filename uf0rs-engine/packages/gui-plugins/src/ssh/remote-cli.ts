@@ -88,7 +88,7 @@ export function installScript(input: { version: string; directory?: string; sour
   // installations use archives so their destination and shell setup stay isolated.
   if (input.source.type === "installer")
     return `set -eu
-curl -fsSL https://raw.githubusercontent.com/uf0rs/wopps-ai/v2/install | bash -s -- ${input.source.binary ? `--binary ${input.source.binary}` : `--version ${quote(version)}`}
+curl -fsSL https://raw.githubusercontent.com/uf0rs/wopps-agent/v2/install | bash -s -- ${input.source.binary ? `--binary ${input.source.binary}` : `--version ${quote(version)}`}
 ${verifyScript('"$HOME/.uf0rs/bin/uf0rs"', version)}
 `
 

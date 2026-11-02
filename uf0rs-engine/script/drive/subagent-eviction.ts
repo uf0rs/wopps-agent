@@ -8,7 +8,7 @@ const evict = process.env.DEMO_EVICT !== "false"
 
 // Run with UF0RS_DRIVE_DB=proof.sqlite. Only model output and fixture_hold are
 // simulated. The debug endpoint closes the real graph without waiting an hour.
-// Dynamic tools avoid the static adapter issue: uf0rs/wopps-ai-drive#116.
+// Dynamic tools avoid the static adapter issue: uf0rs/wopps-agent-drive#116.
 export default WOPPSDriver.use(
   {
     uf0rs: { dev: process.env.UF0RS_DEV ?? process.cwd() },

@@ -11,9 +11,9 @@ export const NvidiaPlugin = define({
         evt.update(item.provider.id, (provider) => {
           provider.headers = {
             ...provider.headers,
-            "HTTP-Referer": "https://github.com/uf0rs/wopps-ai/",
-            "X-Title": "UF0RS AI",
-            "X-BILLING-INVOKE-ORIGIN": provider.headers?.["X-BILLING-INVOKE-ORIGIN"] ?? "UF0RS AI",
+            "HTTP-Referer": "https://github.com/uf0rs/wopps-agent/",
+            "X-Title": "UF0RS AGENT",
+            "X-BILLING-INVOKE-ORIGIN": provider.headers?.["X-BILLING-INVOKE-ORIGIN"] ?? "UF0RS AGENT",
           }
         })
       }

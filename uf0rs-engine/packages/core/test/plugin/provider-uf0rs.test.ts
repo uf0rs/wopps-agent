@@ -1194,7 +1194,7 @@ describe("WoppsPlugin", () => {
                 providerID: state.providerID,
                 results: [
                   {
-                    url: "https://github.com/uf0rs/wopps-ai",
+                    url: "https://github.com/uf0rs/wopps-agent",
                     title: "WOPPS",
                     content: "Open source AI coding agent.",
                     time: { published: 1_700_000_000_000 },
@@ -1236,7 +1236,7 @@ describe("WoppsPlugin", () => {
               providerID: WebSearch.ID.make("uf0rs"),
               results: [
                 {
-                  url: "https://github.com/uf0rs/wopps-ai",
+                  url: "https://github.com/uf0rs/wopps-agent",
                   title: "WOPPS",
                   content: "Open source AI coding agent.",
                   time: { published: 1_700_000_000_000 },

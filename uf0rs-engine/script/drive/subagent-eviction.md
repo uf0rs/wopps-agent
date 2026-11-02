@@ -50,7 +50,7 @@ duplicate the notification.
 | Background marker    | completed, unacknowledged | absent                      |
 
 The dynamic hold tool avoids the static adapter loading issue in
-[uf0rs-drive#116](https://github.com/uf0rs/wopps-ai-drive/issues/116).
+[uf0rs-drive#116](https://github.com/uf0rs/wopps-agent-drive/issues/116).
 
 ## History
 

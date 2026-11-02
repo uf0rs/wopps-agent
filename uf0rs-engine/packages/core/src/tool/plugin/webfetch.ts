@@ -57,7 +57,7 @@ const headers = (format: Format, userAgent: string) => ({
 })
 
 const uf0rsUserAgent =
-  "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; UF0RS-AI/1.0; +https://github.com/uf0rs/wopps-ai"
+  "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; UF0RS-AI/1.0; +https://github.com/uf0rs/wopps-agent"
 
 const isCloudflareChallenge = (error: unknown) => {
   if (!HttpClientError.isHttpClientError(error) || error.reason._tag !== "StatusCodeError") return false

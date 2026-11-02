@@ -52,7 +52,7 @@ const APP_IDS = {
 // ELF binary matches the glob and is parsed as a desktop entry, so
 // integration fails with `Malformed desktop entry: Unexpected char '\x7f' at 0`
 // (0x7F is the first byte of the ELF magic).
-// https://github.com/uf0rs/wopps-ai/issues/51867
+// https://github.com/uf0rs/wopps-agent/issues/51867
 // Strip a trailing `.desktop` so the executable can never collide with the
 // desktop-entry glob. Beta/dev appIds end in `.beta`/`.dev` and are unaffected.
 function linuxExecutableName(appId: string): string {

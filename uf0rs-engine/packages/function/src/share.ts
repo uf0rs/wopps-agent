@@ -151,7 +151,7 @@ const page = `<!doctype html>
       <nav>
         <a href="https://wopps.ai">Home</a>
         <a href="https://wopps.ai/v2/docs">Docs</a>
-        <a href="https://github.com/uf0rs/wopps-ai">GitHub</a>
+        <a href="https://github.com/uf0rs/wopps-agent">GitHub</a>
         <a href="https://wopps.ai/discord">Discord</a>
       </nav>
     </main>

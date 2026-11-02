@@ -110,7 +110,7 @@ export const StreamingInlineCode = {
 
 const externalLinkChunks = [
   "1. ",
-  "[#540](https://github.com/uf0rs/wopps-ai/pull/540)",
+  "[#540](https://github.com/uf0rs/wopps-agent/pull/540)",
   ": Batch access-policy reads.\n2. ",
   "[Stack Overflow](https://stackoverflow.com/questions/123)",
   ": Favicon from a public site.\n3. ",

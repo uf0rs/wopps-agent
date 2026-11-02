@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # uf0rs Korean IME Fix Installer
-# https://github.com/uf0rs/wopps-ai/issues/14371
+# https://github.com/uf0rs/wopps-agent/issues/14371
 #
 # Patches uf0rs to prevent Korean (and other CJK) IME last character
 # truncation when pressing Enter in Kitty and other terminals.

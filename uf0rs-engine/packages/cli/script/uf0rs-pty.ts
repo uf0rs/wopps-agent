@@ -32,7 +32,7 @@ export async function resolveWoppsPty(target: Target): Promise<WoppsPtyAsset | u
     throw new Error("UF0RS_PTY_BIN can only be embedded in a build for the current platform and architecture")
   const source = local
     ? path.resolve(local)
-    : pty.resolve(`${name}/bin/${target.platform === "win32" ? "uf0rs-pty.exe" : "uf0rs-pty"}`)
+    : pty.resolve(`${name}/bin/${target.platform === "win32" ? "opencode-pty.exe" : "opencode-pty"}`)
   const manifest: unknown = local
     ? { version: "local" }
     : JSON.parse(await readFile(pty.resolve(`${name}/package.json`), "utf8"))

@@ -2,7 +2,7 @@ import { escape, type ChangelogEntry } from "./markdown"
 import { style } from "./style"
 
 const SITE = "https://wopps.ai"
-const REPO = "https://github.com/uf0rs/wopps-ai"
+const REPO = "https://github.com/uf0rs/wopps-agent"
 export const CHANGELOG_FILE_URL = `${REPO}/blob/dev/CHANGELOG.md`
 
 const logo =

@@ -5,7 +5,7 @@ edition = "2024"
 rust-version = "1.90"
 description = "Persistent PTY service for WOPPS"
 license = "MIT"
-repository = "https://github.com/uf0rs/wopps-ai"
+repository = "https://github.com/uf0rs/wopps-agent"
 links = "ghostty-vt"
 
 [dependencies]

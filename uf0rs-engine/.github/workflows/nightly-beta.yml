@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   dispatch:
-    if: github.repository == 'uf0rs/wopps-ai'
+    if: github.repository == 'uf0rs/wopps-agent'
     runs-on: ubuntu-latest
     steps:
       - name: Dispatch beta test runs

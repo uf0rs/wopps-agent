@@ -49,7 +49,7 @@ async function ensureComputerTools() {
 async function maintenance(args: string[]) {
   const [command, ...rest] = args
   if (command === "--help" || command === "-h" || command === "help") {
-    console.log(`WOPPS by UF0RS STUDIO ${version} — terminal AI companion
+    console.log(`WOPPS by UF0RS STUDIO ${version} — terminal agent
 
 Usage:
   uf0rs [project-path]           Open a project (defaults to the current directory)

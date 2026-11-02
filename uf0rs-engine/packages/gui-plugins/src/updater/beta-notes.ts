@@ -1,6 +1,6 @@
 import { Option, Schema } from "effect"
 
-const REPOSITORY = "https://github.com/uf0rs/wopps-ai"
+const REPOSITORY = "https://github.com/uf0rs/wopps-agent"
 
 /** The dialog lists at most this many changes and links the rest. */
 const SHOWN = 10

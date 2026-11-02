@@ -1,7 +1,7 @@
 import { Config } from "@uf0rs/tui/config"
 import { Schema } from "effect"
 
-export const SchemaURL = "https://raw.githubusercontent.com/uf0rs/wopps-ai/main/schemas/uf0rs-config.json"
+export const SchemaURL = "https://raw.githubusercontent.com/uf0rs/wopps-agent/main/schemas/uf0rs-config.json"
 
 export const Info = Schema.Struct({
   $schema: Schema.optional(Schema.String).annotate({ description: "JSON Schema for CLI configuration" }),

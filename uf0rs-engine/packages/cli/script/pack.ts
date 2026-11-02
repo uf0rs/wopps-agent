@@ -81,7 +81,7 @@ async function packDistribution(input: {
         scripts: { postinstall: "node ./postinstall.mjs" },
         version,
         license: pkg.license,
-        repository: { type: "git", url: "git+https://github.com/uf0rs/wopps-ai.git" },
+        repository: { type: "git", url: "git+https://github.com/uf0rs/wopps-agent.git" },
         os: ["darwin", "linux", "win32"],
         cpu: ["arm64", "x64"],
         optionalDependencies: binaries,

@@ -43,7 +43,7 @@ export function installScript(input: { version: string; binary?: string }) {
   const version = requireVersion(input.version)
 
   return `set -eu
-curl -fsSL https://raw.githubusercontent.com/uf0rs/wopps-ai/v2/install | bash -s -- ${input.binary ? `--binary ${input.binary}` : `--version ${quote(version)}`}
+curl -fsSL https://raw.githubusercontent.com/uf0rs/wopps-agent/v2/install | bash -s -- ${input.binary ? `--binary ${input.binary}` : `--version ${quote(version)}`}
 test "$("$HOME/.uf0rs/bin/uf0rs" --version | awk '{print $NF}' | sed 's/^v//')" = ${quote(version)}
 `
 }

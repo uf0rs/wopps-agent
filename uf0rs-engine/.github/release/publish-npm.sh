@@ -17,7 +17,7 @@ fi
 
 if ! dry_run; then
   for file in "$npm_dir"/*.tgz; do
-    gh attestation verify "$file" --repo uf0rs/wopps-ai --signer-workflow uf0rs/wopps-ai/.github/workflows/release.yml > /dev/null
+    gh attestation verify "$file" --repo uf0rs/wopps-agent --signer-workflow uf0rs/wopps-agent/.github/workflows/release.yml > /dev/null
   done
 fi
 

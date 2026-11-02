@@ -149,7 +149,7 @@ for (const target of targets) {
         name: `@uf0rs/${name}`,
         version: Script.version,
         license: pkg.license,
-        repository: { type: "git", url: "git+https://github.com/uf0rs/wopps-ai.git" },
+        repository: { type: "git", url: "git+https://github.com/uf0rs/wopps-agent.git" },
         os: [target.platform],
         cpu: [target.arch],
       },

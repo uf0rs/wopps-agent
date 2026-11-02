@@ -12,7 +12,7 @@ describe("acp lifecycle subprocess", () => {
   // The private server is found with `pgrep`, which Windows lacks.
   const testOutsideWindows = process.platform === "win32" ? test.skip : test
   testOutsideWindows(
-    "exits when the private server process dies (https://github.com/uf0rs/wopps-ai/issues/51716)",
+    "exits when the private server process dies (https://github.com/uf0rs/wopps-agent/issues/51716)",
     async () => {
       await using fixture = await createAcpFixture()
       const acp = fixture.spawn()

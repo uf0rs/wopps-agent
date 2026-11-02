@@ -10,8 +10,8 @@ export const ZenmuxPlugin = define({
         if (item.provider.settings?.baseURL !== "https://zenmux.ai/api/v1") continue
         evt.update(item.provider.id, (provider) => {
           provider.headers = {
-            "HTTP-Referer": "https://github.com/uf0rs/wopps-ai/",
-            "X-Title": "UF0RS AI",
+            "HTTP-Referer": "https://github.com/uf0rs/wopps-agent/",
+            "X-Title": "UF0RS AGENT",
             ...provider.headers,
           }
         })

@@ -9,7 +9,7 @@ export const config = {
 
   // GitHub
   github: {
-    repoUrl: "https://github.com/uf0rs/wopps-ai",
+    repoUrl: "https://github.com/uf0rs/wopps-agent",
     starsFormatted: {
       compact: "220K",
       full: "220,000",

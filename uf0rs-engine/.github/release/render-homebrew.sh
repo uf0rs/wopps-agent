@@ -12,7 +12,7 @@ cat > "$tap/uf0rs-v2.rb" <<FORMULA
 
 class WoppsV2 < Formula
   desc "WOPPS V2 - the AI coding agent for the terminal"
-  homepage "https://github.com/uf0rs/wopps-ai"
+  homepage "https://github.com/uf0rs/wopps-agent"
   version "$UF0RS_VERSION"
   license "MIT"
 

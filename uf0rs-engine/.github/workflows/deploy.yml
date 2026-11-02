@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   deploy:
-    if: github.repository == 'uf0rs/wopps-ai' && (github.ref_name == 'dev' || github.ref_name == 'production' || github.ref_name == 'beta')
+    if: github.repository == 'uf0rs/wopps-agent' && (github.ref_name == 'dev' || github.ref_name == 'production' || github.ref_name == 'beta')
     runs-on: blacksmith-4vcpu-ubuntu-2404
     environment: ${{ github.ref_name }}
     steps:

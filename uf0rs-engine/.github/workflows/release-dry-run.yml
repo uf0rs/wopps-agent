@@ -30,7 +30,7 @@ defaults:
 
 jobs:
   plan:
-    if: github.repository == 'uf0rs/wopps-ai'
+    if: github.repository == 'uf0rs/wopps-agent'
     runs-on: ubuntu-24.04
     permissions: {}
     outputs:

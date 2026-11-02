@@ -1,6 +1,6 @@
 import { Marked, type Tokens } from "marked"
 
-const REPO_URL = "https://github.com/uf0rs/wopps-ai"
+const REPO_URL = "https://github.com/uf0rs/wopps-agent"
 
 export type ChangelogEntry = {
   tag: string

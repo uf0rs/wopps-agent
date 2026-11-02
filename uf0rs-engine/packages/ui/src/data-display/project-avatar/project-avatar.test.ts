@@ -12,7 +12,7 @@ describe("getProjectAvatarSource", () => {
   })
 
   test("recognizes the WOPPS repository by its remote-derived project ID", () => {
-    const id = createHash("sha1").update("git-remote:github.com/uf0rs/wopps-ai").digest("hex")
+    const id = createHash("sha1").update("git-remote:github.com/uf0rs/wopps-agent").digest("hex")
 
     expect(getProjectAvatarSource(id)).toBe("https://wopps.ai/favicon.svg")
     expect(getProjectAvatarSource(id, { override: "data:custom" })).toBe("data:custom")

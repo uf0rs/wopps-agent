@@ -36,7 +36,7 @@ describe("OpenRouterPlugin", () => {
 
       expect((yield* catalog.get(Provider.ID.openrouter))?.headers).toEqual({
         Existing: "value",
-        "HTTP-Referer": "https://github.com/uf0rs/wopps-ai/",
+        "HTTP-Referer": "https://github.com/uf0rs/wopps-agent/",
         "X-Title": "WOPPS by UF0RS STUDIO",
       })
       expect((yield* catalog.get(Provider.ID.make("nvidia")))?.headers).toBeUndefined()

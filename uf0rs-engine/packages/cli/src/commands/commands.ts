@@ -46,7 +46,7 @@ const PermissionParams = {
 }
 
 const Root = Spec.make(typeof UF0RS_CLI_NAME === "string" ? UF0RS_CLI_NAME : "uf0rs", {
-  description: "WOPPS by UF0RS STUDIO — terminal AI companion",
+  description: "WOPPS by UF0RS STUDIO — terminal agent",
   params: {
     ...ServerParams,
     ...PermissionParams,

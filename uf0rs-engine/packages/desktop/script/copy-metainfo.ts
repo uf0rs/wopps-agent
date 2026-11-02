@@ -34,13 +34,13 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
 
   <content_rating type="oars-1.1" />
 
-  <url type="bugtracker">https://github.com/uf0rs/wopps-ai/issues</url>
+  <url type="bugtracker">https://github.com/uf0rs/wopps-agent/issues</url>
   <url type="homepage">https://wopps.ai</url>
-  <url type="vcs-browser">https://github.com/uf0rs/wopps-ai</url>
+  <url type="vcs-browser">https://github.com/uf0rs/wopps-agent</url>
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/uf0rs/wopps-ai/b75d4d1c5ec449585d515c756fc81f080a157a9a/packages/web/src/assets/lander/screenshot.png</image>
+      <image>https://raw.githubusercontent.com/uf0rs/wopps-agent/b75d4d1c5ec449585d515c756fc81f080a157a9a/packages/web/src/assets/lander/screenshot.png</image>
     </screenshot>
   </screenshots>
 </component>

@@ -649,7 +649,7 @@ function emitPermission(state: State, kind: PermissionKind = "edit"): void {
       patterns: [target],
       always: [target],
       done: {
-        output: ["1: {", '2:   "name": "wopps-ai",', '3:   "private": true', "4: }"].join("\n"),
+        output: ["1: {", '2:   "name": "wopps-agent",', '3:   "private": true', "4: }"].join("\n"),
         metadata: {},
       },
     })

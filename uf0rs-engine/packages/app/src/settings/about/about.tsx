@@ -82,7 +82,7 @@ export function SettingsAbout(props: { active: boolean }) {
 
   const writerCredits = () => [
     ...writers.map(credit),
-    <ExternalLink href="https://github.com/uf0rs/wopps-ai/graphs/contributors">
+    <ExternalLink href="https://github.com/uf0rs/wopps-agent/graphs/contributors">
       {language.plural("settings.about.otherContributor", otherContributors.latest, {
         count: otherContributors.latest,
       })}

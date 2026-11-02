@@ -9,7 +9,7 @@ Release notes for WOPPS V2, newest first.
 
 ### Highlights
 
-- **Built-In Worktree Tools**: Ask WOPPS to use \`worktree_create\`. ([#53981](https://github.com/uf0rs/wopps-ai/pull/53981))
+- **Built-In Worktree Tools**: Ask WOPPS to use \`worktree_create\`. ([#53981](https://github.com/uf0rs/wopps-agent/pull/53981))
 - **Safer Remote Pairing**: The first \`uf0rs pair --remote\` now asks for confirmation.
   It also accepts \`--yes\`.
 - A highlight without a bold title.
@@ -56,7 +56,7 @@ describe("parseChangelog", () => {
     expect(entry.highlights).toEqual([
       {
         title: "Built-In Worktree Tools",
-        body: "Ask WOPPS to use `worktree_create`. ([#53981](https://github.com/uf0rs/wopps-ai/pull/53981))",
+        body: "Ask WOPPS to use `worktree_create`. ([#53981](https://github.com/uf0rs/wopps-agent/pull/53981))",
       },
       {
         title: "Safer Remote Pairing",
@@ -91,20 +91,20 @@ describe("renderMarkdown", () => {
 
   test("links issue references and opens GitHub in a new tab", () => {
     expect(renderInline("Fixed it. (#53981)")).toBe(
-      'Fixed it. (<a href="https://github.com/uf0rs/wopps-ai/issues/53981" target="_blank" rel="noopener noreferrer">#53981</a>)',
+      'Fixed it. (<a href="https://github.com/uf0rs/wopps-agent/issues/53981" target="_blank" rel="noopener noreferrer">#53981</a>)',
     )
     expect(renderInline("C#1 and &#35;2 stay text")).toBe("C#1 and &#35;2 stay text")
   })
 
   test("does not nest references inside existing links", () => {
-    expect(renderInline("[#53981](https://github.com/uf0rs/wopps-ai/pull/53981)")).toBe(
-      '<a href="https://github.com/uf0rs/wopps-ai/pull/53981" target="_blank" rel="noopener noreferrer">#53981</a>',
+    expect(renderInline("[#53981](https://github.com/uf0rs/wopps-agent/pull/53981)")).toBe(
+      '<a href="https://github.com/uf0rs/wopps-agent/pull/53981" target="_blank" rel="noopener noreferrer">#53981</a>',
     )
   })
 
   test("shortens bare pull request URLs", () => {
-    expect(renderInline("See https://github.com/uf0rs/wopps-ai/pull/54561")).toBe(
-      'See <a href="https://github.com/uf0rs/wopps-ai/pull/54561" target="_blank" rel="noopener noreferrer">#54561</a>',
+    expect(renderInline("See https://github.com/uf0rs/wopps-agent/pull/54561")).toBe(
+      'See <a href="https://github.com/uf0rs/wopps-agent/pull/54561" target="_blank" rel="noopener noreferrer">#54561</a>',
     )
   })
 

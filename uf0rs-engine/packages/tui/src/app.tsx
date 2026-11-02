@@ -1206,7 +1206,7 @@ function App() {
         name: "docs.open",
         title: "Open docs",
         run: () => {
-          openUrl("https://github.com/uf0rs/wopps-ai#readme").catch(() => {})
+          openUrl("https://github.com/uf0rs/wopps-agent#readme").catch(() => {})
           dialog.clear()
         },
         category: "System",

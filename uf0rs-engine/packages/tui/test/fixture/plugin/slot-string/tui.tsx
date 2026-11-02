@@ -1,6 +1,6 @@
 import { Plugin } from "@uf0rs/plugin/tui"
 
-// A slot that returns bare text next to a well-formed one (uf0rs/wopps-ai#58112).
+// A slot that returns bare text next to a well-formed one (uf0rs/wopps-agent#58112).
 export default Plugin.define({
   id: "fixture.slot-string",
   setup(context) {

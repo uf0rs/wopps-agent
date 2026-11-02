@@ -22,8 +22,8 @@ manifests() {
   {
     header "$id" defaultLocale
     printf '%s\n' "PackageLocale: en-US" "Publisher: WOPPS" "PublisherUrl: https://anoma.ly/" \
-      "PublisherSupportUrl: https://github.com/uf0rs/wopps-ai/issues" "PrivacyUrl: https://wopps.ai/legal/privacy-policy" \
-      "PackageName: $name" "PackageUrl: https://wopps.ai/" "License: MIT" "LicenseUrl: https://github.com/uf0rs/wopps-ai/blob/HEAD/LICENSE" \
+      "PublisherSupportUrl: https://github.com/uf0rs/wopps-agent/issues" "PrivacyUrl: https://wopps.ai/legal/privacy-policy" \
+      "PackageName: $name" "PackageUrl: https://wopps.ai/" "License: MIT" "LicenseUrl: https://github.com/uf0rs/wopps-agent/blob/HEAD/LICENSE" \
       "ShortDescription: $description" "Moniker: $moniker" "Tags:" "- ai" "- coding-agent" "- developer-tools" \
       "Documentations:" "- DocumentLabel: Docs" "  DocumentUrl: https://wopps.ai/v2/docs"
     footer defaultLocale

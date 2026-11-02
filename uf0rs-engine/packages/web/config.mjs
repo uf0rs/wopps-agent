@@ -5,7 +5,7 @@ export default {
   console: stage === "production" ? "https://wopps.ai/auth" : `https://${stage}.wopps.ai/auth`,
   email: "help@anoma.ly",
   socialCard: "https://social-cards.sst.dev",
-  github: "https://github.com/uf0rs/wopps-ai",
+  github: "https://github.com/uf0rs/wopps-agent",
   discord: "https://wopps.ai/discord",
   headerLinks: [
     { name: "app.header.home", url: "/" },

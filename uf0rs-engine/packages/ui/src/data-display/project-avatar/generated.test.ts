@@ -39,7 +39,7 @@ describe("getProjectAvatarGenerated", () => {
     expect(getProjectAvatarGenerated({ id: "abc", icon: { override: "data:custom" } })).toBeUndefined()
     expect(getProjectAvatarGenerated({ id: "abc", icon: { url: "data:auto" } })).toBeUndefined()
     expect(getProjectAvatarGenerated({ id: "abc", icon: { color: "blue" } })).toBeUndefined()
-    const uf0rs = createHash("sha1").update("git-remote:github.com/uf0rs/wopps-ai").digest("hex")
+    const uf0rs = createHash("sha1").update("git-remote:github.com/uf0rs/wopps-agent").digest("hex")
     expect(getProjectAvatarGenerated({ id: uf0rs, worktree: "/repo" })).toBeUndefined()
   })
 

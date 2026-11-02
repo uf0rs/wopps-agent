@@ -15,7 +15,7 @@ export const Metadata = Context.Reference<Info>("@uf0rs/App", {
 
 export function make(input: Partial<Info> = {}): Info {
   return {
-    name: input.name ?? "UF0RS AI",
+    name: input.name ?? "UF0RS AGENT",
     version: input.version ?? "unknown",
     channel: input.channel ?? "unknown",
   }

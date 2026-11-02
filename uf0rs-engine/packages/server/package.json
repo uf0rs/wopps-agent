@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uf0rs/wopps-ai.git",
+    "url": "git+https://github.com/uf0rs/wopps-agent.git",
     "directory": "packages/server"
   },
   "publishConfig": {

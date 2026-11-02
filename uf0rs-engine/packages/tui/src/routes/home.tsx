@@ -122,7 +122,7 @@ export function Home() {
               ◇ WOPPS
             </text>
             <text fg={theme.text.muted} selectable={false}>
-              terminal AI companion
+              terminal agent
             </text>
           </box>
           <Logo />

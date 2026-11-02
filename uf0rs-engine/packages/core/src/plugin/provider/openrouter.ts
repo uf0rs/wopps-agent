@@ -118,7 +118,7 @@ export function parseOpenRouterModels(value: unknown): Model.Info[] {
 async function fetchOpenRouterModels(): Promise<Model.Info[]> {
   const response = await fetch("https://openrouter.ai/api/v1/models", {
     headers: {
-      "HTTP-Referer": "https://github.com/uf0rs/wopps-ai/",
+      "HTTP-Referer": "https://github.com/uf0rs/wopps-agent/",
       "X-Title": "WOPPS by UF0RS STUDIO",
     },
     signal: AbortSignal.timeout(10_000),
@@ -173,7 +173,7 @@ export const OpenRouterPlugin = define({
         evt.update(item.provider.id, (provider) => {
           provider.headers = {
             ...provider.headers,
-            "HTTP-Referer": "https://github.com/uf0rs/wopps-ai/",
+            "HTTP-Referer": "https://github.com/uf0rs/wopps-agent/",
             "X-Title": "WOPPS by UF0RS STUDIO",
           }
         })

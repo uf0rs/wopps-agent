@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-const repo = "uf0rs/wopps-ai"
+const repo = "uf0rs/wopps-agent"
 const days = 60
 const msg = `To stay organized issues are automatically closed after ${days} days of no activity. If the issue is still relevant please open a new one.`
 

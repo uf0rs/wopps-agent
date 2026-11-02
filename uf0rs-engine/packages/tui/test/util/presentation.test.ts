@@ -17,7 +17,7 @@ test("formats session continuation summary", () => {
   ])
 })
 
-test("tells the user to start UF0RS AI again after an update", () => {
+test("tells the user to start UF0RS AGENT again after an update", () => {
   expect(rows(epilogue({ updatedVersion: "2.0.0" }))).toEqual(["  Run uf0rs to use 2.0.0"])
 })
 

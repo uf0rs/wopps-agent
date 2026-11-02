@@ -33,7 +33,7 @@ describe("highlights", () => {
         "### Highlights",
         "",
         "- **Reopen Closed Tabs:** Right-click the new-session button to bring back a session you closed by",
-        "  mistake. ([#123](https://github.com/uf0rs/wopps-ai/pull/123), [#124](https://github.com/uf0rs/wopps-ai/pull/124))",
+        "  mistake. ([#123](https://github.com/uf0rs/wopps-agent/pull/123), [#124](https://github.com/uf0rs/wopps-agent/pull/124))",
         "* **Faster [Search](https://example.com)**: Results now stream in.",
         "",
         "### Core",
